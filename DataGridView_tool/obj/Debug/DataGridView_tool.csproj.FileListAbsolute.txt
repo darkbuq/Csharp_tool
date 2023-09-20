@@ -1,0 +1,5 @@
+D:\Dropbox\FormericaOE\github\Csharp_tool\DataGridView_tool\bin\Debug\DataGridView_tool.dll
+D:\Dropbox\FormericaOE\github\Csharp_tool\DataGridView_tool\bin\Debug\DataGridView_tool.pdb
+D:\Dropbox\FormericaOE\github\Csharp_tool\DataGridView_tool\obj\Debug\DataGridView_tool.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\DataGridView_tool\obj\Debug\DataGridView_tool.dll
+D:\Dropbox\FormericaOE\github\Csharp_tool\DataGridView_tool\obj\Debug\DataGridView_tool.pdb
