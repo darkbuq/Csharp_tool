@@ -28,14 +28,7 @@ namespace DataGridView_tool
             dgv.AutoGenerateColumns = false;
         }
 
-        /// <summary>
-        /// "txt","chk","btn"
-        /// </summary>
-        /// <param name="dgv"></param>
-        /// <param name="colname"></param>
-        /// <param name="coltxt"></param>
-        /// <param name="coltype">"txt","chk","btn"</param>
-        /// <param name="colW"></param>
+        
         public void dgv_add_col(System.Windows.Forms.DataGridView dgv, string[] colname, string[] coltxt, string[] coltype, int[] colW)
         {
             for (int i = 0; i < colname.Length; i++)
