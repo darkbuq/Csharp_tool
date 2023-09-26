@@ -1,0 +1,6 @@
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_SQL\bin\Debug\byYR_SQL.dll
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_SQL\bin\Debug\byYR_SQL.pdb
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_SQL\obj\Debug\byYR_SQL.csproj.AssemblyReference.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_SQL\obj\Debug\byYR_SQL.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_SQL\obj\Debug\byYR_SQL.dll
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_SQL\obj\Debug\byYR_SQL.pdb

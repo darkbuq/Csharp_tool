@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32413.511
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "byYR_SQL", "byYR_SQL.csproj", "{CBB45E14-B24E-48B3-819D-05A7B49CB701}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBB45E14-B24E-48B3-819D-05A7B49CB701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBB45E14-B24E-48B3-819D-05A7B49CB701}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBB45E14-B24E-48B3-819D-05A7B49CB701}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBB45E14-B24E-48B3-819D-05A7B49CB701}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {190CBCBD-F874-4D43-B8DC-977206A50CBE}
+	EndGlobalSection
+EndGlobal
