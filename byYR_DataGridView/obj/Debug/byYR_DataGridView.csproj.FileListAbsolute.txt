@@ -1,0 +1,6 @@
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_DataGridView\bin\Debug\byYR_DataGridView.dll
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_DataGridView\bin\Debug\byYR_DataGridView.pdb
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_DataGridView\obj\Debug\byYR_DataGridView.csproj.AssemblyReference.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_DataGridView\obj\Debug\byYR_DataGridView.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_DataGridView\obj\Debug\byYR_DataGridView.dll
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_DataGridView\obj\Debug\byYR_DataGridView.pdb
