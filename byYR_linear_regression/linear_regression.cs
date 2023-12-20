@@ -22,5 +22,11 @@ namespace byYR_linear_regression
         {
             return Fit.Polynomial(xdata, ydata, degree);
         }
+
+        public double simple_regression_setX_findY(double[] xdata, double[] ydata, double setX)
+        {
+            var coefficient = Fit.Polynomial(xdata, ydata, 1);
+            return coefficient[1] * setX + coefficient[0];
+        }
     }
 }
