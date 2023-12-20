@@ -1,0 +1,9 @@
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_linear_regression\bin\Debug\byYR_linear_regression.dll
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_linear_regression\bin\Debug\byYR_linear_regression.pdb
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_linear_regression\bin\Debug\MathNet.Numerics.dll
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_linear_regression\bin\Debug\MathNet.Numerics.xml
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_linear_regression\obj\Debug\byYR_linear_regression.csproj.AssemblyReference.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_linear_regression\obj\Debug\byYR_linear_regression.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_linear_regression\obj\Debug\byYR_linear_regression.csproj.CopyComplete
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_linear_regression\obj\Debug\byYR_linear_regression.dll
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_linear_regression\obj\Debug\byYR_linear_regression.pdb
