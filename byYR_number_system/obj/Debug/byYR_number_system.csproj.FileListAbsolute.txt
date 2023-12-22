@@ -1,0 +1,6 @@
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_number_system\bin\Debug\byYR_number_system.dll
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_number_system\bin\Debug\byYR_number_system.pdb
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_number_system\obj\Debug\byYR_number_system.csproj.AssemblyReference.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_number_system\obj\Debug\byYR_number_system.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_number_system\obj\Debug\byYR_number_system.dll
+D:\Dropbox\FormericaOE\github\Csharp_tool\byYR_number_system\obj\Debug\byYR_number_system.pdb
