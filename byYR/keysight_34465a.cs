@@ -7,5 +7,6 @@ namespace byYR
 {
     class keysight_34465a
     {
+
     }
 }

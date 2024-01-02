@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="keysight_34465a.cs" />
     <Compile Include="twos_complement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

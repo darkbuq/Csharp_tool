@@ -7,6 +7,12 @@ namespace byYR
 {
     public class twos_complement
     {
+        // 二補數   2's complement
+        // -1000 = FC18
+        // -1 = FFFF
+        // 0 = 0000
+        // 1000 = 03E8
+
         public virtual int HexStr_to_int_by_2sComplement(string HexStr)
         {
             ushort rawValue = (ushort)Convert.ToInt32(HexStr, 16);
@@ -75,5 +81,6 @@ namespace byYR
                 return (65536 + intt).ToString("X4");
             }
         }
+
     }
 }
