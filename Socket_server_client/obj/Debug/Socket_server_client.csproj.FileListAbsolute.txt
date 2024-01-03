@@ -1,9 +1,0 @@
-D:\Dropbox\FormericaOE\github\Csharp_tool\Socket_server_client\bin\Debug\Socket_server_client.exe
-D:\Dropbox\FormericaOE\github\Csharp_tool\Socket_server_client\bin\Debug\Socket_server_client.pdb
-D:\Dropbox\FormericaOE\github\Csharp_tool\Socket_server_client\obj\Debug\Socket_server_client.csproj.AssemblyReference.cache
-D:\Dropbox\FormericaOE\github\Csharp_tool\Socket_server_client\obj\Debug\Socket_server_client.Form1.resources
-D:\Dropbox\FormericaOE\github\Csharp_tool\Socket_server_client\obj\Debug\Socket_server_client.Properties.Resources.resources
-D:\Dropbox\FormericaOE\github\Csharp_tool\Socket_server_client\obj\Debug\Socket_server_client.csproj.GenerateResource.cache
-D:\Dropbox\FormericaOE\github\Csharp_tool\Socket_server_client\obj\Debug\Socket_server_client.csproj.CoreCompileInputs.cache
-D:\Dropbox\FormericaOE\github\Csharp_tool\Socket_server_client\obj\Debug\Socket_server_client.exe
-D:\Dropbox\FormericaOE\github\Csharp_tool\Socket_server_client\obj\Debug\Socket_server_client.pdb
