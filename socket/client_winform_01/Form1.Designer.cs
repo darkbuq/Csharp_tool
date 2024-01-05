@@ -29,6 +29,7 @@ namespace client_winform_01
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btn_start = new System.Windows.Forms.Button();
             this.txt_port = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -41,6 +42,7 @@ namespace client_winform_01
             this.cbo_endstr = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbo_select_SCPI = new System.Windows.Forms.ComboBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btn_start
@@ -169,11 +171,16 @@ namespace client_winform_01
             this.cbo_select_SCPI.TabIndex = 9;
             this.cbo_select_SCPI.SelectedIndexChanged += new System.EventHandler(this.cbo_select_SCPI_SelectedIndexChanged);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(360, 294);
+            this.ClientSize = new System.Drawing.Size(360, 298);
             this.Controls.Add(this.cbo_select_SCPI);
             this.Controls.Add(this.cbo_endstr);
             this.Controls.Add(this.btn_send);
@@ -208,6 +215,7 @@ namespace client_winform_01
         private System.Windows.Forms.ComboBox cbo_endstr;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbo_select_SCPI;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

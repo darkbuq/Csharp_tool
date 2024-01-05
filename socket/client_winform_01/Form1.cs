@@ -21,8 +21,11 @@ namespace client_winform_01
         {
             InitializeComponent();
             cbo_endstr.SelectedIndex = 1;
+
+            timer1.Start();
         }
 
+        //string gg = "";
         private void btn_start_Click(object sender, EventArgs e)
         {
             try
@@ -36,6 +39,7 @@ namespace client_winform_01
 
 
             StartReceiving();
+
         }
 
         #region -- receive --
@@ -88,6 +92,7 @@ namespace client_winform_01
                     //};
                     //this.Invoke(reflashUI, txt_note, receivedMessage);
 
+
                     // 顯示收到的訊息在 UI 上   目前看到最噁的寫法
                     this.Invoke(new Action<TextBox, string>((TextBox, strr) =>
                     {
@@ -96,6 +101,10 @@ namespace client_winform_01
                         TextBox.SelectionStart = TextBox.Text.Length;
                         TextBox.ScrollToCaret();
                     }), txt_note, receivedMessage);
+
+
+                    //我用了一個 公開變數  放回傳   設一個timer去抓
+                    //gg = receivedMessage;
                 }
             }
             catch (Exception ex)
@@ -160,6 +169,13 @@ namespace client_winform_01
         {
             // 關閉客戶端
             client?.Close();
+        }
+
+
+        //我用了一個 公開變數  放回傳   設一個timer去抓
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //txt_note.Text = gg;
         }
     }
 }

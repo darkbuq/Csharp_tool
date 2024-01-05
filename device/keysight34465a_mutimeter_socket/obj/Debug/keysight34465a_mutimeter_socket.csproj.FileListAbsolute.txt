@@ -1,0 +1,9 @@
+D:\Dropbox\FormericaOE\github\Csharp_tool\device\keysight34465a_mutimeter_socket\bin\Debug\keysight34465a_mutimeter_socket.exe
+D:\Dropbox\FormericaOE\github\Csharp_tool\device\keysight34465a_mutimeter_socket\bin\Debug\keysight34465a_mutimeter_socket.pdb
+D:\Dropbox\FormericaOE\github\Csharp_tool\device\keysight34465a_mutimeter_socket\obj\Debug\keysight34465a_mutimeter_socket.csproj.AssemblyReference.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\device\keysight34465a_mutimeter_socket\obj\Debug\keysight34465a_mutimeter_socket.Form1.resources
+D:\Dropbox\FormericaOE\github\Csharp_tool\device\keysight34465a_mutimeter_socket\obj\Debug\keysight34465a_mutimeter_socket.Properties.Resources.resources
+D:\Dropbox\FormericaOE\github\Csharp_tool\device\keysight34465a_mutimeter_socket\obj\Debug\keysight34465a_mutimeter_socket.csproj.GenerateResource.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\device\keysight34465a_mutimeter_socket\obj\Debug\keysight34465a_mutimeter_socket.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\device\keysight34465a_mutimeter_socket\obj\Debug\keysight34465a_mutimeter_socket.exe
+D:\Dropbox\FormericaOE\github\Csharp_tool\device\keysight34465a_mutimeter_socket\obj\Debug\keysight34465a_mutimeter_socket.pdb
