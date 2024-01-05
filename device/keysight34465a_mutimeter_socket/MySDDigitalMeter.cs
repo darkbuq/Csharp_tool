@@ -10,6 +10,8 @@ namespace keysight34465a_mutimeter_socket
 {
     public interface SDDMeterInterface
     {
+        //public string return_message = "";//這行會報錯
+
         bool connect();
         bool disconnect();
         bool readVoltage(out double dVol);
@@ -21,17 +23,18 @@ namespace keysight34465a_mutimeter_socket
     {
     }
 
-    public class My_keysight34465a_MutiMeter_Class : SDDMeterInterface
+    public class My_keysight34465a_MultiMeter_Class : SDDMeterInterface
     {
         public string IP = "192.168.7.60";
         public int port = 5024;
-        double dVol = 3.3;
+        double dVol = 0;
 
+        Thread receiveThread;
         TcpClient client;
 
         public string return_message = "";
 
-        void ReceiveMessages()
+        public virtual void ReceiveMessages()
         {
             try
             {
@@ -73,9 +76,17 @@ namespace keysight34465a_mutimeter_socket
         {
             bool TF = true;
 
-            client = new TcpClient(IP, port);
+            try
+            {
+                client = new TcpClient(IP, port);                
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            
 
-            Thread receiveThread = new Thread(ReceiveMessages);
+            receiveThread = new Thread(ReceiveMessages);
             receiveThread.Start();
 
 
@@ -94,7 +105,7 @@ namespace keysight34465a_mutimeter_socket
 
         public virtual bool disconnect()
         {
-            //receiveThread.Abort();//這執行緒還活著  但呼叫不到
+            receiveThread.Abort();//這執行緒還活著  但呼叫不到
 
             client?.Close();
             bool TF = true;
