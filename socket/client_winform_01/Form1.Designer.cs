@@ -188,6 +188,7 @@ namespace client_winform_01
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "client";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

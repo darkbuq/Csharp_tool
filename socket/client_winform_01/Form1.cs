@@ -43,7 +43,7 @@ namespace client_winform_01
         private Thread receiveThread;//接收需要多執行緒  傳送不用 送了就送了
         private void StartReceiving()
         {
-            receiveThread = new Thread(new ThreadStart(ReceiveMessages));
+            receiveThread = new Thread(ReceiveMessages);
             receiveThread.Start();
         }
 
@@ -79,14 +79,23 @@ namespace client_winform_01
                     string receivedMessage = Encoding.ASCII.GetString(message, 0, bytesRead);
 
                     // 顯示收到的訊息在 UI 上
-                    Action<TextBox, string> reflashUI = (TextBox, strr) =>
+                    //Action<TextBox, string> reflashUI = (TextBox, strr) =>
+                    //{
+                    //    TextBox.Text += strr + "\r\n";
+
+                    //    TextBox.SelectionStart = TextBox.Text.Length;
+                    //    TextBox.ScrollToCaret();
+                    //};
+                    //this.Invoke(reflashUI, txt_note, receivedMessage);
+
+                    // 顯示收到的訊息在 UI 上   目前看到最噁的寫法
+                    this.Invoke(new Action<TextBox, string>((TextBox, strr) =>
                     {
                         TextBox.Text += strr + "\r\n";
 
                         TextBox.SelectionStart = TextBox.Text.Length;
                         TextBox.ScrollToCaret();
-                    };
-                    this.Invoke(reflashUI, txt_note, receivedMessage);
+                    }), txt_note, receivedMessage);
                 }
             }
             catch (Exception ex)
@@ -97,11 +106,7 @@ namespace client_winform_01
 
         #endregion
 
-        private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // 關閉客戶端
-            client?.Close();
-        }
+        
 
         private void btn_send_Click(object sender, EventArgs e)
         {
@@ -149,6 +154,12 @@ namespace client_winform_01
             {
                 MessageBox.Show("error SCPI");
             }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // 關閉客戶端
+            client?.Close();
         }
     }
 }
