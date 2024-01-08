@@ -34,7 +34,7 @@ namespace keysight34465a_mutimeter_socket
 
         public string return_message = "";
 
-        public virtual void ReceiveMessages()
+        protected virtual void ReceiveMessages()
         {
             try
             {
@@ -129,8 +129,7 @@ namespace keysight34465a_mutimeter_socket
 
         public virtual string getErrorMsg()
         {
-            
-            return "";
+            return return_message;
         }
     }
 }
