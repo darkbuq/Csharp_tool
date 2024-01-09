@@ -24,12 +24,14 @@ namespace keysight34465a_mutimeter_socket
             {
                 MyMultiMeter.connect();
                 label5.BackColor = Color.Lime;
+                ((Button)sender).ForeColor = Color.Lime;
             }
             catch (Exception ex)
             {
                 txt_note.Text += "\r\n"+ex.Message;
                 //throw;
                 label5.BackColor = Color.Red;
+                ((Button)sender).ForeColor = Color.Red;
             }
 
 

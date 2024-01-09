@@ -109,7 +109,7 @@ namespace keysight34465a_mutimeter_socket
             // btn_read
             // 
             this.btn_read.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_read.Location = new System.Drawing.Point(18, 45);
+            this.btn_read.Location = new System.Drawing.Point(18, 49);
             this.btn_read.Name = "btn_read";
             this.btn_read.Size = new System.Drawing.Size(65, 27);
             this.btn_read.TabIndex = 18;
