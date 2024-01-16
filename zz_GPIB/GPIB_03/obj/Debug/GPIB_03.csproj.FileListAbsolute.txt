@@ -1,0 +1,6 @@
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_GPIB\GPIB_03\bin\Debug\GPIB_03.exe
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_GPIB\GPIB_03\bin\Debug\GPIB_03.pdb
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_GPIB\GPIB_03\obj\Debug\GPIB_03.csproj.AssemblyReference.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_GPIB\GPIB_03\obj\Debug\GPIB_03.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_GPIB\GPIB_03\obj\Debug\GPIB_03.exe
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_GPIB\GPIB_03\obj\Debug\GPIB_03.pdb
