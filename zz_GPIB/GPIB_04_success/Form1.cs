@@ -18,14 +18,28 @@ namespace GPIB_04_success
 
         Ivi.Visa.Interop.ResourceManager rm = new Ivi.Visa.Interop.ResourceManager();
         Ivi.Visa.Interop.FormattedIO488 ioobj = new Ivi.Visa.Interop.FormattedIO488();
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_conn_Click(object sender, EventArgs e)
         {
-            object[] idnItems;
+            try
+            {
+                object[] idnItems;
+                string ResourceName = $"{txt_GPIB_port.Text}::{txt_GPIB_address.Text}::INSTR";
+                ioobj.IO = (Ivi.Visa.Interop.IMessage)rm.Open(ResourceName, Ivi.Visa.Interop.AccessMode.NO_LOCK, 0, "");
 
-            ioobj.IO = (Ivi.Visa.Interop.IMessage)rm.Open("GPIB0::10::INSTR",Ivi.Visa.Interop.AccessMode.NO_LOCK, 0, "");
+                
+                lbl_conn.BackColor = Color.Lime;
+            }
+            catch (Exception ex)
+            {
+                textBox1.Text = ex.Message;
+                lbl_conn.BackColor = Color.Red;
+                //throw;
+            }
+            
+            
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btn_check_device_Click(object sender, EventArgs e)
         {
             ioobj.WriteString("*IDN?", true);
 
@@ -37,7 +51,7 @@ namespace GPIB_04_success
             }
         }
 
-        private void btn_sand_Click(object sender, EventArgs e)
+        private void btn_query_Click(object sender, EventArgs e)
         {
             ioobj.WriteString(textBox2.Text, true);
 
@@ -47,6 +61,11 @@ namespace GPIB_04_success
             {
                 textBox1.Text += idnItem + "\r\n";
             }
+        }
+
+        private void btn_write_Click(object sender, EventArgs e)
+        {
+            ioobj.WriteString(textBox2.Text, true);
         }
     }
 }
