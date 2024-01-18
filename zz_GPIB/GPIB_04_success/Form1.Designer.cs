@@ -40,6 +40,7 @@ namespace GPIB_04_success
             this.label2 = new System.Windows.Forms.Label();
             this.lbl_conn = new System.Windows.Forms.Label();
             this.btn_write = new System.Windows.Forms.Button();
+            this.btn_scan = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_conn
@@ -132,7 +133,7 @@ namespace GPIB_04_success
             // 
             // lbl_conn
             // 
-            this.lbl_conn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lbl_conn.BackColor = System.Drawing.Color.Silver;
             this.lbl_conn.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_conn.Location = new System.Drawing.Point(308, 10);
             this.lbl_conn.Name = "lbl_conn";
@@ -150,11 +151,22 @@ namespace GPIB_04_success
             this.btn_write.UseVisualStyleBackColor = true;
             this.btn_write.Click += new System.EventHandler(this.btn_write_Click);
             // 
+            // btn_scan
+            // 
+            this.btn_scan.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_scan.Location = new System.Drawing.Point(267, 258);
+            this.btn_scan.Name = "btn_scan";
+            this.btn_scan.Size = new System.Drawing.Size(71, 30);
+            this.btn_scan.TabIndex = 0;
+            this.btn_scan.Text = "scan";
+            this.btn_scan.UseVisualStyleBackColor = true;
+            this.btn_scan.Click += new System.EventHandler(this.btn_scan_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(356, 267);
+            this.ClientSize = new System.Drawing.Size(356, 340);
             this.Controls.Add(this.lbl_conn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -165,6 +177,7 @@ namespace GPIB_04_success
             this.Controls.Add(this.btn_write);
             this.Controls.Add(this.btn_query);
             this.Controls.Add(this.btn_check_device);
+            this.Controls.Add(this.btn_scan);
             this.Controls.Add(this.btn_conn);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -186,6 +199,7 @@ namespace GPIB_04_success
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbl_conn;
         private System.Windows.Forms.Button btn_write;
+        private System.Windows.Forms.Button btn_scan;
     }
 }
 
