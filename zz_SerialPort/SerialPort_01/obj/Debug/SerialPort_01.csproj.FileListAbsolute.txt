@@ -1,0 +1,9 @@
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_SerialPort\SerialPort_01\bin\Debug\SerialPort_01.exe
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_SerialPort\SerialPort_01\bin\Debug\SerialPort_01.pdb
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_SerialPort\SerialPort_01\obj\Debug\SerialPort_01.csproj.AssemblyReference.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_SerialPort\SerialPort_01\obj\Debug\SerialPort_01.Form1.resources
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_SerialPort\SerialPort_01\obj\Debug\SerialPort_01.Properties.Resources.resources
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_SerialPort\SerialPort_01\obj\Debug\SerialPort_01.csproj.GenerateResource.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_SerialPort\SerialPort_01\obj\Debug\SerialPort_01.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_SerialPort\SerialPort_01\obj\Debug\SerialPort_01.exe
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_SerialPort\SerialPort_01\obj\Debug\SerialPort_01.pdb
