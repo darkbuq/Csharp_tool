@@ -36,11 +36,8 @@ namespace client_winform_01
             this.txt_ip = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txt_send = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btn_send = new System.Windows.Forms.Button();
             this.cbo_endstr = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.cbo_select_SCPI = new System.Windows.Forms.ComboBox();
             this.btn_write = new System.Windows.Forms.Button();
             this.btn_query = new System.Windows.Forms.Button();
             this.btn_check_device = new System.Windows.Forms.Button();
@@ -79,11 +76,11 @@ namespace client_winform_01
             // txt_note
             // 
             this.txt_note.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_note.Location = new System.Drawing.Point(23, 187);
+            this.txt_note.Location = new System.Drawing.Point(23, 170);
             this.txt_note.Multiline = true;
             this.txt_note.Name = "txt_note";
             this.txt_note.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_note.Size = new System.Drawing.Size(318, 95);
+            this.txt_note.Size = new System.Drawing.Size(318, 112);
             this.txt_note.TabIndex = 6;
             // 
             // txt_ip
@@ -93,7 +90,7 @@ namespace client_winform_01
             this.txt_ip.Name = "txt_ip";
             this.txt_ip.Size = new System.Drawing.Size(101, 27);
             this.txt_ip.TabIndex = 7;
-            this.txt_ip.Text = "192.168.7.60";
+            this.txt_ip.Text = "192.168.7.63";
             // 
             // label1
             // 
@@ -110,30 +107,9 @@ namespace client_winform_01
             this.txt_send.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_send.Location = new System.Drawing.Point(23, 94);
             this.txt_send.Name = "txt_send";
-            this.txt_send.Size = new System.Drawing.Size(197, 27);
+            this.txt_send.Size = new System.Drawing.Size(318, 27);
             this.txt_send.TabIndex = 6;
-            this.txt_send.Text = "*IDN?";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(19, 65);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 19);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "send txt";
-            // 
-            // btn_send
-            // 
-            this.btn_send.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_send.Location = new System.Drawing.Point(93, 60);
-            this.btn_send.Name = "btn_send";
-            this.btn_send.Size = new System.Drawing.Size(95, 27);
-            this.btn_send.TabIndex = 8;
-            this.btn_send.Text = "client send";
-            this.btn_send.UseVisualStyleBackColor = true;
-            this.btn_send.Click += new System.EventHandler(this.btn_send_Click);
+            this.txt_send.Text = "LINS0:INP:ATT?";
             // 
             // cbo_endstr
             // 
@@ -159,19 +135,6 @@ namespace client_winform_01
             this.label4.TabIndex = 3;
             this.label4.Text = "terminator";
             // 
-            // cbo_select_SCPI
-            // 
-            this.cbo_select_SCPI.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbo_select_SCPI.FormattingEnabled = true;
-            this.cbo_select_SCPI.Items.AddRange(new object[] {
-            "訪問",
-            "讀電壓"});
-            this.cbo_select_SCPI.Location = new System.Drawing.Point(226, 94);
-            this.cbo_select_SCPI.Name = "cbo_select_SCPI";
-            this.cbo_select_SCPI.Size = new System.Drawing.Size(115, 27);
-            this.cbo_select_SCPI.TabIndex = 9;
-            this.cbo_select_SCPI.SelectedIndexChanged += new System.EventHandler(this.cbo_select_SCPI_SelectedIndexChanged);
-            // 
             // btn_write
             // 
             this.btn_write.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -181,6 +144,7 @@ namespace client_winform_01
             this.btn_write.TabIndex = 10;
             this.btn_write.Text = "Write";
             this.btn_write.UseVisualStyleBackColor = true;
+            this.btn_write.Click += new System.EventHandler(this.btn_write_Click);
             // 
             // btn_query
             // 
@@ -191,11 +155,12 @@ namespace client_winform_01
             this.btn_query.TabIndex = 11;
             this.btn_query.Text = "Query";
             this.btn_query.UseVisualStyleBackColor = true;
+            this.btn_query.Click += new System.EventHandler(this.btn_query_Click);
             // 
             // btn_check_device
             // 
             this.btn_check_device.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_check_device.Location = new System.Drawing.Point(19, 134);
+            this.btn_check_device.Location = new System.Drawing.Point(23, 53);
             this.btn_check_device.Name = "btn_check_device";
             this.btn_check_device.Size = new System.Drawing.Size(100, 30);
             this.btn_check_device.TabIndex = 12;
@@ -211,13 +176,10 @@ namespace client_winform_01
             this.Controls.Add(this.btn_write);
             this.Controls.Add(this.btn_query);
             this.Controls.Add(this.btn_check_device);
-            this.Controls.Add(this.cbo_select_SCPI);
             this.Controls.Add(this.cbo_endstr);
-            this.Controls.Add(this.btn_send);
             this.Controls.Add(this.btn_start);
             this.Controls.Add(this.txt_port);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txt_send);
             this.Controls.Add(this.txt_note);
@@ -240,11 +202,8 @@ namespace client_winform_01
         private System.Windows.Forms.TextBox txt_ip;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_send;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btn_send;
         private System.Windows.Forms.ComboBox cbo_endstr;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbo_select_SCPI;
         private System.Windows.Forms.Button btn_write;
         private System.Windows.Forms.Button btn_query;
         private System.Windows.Forms.Button btn_check_device;
