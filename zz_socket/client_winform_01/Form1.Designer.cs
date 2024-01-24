@@ -29,7 +29,6 @@ namespace client_winform_01
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btn_start = new System.Windows.Forms.Button();
             this.txt_port = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,7 +41,9 @@ namespace client_winform_01
             this.cbo_endstr = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbo_select_SCPI = new System.Windows.Forms.ComboBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btn_write = new System.Windows.Forms.Button();
+            this.btn_query = new System.Windows.Forms.Button();
+            this.btn_check_device = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_start
@@ -78,11 +79,11 @@ namespace client_winform_01
             // txt_note
             // 
             this.txt_note.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_note.Location = new System.Drawing.Point(23, 137);
+            this.txt_note.Location = new System.Drawing.Point(23, 187);
             this.txt_note.Multiline = true;
             this.txt_note.Name = "txt_note";
             this.txt_note.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_note.Size = new System.Drawing.Size(318, 145);
+            this.txt_note.Size = new System.Drawing.Size(318, 95);
             this.txt_note.TabIndex = 6;
             // 
             // txt_ip
@@ -171,16 +172,45 @@ namespace client_winform_01
             this.cbo_select_SCPI.TabIndex = 9;
             this.cbo_select_SCPI.SelectedIndexChanged += new System.EventHandler(this.cbo_select_SCPI_SelectedIndexChanged);
             // 
-            // timer1
+            // btn_write
             // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.btn_write.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_write.Location = new System.Drawing.Point(135, 134);
+            this.btn_write.Name = "btn_write";
+            this.btn_write.Size = new System.Drawing.Size(100, 30);
+            this.btn_write.TabIndex = 10;
+            this.btn_write.Text = "Write";
+            this.btn_write.UseVisualStyleBackColor = true;
+            // 
+            // btn_query
+            // 
+            this.btn_query.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_query.Location = new System.Drawing.Point(241, 134);
+            this.btn_query.Name = "btn_query";
+            this.btn_query.Size = new System.Drawing.Size(100, 30);
+            this.btn_query.TabIndex = 11;
+            this.btn_query.Text = "Query";
+            this.btn_query.UseVisualStyleBackColor = true;
+            // 
+            // btn_check_device
+            // 
+            this.btn_check_device.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_check_device.Location = new System.Drawing.Point(19, 134);
+            this.btn_check_device.Name = "btn_check_device";
+            this.btn_check_device.Size = new System.Drawing.Size(100, 30);
+            this.btn_check_device.TabIndex = 12;
+            this.btn_check_device.Text = "*IDN?";
+            this.btn_check_device.UseVisualStyleBackColor = true;
+            this.btn_check_device.Click += new System.EventHandler(this.btn_check_device_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(360, 298);
+            this.Controls.Add(this.btn_write);
+            this.Controls.Add(this.btn_query);
+            this.Controls.Add(this.btn_check_device);
             this.Controls.Add(this.cbo_select_SCPI);
             this.Controls.Add(this.cbo_endstr);
             this.Controls.Add(this.btn_send);
@@ -215,7 +245,9 @@ namespace client_winform_01
         private System.Windows.Forms.ComboBox cbo_endstr;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbo_select_SCPI;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btn_write;
+        private System.Windows.Forms.Button btn_query;
+        private System.Windows.Forms.Button btn_check_device;
     }
 }
 

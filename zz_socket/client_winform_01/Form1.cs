@@ -14,15 +14,34 @@ namespace client_winform_01
     public partial class Form1 : Form
     {
         private TcpClient client;
-        
 
+        private string terminator(string message)
+        {
+            //string message = "*IDN?";
+            if (cbo_endstr.Text == "\\r")
+            {
+                message += "\r";
+            }
+            else if (cbo_endstr.Text == "\\n")
+            {
+                message += "\n";
+            }
+            else if (cbo_endstr.Text == "\\r\\n")
+            {
+                message += "\r\n";
+            }
+            else
+            {
+                //message = txt_send.Text;
+            }
+
+            return message;
+        }
 
         public Form1()
         {
             InitializeComponent();
             cbo_endstr.SelectedIndex = 1;
-
-            timer1.Start();
         }
 
         //string gg = "";
@@ -119,23 +138,8 @@ namespace client_winform_01
 
         private void btn_send_Click(object sender, EventArgs e)
         {
-            string message;
-            if (cbo_endstr.Text=="\\r")
-            {
-                message = txt_send.Text + "\r";
-            }
-            else if (cbo_endstr.Text == "\\n")
-            {
-                message = txt_send.Text + "\n";
-            }
-            else if (cbo_endstr.Text == "\\r\\n")
-            {
-                message = txt_send.Text + "\r\n";
-            }
-            else
-            {
-                message = txt_send.Text;
-            }
+            string message = cbo_endstr.Text;
+            message = terminator(message);
 
             if (client == null || !client.Connected)
             {
@@ -171,11 +175,15 @@ namespace client_winform_01
             client?.Close();
         }
 
-
-        //我用了一個 公開變數  放回傳   設一個timer去抓
-        private void timer1_Tick(object sender, EventArgs e)
+        private void btn_check_device_Click(object sender, EventArgs e)
         {
-            //txt_note.Text = gg;
+            string message = "*IDN?";
+            message = terminator(message);
+
+            NetworkStream clientStream = client.GetStream();
+            byte[] data = Encoding.ASCII.GetBytes(message);
+            clientStream.Write(data, 0, data.Length);
+            clientStream.Flush();
         }
     }
 }
