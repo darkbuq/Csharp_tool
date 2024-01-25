@@ -15,7 +15,7 @@ namespace SerialPort_01
     {
 
         private SerialPort serialPort = new SerialPort();
-        string receivedData = "";
+        //string receivedData = "";
         public Form1()
         {
             InitializeComponent();
@@ -35,20 +35,22 @@ namespace SerialPort_01
 
         private void btn_conn_Click(object sender, EventArgs e)
         {
-            serialPort.Close();
-            Thread.Sleep(1000);
-
+            if (serialPort.IsOpen == true)
+            {
+                serialPort.Close();
+                Thread.Sleep(1000);
+            }
             // 開啟串口（在需要的地方調用）
             serialPort.Open();
             Thread.Sleep(1000);
-
-            
         }
 
-        private void SerialPort_DataReceived()
+        private string SerialPort_DataReceived(int delaytime)
         {
+            Thread.Sleep(delaytime);
+
             // 在這裡處理接收到的數據
-            receivedData = serialPort.ReadExisting();
+            return serialPort.ReadExisting();
             // 可以將receivedData顯示在UI上，例如使用Invoke方法更新UI控件
             // textBoxReceivedData.Invoke((MethodInvoker)delegate { textBoxReceivedData.Text += receivedData; });
 
@@ -58,9 +60,8 @@ namespace SerialPort_01
         private void btn_check_Click(object sender, EventArgs e)
         {
             serialPort.Write("*IDN?" + "\r\n");
-            Thread.Sleep(1000);
-            SerialPort_DataReceived();
-            txt_result.Text += receivedData + "\r\n";
+            
+            txt_result.Text += SerialPort_DataReceived(1000) + "\r\n";
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -70,6 +71,18 @@ namespace SerialPort_01
                 serialPort.Close();
             }
 
+        }
+
+        private void btn_query_Click(object sender, EventArgs e)
+        {
+            serialPort.Write(txt_SCPI.Text + "\r\n");
+
+            txt_result.Text += SerialPort_DataReceived(1000) + "\r\n";
+        }
+
+        private void btn_write_Click(object sender, EventArgs e)
+        {
+            serialPort.Write(txt_SCPI.Text + "\r\n");
         }
     }
 }
