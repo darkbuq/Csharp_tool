@@ -35,7 +35,7 @@ namespace subprocess_01
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(130, 84);
+            this.button1.Location = new System.Drawing.Point(116, 21);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(107, 50);
             this.button1.TabIndex = 0;
@@ -55,7 +55,7 @@ namespace subprocess_01
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(278, 450);
+            this.ClientSize = new System.Drawing.Size(278, 333);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
