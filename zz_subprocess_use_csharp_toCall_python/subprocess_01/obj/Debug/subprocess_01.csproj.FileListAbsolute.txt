@@ -1,0 +1,9 @@
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_subprocess_use_csharp_toCall_python\subprocess_01\bin\Debug\subprocess_01.exe
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_subprocess_use_csharp_toCall_python\subprocess_01\bin\Debug\subprocess_01.pdb
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_subprocess_use_csharp_toCall_python\subprocess_01\obj\Debug\subprocess_01.csproj.AssemblyReference.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_subprocess_use_csharp_toCall_python\subprocess_01\obj\Debug\subprocess_01.Form1.resources
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_subprocess_use_csharp_toCall_python\subprocess_01\obj\Debug\subprocess_01.Properties.Resources.resources
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_subprocess_use_csharp_toCall_python\subprocess_01\obj\Debug\subprocess_01.csproj.GenerateResource.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_subprocess_use_csharp_toCall_python\subprocess_01\obj\Debug\subprocess_01.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_subprocess_use_csharp_toCall_python\subprocess_01\obj\Debug\subprocess_01.exe
+D:\Dropbox\FormericaOE\github\Csharp_tool\zz_subprocess_use_csharp_toCall_python\subprocess_01\obj\Debug\subprocess_01.pdb
