@@ -1,0 +1,40 @@
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\20230325_FAE提供\EXFO MA-4000_4\EXFO MA-4000_4\bin\Debug\EXFO MA-4000.exe.config
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\20230325_FAE提供\EXFO MA-4000_4\EXFO MA-4000_4\bin\Debug\EXFO MA-4000.exe
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\20230325_FAE提供\EXFO MA-4000_4\EXFO MA-4000_4\bin\Debug\EXFO MA-4000.pdb
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\20230325_FAE提供\EXFO MA-4000_4\EXFO MA-4000_4\obj\Debug\EXFO MA-4000.csproj.AssemblyReference.cache
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\20230325_FAE提供\EXFO MA-4000_4\EXFO MA-4000_4\obj\Debug\EXFO_MA_400_20230221test.Form1.resources
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\20230325_FAE提供\EXFO MA-4000_4\EXFO MA-4000_4\obj\Debug\EXFO_MA_4000.Properties.Resources.resources
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\20230325_FAE提供\EXFO MA-4000_4\EXFO MA-4000_4\obj\Debug\EXFO MA-4000.csproj.GenerateResource.cache
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\20230325_FAE提供\EXFO MA-4000_4\EXFO MA-4000_4\obj\Debug\EXFO MA-4000.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\20230325_FAE提供\EXFO MA-4000_4\EXFO MA-4000_4\obj\Debug\EXFO MA-4000.exe
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\20230325_FAE提供\EXFO MA-4000_4\EXFO MA-4000_4\obj\Debug\EXFO MA-4000.pdb
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_4\bin\Debug\EXFO MA-4000.exe.config
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_4\bin\Debug\EXFO MA-4000.exe
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_4\bin\Debug\EXFO MA-4000.pdb
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_4\obj\Debug\EXFO MA-4000.csproj.AssemblyReference.cache
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_4\obj\Debug\EXFO_MA_400_20230221test.Form1.resources
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_4\obj\Debug\EXFO_MA_4000.Properties.Resources.resources
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_4\obj\Debug\EXFO MA-4000.csproj.GenerateResource.cache
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_4\obj\Debug\EXFO MA-4000.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_4\obj\Debug\EXFO MA-4000.exe
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_4\obj\Debug\EXFO MA-4000.pdb
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\bin\Debug\EXFO MA-4000.exe.config
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\bin\Debug\EXFO MA-4000.exe
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\bin\Debug\EXFO MA-4000.pdb
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO MA-4000.csproj.AssemblyReference.cache
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO_MA_400_20230221test.Form1.resources
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO_MA_4000.Properties.Resources.resources
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO MA-4000.csproj.GenerateResource.cache
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO MA-4000.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO MA-4000.exe
+D:\Dropbox\FormericaOE\!!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO MA-4000.pdb
+D:\Dropbox\FormericaOE\!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\bin\Debug\EXFO MA-4000.exe.config
+D:\Dropbox\FormericaOE\!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\bin\Debug\EXFO MA-4000.exe
+D:\Dropbox\FormericaOE\!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\bin\Debug\EXFO MA-4000.pdb
+D:\Dropbox\FormericaOE\!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO MA-4000.csproj.AssemblyReference.cache
+D:\Dropbox\FormericaOE\!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO_MA_4000.Properties.Resources.resources
+D:\Dropbox\FormericaOE\!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO MA-4000.csproj.GenerateResource.cache
+D:\Dropbox\FormericaOE\!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO MA-4000.csproj.CoreCompileInputs.cache
+D:\Dropbox\FormericaOE\!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO MA-4000.exe
+D:\Dropbox\FormericaOE\!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\EXFO MA-4000.pdb
+D:\Dropbox\FormericaOE\!!軟體開發\20230207_EXFO MA-4000 test\EXFO MA-4000_5\obj\Debug\SFF_Utility.Calibrate.Form_CMIS_MA4000.resources
