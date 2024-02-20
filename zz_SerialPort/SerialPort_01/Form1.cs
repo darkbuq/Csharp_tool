@@ -50,11 +50,13 @@ namespace SerialPort_01
             Thread.Sleep(delaytime);
 
             // 在這裡處理接收到的數據
-            return serialPort.ReadExisting();
+            string result_str = serialPort.ReadExisting();
+            return result_str;
+
             // 可以將receivedData顯示在UI上，例如使用Invoke方法更新UI控件
             // textBoxReceivedData.Invoke((MethodInvoker)delegate { textBoxReceivedData.Text += receivedData; });
 
-           
+
         }
 
         private void btn_check_Click(object sender, EventArgs e)
