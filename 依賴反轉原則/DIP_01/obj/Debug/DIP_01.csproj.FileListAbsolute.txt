@@ -1,0 +1,6 @@
+D:\GitHub\Csharp_tool\依賴反轉原則\DIP_01\bin\Debug\DIP_01.exe
+D:\GitHub\Csharp_tool\依賴反轉原則\DIP_01\bin\Debug\DIP_01.pdb
+D:\GitHub\Csharp_tool\依賴反轉原則\DIP_01\obj\Debug\DIP_01.csproj.AssemblyReference.cache
+D:\GitHub\Csharp_tool\依賴反轉原則\DIP_01\obj\Debug\DIP_01.csproj.CoreCompileInputs.cache
+D:\GitHub\Csharp_tool\依賴反轉原則\DIP_01\obj\Debug\DIP_01.exe
+D:\GitHub\Csharp_tool\依賴反轉原則\DIP_01\obj\Debug\DIP_01.pdb
