@@ -12,50 +12,37 @@ namespace byYR_number_system
         // -1 = FFFF
         // 0 = 0000
         // 1000 = 03E8
-
-        public int HexStr_to_int_by_2sComplement(string HexStr)
+        public int HexStr_TwoComplement_Int(string HexStr)//對於hex的長度沒有限制 且比較好懂
         {
-            ushort rawValue = (ushort)Convert.ToInt32(HexStr, 16);
+            int result;
 
-            string half_str = "";
-            string one_str = "";
-            for (int i = 0; i < HexStr.Length; i++)
+            string binaryStr = Convert.ToString(Convert.ToInt64(HexStr, 16), 2).PadLeft(HexStr.Length * 4, '0');
+
+            if (binaryStr[0] == '1')
             {
-                if (i == 0)
+                string revertBinary = "";
+                foreach (var item in binaryStr)
                 {
-                    half_str = "0x8";
+                    if (item == '1')
+                    {
+                        revertBinary += "0";
+                    }
+                    else
+                    {
+                        revertBinary += "1";
+                    }
                 }
-                else
-                {
-                    half_str += "0";
-                }
+                result = (Convert.ToInt32(revertBinary, 2) + 1) * (-1);
 
-                if (i == 0)
-                {
-                    one_str = "0x0";
-                }
-                else if (i == HexStr.Length - 1)
-                {
-                    one_str = "1";
-                }
-                else
-                {
-                    one_str += "0";
-                }
+            }
+            else
+            {
+                result = Convert.ToInt32(binaryStr, 2);
             }
 
-
-            // If a positive value, return it
-            int result = Convert.ToInt32(half_str, 16);
-            if ((rawValue & result) == 0)
-            {
-                return rawValue;
-            }
-
-            // Otherwise perform the 2's complement math on the value
-            int one_int = Convert.ToInt32(one_str, 16);
-            return (ushort)(~(rawValue - one_int)) * -1;
+            return result;
         }
+
 
         public string short_to_HexStr_by_2sComplement(short intt)//還沒想好如何改成自動長度版本
         {
