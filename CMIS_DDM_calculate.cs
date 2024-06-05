@@ -9,6 +9,33 @@ namespace CMIS_DDM_YR
     public class CMIS_DDM_calculate
     {
         //自動建構子
+        public enum SFF8636_DDMI
+        {
+            Temp_High_Alarm = 128,
+            Temp_Low_Alarm = 130,
+            Temp_High_Warning = 132,
+            Temp_Low_Warning = 134,
+
+            Vcc_High_Alarm = 144,
+            Vcc_Low_Alarm = 146,
+            Vcc_High_Warning = 148,
+            Vcc_Low_Warning = 150,
+
+            Rx_Power_High_Alarm = 176,
+            Rx_Power_Low_Alarm = 178,
+            Rx_Power_High_Warning = 180,
+            Rx_Power_Low_Warning = 182,
+
+            Tx_Bias_High_Alarm = 184,
+            Tx_Bias_Low_Alarm = 186,
+            Tx_Bias_High_Warning = 188,
+            Tx_Bias_Low_Warning = 190,
+
+            Tx_Power_High_Alarm = 192,
+            Tx_Power_Low_Alarm = 194,
+            Tx_Power_High_Warning = 196,
+            Tx_Power_Low_Warning = 198,
+        }
         
         public float calculate_T(string MsbLsb)
         {
@@ -91,6 +118,48 @@ namespace CMIS_DDM_YR
             }
 
             return dBm;
+        }
+
+        private void dgv_DDMI_initialize(DataGridView dgv)
+        {
+            dgv.RowTemplate.Height = 20;
+
+
+            //.Rows //.Columns
+            dgv.Columns.Add("_", "#");
+
+            dgv.Columns.Add("A_H", "A_H");
+            dgv.Columns.Add("A_L", "A_L");
+            dgv.Columns.Add("W_H", "W_H");
+            dgv.Columns.Add("W_L", "W_L");
+
+            dgv.Rows.Add("T");
+            dgv.Rows.Add("V");
+            dgv.Rows.Add("Bs");
+            dgv.Rows.Add("Rx");
+            dgv.Rows.Add("Tx");
+
+
+            dgv.RowHeadersWidth = 5;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
+            dgv.Columns[0].Width = 20;
+            dgv.Columns[1].Width = 40;
+            dgv.Columns[2].Width = 40;
+            dgv.Columns[3].Width = 40;
+            dgv.Columns[4].Width = 40;
+
+
+            dgv.Columns[0].DefaultCellStyle.BackColor = Color.LightYellow;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.LightYellow;
+            dgv.EnableHeadersVisualStyles = false;
+
+
+            foreach (DataGridViewColumn column in dgv.Columns) //禁用排序
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
     }
 }
