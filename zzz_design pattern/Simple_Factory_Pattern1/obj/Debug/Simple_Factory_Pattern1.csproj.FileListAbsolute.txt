@@ -1,0 +1,9 @@
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Simple_Factory_Pattern1\bin\Debug\Simple_Factory_Pattern1.exe
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Simple_Factory_Pattern1\bin\Debug\Simple_Factory_Pattern1.pdb
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Simple_Factory_Pattern1\obj\Debug\Simple_Factory_Pattern1.csproj.AssemblyReference.cache
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Simple_Factory_Pattern1\obj\Debug\Simple_Factory_Pattern1.Form1.resources
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Simple_Factory_Pattern1\obj\Debug\Simple_Factory_Pattern1.Properties.Resources.resources
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Simple_Factory_Pattern1\obj\Debug\Simple_Factory_Pattern1.csproj.GenerateResource.cache
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Simple_Factory_Pattern1\obj\Debug\Simple_Factory_Pattern1.csproj.CoreCompileInputs.cache
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Simple_Factory_Pattern1\obj\Debug\Simple_Factory_Pattern1.exe
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Simple_Factory_Pattern1\obj\Debug\Simple_Factory_Pattern1.pdb
