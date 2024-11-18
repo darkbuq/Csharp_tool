@@ -1,0 +1,9 @@
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Factory_Pattren1\bin\Debug\Factory_Pattren1.exe
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Factory_Pattren1\bin\Debug\Factory_Pattren1.pdb
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Factory_Pattren1\obj\Debug\Factory_Pattren1.csproj.AssemblyReference.cache
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Factory_Pattren1\obj\Debug\Factory_Pattren1.Form1.resources
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Factory_Pattren1\obj\Debug\Factory_Pattren1.Properties.Resources.resources
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Factory_Pattren1\obj\Debug\Factory_Pattren1.csproj.GenerateResource.cache
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Factory_Pattren1\obj\Debug\Factory_Pattren1.csproj.CoreCompileInputs.cache
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Factory_Pattren1\obj\Debug\Factory_Pattren1.exe
+D:\YR\!!!!GitHub\Csharp_tool\zzz_design pattern\Factory_Pattren1\obj\Debug\Factory_Pattren1.pdb
