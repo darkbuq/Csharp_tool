@@ -1,0 +1,11 @@
+D:\YR\!!!!GitHub\Csharp_tool\zz_MDIform\MDIform_01\bin\Debug\MDIform_01.exe
+D:\YR\!!!!GitHub\Csharp_tool\zz_MDIform\MDIform_01\bin\Debug\MDIform_01.pdb
+D:\YR\!!!!GitHub\Csharp_tool\zz_MDIform\MDIform_01\obj\Debug\MDIform_01.csproj.AssemblyReference.cache
+D:\YR\!!!!GitHub\Csharp_tool\zz_MDIform\MDIform_01\obj\Debug\MDIform_01.Form1.resources
+D:\YR\!!!!GitHub\Csharp_tool\zz_MDIform\MDIform_01\obj\Debug\MDIform_01.Properties.Resources.resources
+D:\YR\!!!!GitHub\Csharp_tool\zz_MDIform\MDIform_01\obj\Debug\MDIform_01.csproj.GenerateResource.cache
+D:\YR\!!!!GitHub\Csharp_tool\zz_MDIform\MDIform_01\obj\Debug\MDIform_01.csproj.CoreCompileInputs.cache
+D:\YR\!!!!GitHub\Csharp_tool\zz_MDIform\MDIform_01\obj\Debug\MDIform_01.exe
+D:\YR\!!!!GitHub\Csharp_tool\zz_MDIform\MDIform_01\obj\Debug\MDIform_01.pdb
+D:\YR\!!!!GitHub\Csharp_tool\zz_MDIform\MDIform_01\obj\Debug\MDIform_01.Form11.resources
+D:\YR\!!!!GitHub\Csharp_tool\zz_MDIform\MDIform_01\obj\Debug\MDIform_01.Form33.resources

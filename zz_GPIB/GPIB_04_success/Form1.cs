@@ -55,7 +55,7 @@ namespace GPIB_04_success
 
                 foreach (object idnItem in idnItems)
                 {
-                    textBox1.Text += idnItem + "\r\n";
+                    textBox1.Text = idnItem + "\r\n";
                 }
             }
             catch (Exception ex)
@@ -71,9 +71,10 @@ namespace GPIB_04_success
 
             object[] idnItems = (object[])ioobj.ReadList(Ivi.Visa.Interop.IEEEASCIIType.ASCIIType_Any, ",");
 
+            textBox1.Text = "";
             foreach (object idnItem in idnItems)
             {
-                textBox1.Text += idnItem + "\r\n";
+                textBox1.Text = idnItem + "\r\n";
             }
         }
 

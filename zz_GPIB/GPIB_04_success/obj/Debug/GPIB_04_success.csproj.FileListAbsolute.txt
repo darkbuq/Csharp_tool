@@ -7,3 +7,11 @@ D:\Dropbox\FormericaOE\github\Csharp_tool\zz_GPIB\GPIB_04_success\obj\Debug\GPIB
 D:\Dropbox\FormericaOE\github\Csharp_tool\zz_GPIB\GPIB_04_success\obj\Debug\GPIB_04_success.csproj.CoreCompileInputs.cache
 D:\Dropbox\FormericaOE\github\Csharp_tool\zz_GPIB\GPIB_04_success\obj\Debug\GPIB_04_success.exe
 D:\Dropbox\FormericaOE\github\Csharp_tool\zz_GPIB\GPIB_04_success\obj\Debug\GPIB_04_success.pdb
+D:\YR\!!!!GitHub\Csharp_tool\zz_GPIB\GPIB_04_success\bin\Debug\GPIB_04_success.exe
+D:\YR\!!!!GitHub\Csharp_tool\zz_GPIB\GPIB_04_success\bin\Debug\GPIB_04_success.pdb
+D:\YR\!!!!GitHub\Csharp_tool\zz_GPIB\GPIB_04_success\obj\Debug\GPIB_04_success.Form1.resources
+D:\YR\!!!!GitHub\Csharp_tool\zz_GPIB\GPIB_04_success\obj\Debug\GPIB_04_success.Properties.Resources.resources
+D:\YR\!!!!GitHub\Csharp_tool\zz_GPIB\GPIB_04_success\obj\Debug\GPIB_04_success.csproj.GenerateResource.cache
+D:\YR\!!!!GitHub\Csharp_tool\zz_GPIB\GPIB_04_success\obj\Debug\GPIB_04_success.csproj.CoreCompileInputs.cache
+D:\YR\!!!!GitHub\Csharp_tool\zz_GPIB\GPIB_04_success\obj\Debug\GPIB_04_success.exe
+D:\YR\!!!!GitHub\Csharp_tool\zz_GPIB\GPIB_04_success\obj\Debug\GPIB_04_success.pdb
