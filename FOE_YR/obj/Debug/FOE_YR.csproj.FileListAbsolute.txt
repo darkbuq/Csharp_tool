@@ -1,0 +1,9 @@
+D:\YR\!!!!GitHub\Csharp_tool\FOE_YR\bin\Debug\FOE_YR.dll
+D:\YR\!!!!GitHub\Csharp_tool\FOE_YR\bin\Debug\FOE_YR.pdb
+D:\YR\!!!!GitHub\Csharp_tool\FOE_YR\bin\Debug\MathNet.Numerics.dll
+D:\YR\!!!!GitHub\Csharp_tool\FOE_YR\bin\Debug\MathNet.Numerics.xml
+D:\YR\!!!!GitHub\Csharp_tool\FOE_YR\obj\Debug\FOE_YR.csproj.AssemblyReference.cache
+D:\YR\!!!!GitHub\Csharp_tool\FOE_YR\obj\Debug\FOE_YR.csproj.CoreCompileInputs.cache
+D:\YR\!!!!GitHub\Csharp_tool\FOE_YR\obj\Debug\FOE_YR.csproj.CopyComplete
+D:\YR\!!!!GitHub\Csharp_tool\FOE_YR\obj\Debug\FOE_YR.dll
+D:\YR\!!!!GitHub\Csharp_tool\FOE_YR\obj\Debug\FOE_YR.pdb
