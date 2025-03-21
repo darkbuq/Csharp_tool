@@ -60,6 +60,7 @@
     <Compile Include="IPowerSupply.cs" />
     <Compile Include="ISwitch.cs" />
     <Compile Include="IThermalStream.cs" />
+    <Compile Include="I_DBcontrol.cs" />
     <Compile Include="I_UI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

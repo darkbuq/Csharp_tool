@@ -400,36 +400,6 @@ namespace FOE_YR
 
     public class CSFF8472toUI
     {
-        //public void GetModuleList(ComboBox Combo_Model)
-        //{
-        //    try
-        //    {
-        //        string sSql = string.Format("select count(*) from {0} where {1}='SFP'", TB_TRX_SPEC_EEPROM.TableName, TB_TRX_SPEC_EEPROM.IDENTIFIER);
-        //        DataTable vDataDT = MyOleAccess.getTableOnDB(sSql, "");
-        //        if (vDataDT != null && vDataDT.Rows.Count > 0)
-        //        {
-        //            int nListCount = MyTool.atoi(vDataDT.Rows[0][0]);
-        //            if (nListCount != Combo_Model.Items.Count)
-        //            {
-        //                sSql = string.Format("select distinct MODEL_NO from {0} where {1}='SFP'", TB_TRX_SPEC_EEPROM.TableName, TB_TRX_SPEC_EEPROM.IDENTIFIER);
-        //                vDataDT = MyOleAccess.getTableOnDB(sSql, "");
-        //                if (vDataDT != null && vDataDT.Rows.Count > 0)
-        //                {
-        //                    Combo_Model.Items.Clear();
-        //                    foreach (DataRow vDr in vDataDT.Rows)
-        //                    {
-        //                        Combo_Model.Items.Add(MyTool.atos(vDr[0]));
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
         public void SetUI_Identifier(CSFF8472 sff8472, TextBox txt)
         {
             sff8472.GetIdentifier();
@@ -652,6 +622,159 @@ namespace FOE_YR
             {
                 dgv.Rows[4].Cells[i + 1].Value = arr[i].ToString("0.00");
             }
+        }
+    }
+
+    public class C_CMIS
+    {
+        public byte[] A0L = new byte[128];
+        public byte[] P00 = new byte[128];  // Vendor Info
+        public byte[] P01 = new byte[128];  // Module Capability
+        public byte[] P02 = new byte[128];  // Alarm Warning Info
+
+
+        public byte[] B00P10 = new byte[128];
+        public byte[] B00P11 = new byte[128];
+
+        //public C_CMIS(byte[] A0L, byte[] P00, byte[] P01, byte[] P02, byte[] B00P11)
+        //{
+        //    this.A0L = A0L;
+        //    this.P00 = P00;
+        //    this.P01 = P01;
+        //    this.P02 = P02;
+        //    this.B00P11 = B00P11;
+        //}
+
+        public double MsbLsb_T(string MsbLsb)
+        {
+            //Internally measured temperature: signed 2’s
+            //complement in 1 / 256 degree Celsius increments
+            //NOTE: Temp can be below 0.
+
+            double gg = (double)HexStr_TwoComplement_Int(MsbLsb);
+            return (gg / 256);
+        }
+
+        public double EEPROM_real_T(byte[] A0L)
+        {
+            int add = 14;
+            double val = MsbLsb_T(A0L[add].ToString("X2") + A0L[add + 1].ToString("X2"));
+
+            return val;
+        }
+
+        public int HexStr_TwoComplement_Int(string HexStr)
+        {
+            int result;
+
+            string binaryStr = Convert.ToString(Convert.ToInt64(HexStr, 16), 2).PadLeft(HexStr.Length * 4, '0');
+
+            if (binaryStr[0] == '1')
+            {
+                string revertBinary = "";
+                foreach (var item in binaryStr)
+                {
+                    if (item == '1')
+                    {
+                        revertBinary += "0";
+                    }
+                    else
+                    {
+                        revertBinary += "1";
+                    }
+                }
+                result = (Convert.ToInt32(revertBinary, 2) + 1) * (-1);
+
+            }
+            else
+            {
+                result = Convert.ToInt32(binaryStr, 2);
+            }
+
+            return result;
+        }
+
+        public double MsbLsb_Vcc(string MsbLsb)
+        {
+            return ((float)Convert.ToInt32(MsbLsb, 16)) / 10000;
+        }
+
+        public double EEPROM_real_Vcc(byte[] A0L)
+        {
+            int add = 16;
+            double val = MsbLsb_Vcc(A0L[add].ToString("X2") + A0L[add + 1].ToString("X2"));
+
+            return val;
+        }
+
+        public double MsbLsb_Bias(string MsbLsb)
+        {
+            return ((float)Convert.ToInt32(MsbLsb, 16)) / 500;
+        }
+
+        public double[] EEPROM_real_Bias(byte[] B00P11)
+        {
+            double[] val = new double[8];
+            for (int i = 0; i < 8; i++)
+            {
+                int add = 170 + i * 2 - 128;
+                val[i] = MsbLsb_Bias(B00P11[add].ToString("X2") + B00P11[add + 1].ToString("X2"));
+            }
+            return val;
+        }
+
+        public double MsbLsb_Txpwr_dBm(string MsbLsb)
+        {
+            //2個Hex 範圍0~65536 一格為 0.1uW
+            //65535 = 65535*0.1uW = 65535*0.1*0.001mW
+
+            double mW = (double)Convert.ToInt32(MsbLsb, 16) / 10000;
+            double dBm = 10 * Math.Log10(mW);
+
+            if (dBm < -40)
+            {
+                dBm = -40;
+            }
+
+            return dBm;
+        }
+
+        public double[] EEPROM_Txpwr_dBm(byte[] B00P11)
+        {
+            double[] val = new double[8];
+            for (int i = 0; i < 8; i++)
+            {
+                int add = 154 + i * 2 - 128;
+                val[i] = MsbLsb_Txpwr_dBm(B00P11[add].ToString("X2") + B00P11[add + 1].ToString("X2"));
+            }
+            return val;
+        }
+
+        public double MsbLsb_Rxpwr_dBm(string MsbLsb)
+        {
+            //2個Hex 範圍0~65536 一格為 0.1uW
+            //65535 = 65535*0.1uW = 65535*0.1*0.001mW
+
+            double mW = (double)Convert.ToInt32(MsbLsb, 16) / 10000;
+            double dBm = 10 * Math.Log10(mW);
+
+            if (dBm < -40)
+            {
+                dBm = -40;
+            }
+
+            return dBm;
+        }
+
+        public double[] EEPROM_Rxpwr_dBm(byte[] B00P11)
+        {
+            double[] val = new double[8];
+            for (int i = 0; i < 8; i++)
+            {
+                int add = 186 + i * 2 - 128;
+                val[i] = MsbLsb_Rxpwr_dBm(B00P11[add].ToString("X2") + B00P11[add + 1].ToString("X2"));
+            }
+            return val;
         }
     }
 }

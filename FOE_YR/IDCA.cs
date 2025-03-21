@@ -16,6 +16,7 @@ namespace FOE_YR
         string Query_Cross();
         string Query_Jitter();
         string Query_Margin();
+        string Query_result(string test_items);
 
         void SaveImageWithPath(string Pathfilename);
 
@@ -83,6 +84,11 @@ namespace FOE_YR
             return _controller.Query("MEASure:MTESt1:MARGin?\x0A");
         }
 
+        public string Query_result(string test_items)
+        {
+            return "";
+        }
+
         public void SaveImageWithPath(string Pathfilename)
         {
             //先修改預設路徑 及 檔名 及 可支援的副檔名
@@ -134,6 +140,170 @@ namespace FOE_YR
 
             //是否要加詢問  在確定有正確設定
             //_controller.Query($":{ch}:ATTenuator:DECibels?\x0A");
+        }
+    }
+
+    public class DCA_Anritsu_MP2110A : IDCA
+    {
+        private IDeviceConnector _controller;
+
+        public DCA_Anritsu_MP2110A(IDeviceConnector Controller)
+        {
+            this._controller = Controller;
+        }
+
+        public string GetDeviceInfo()
+        {
+            return _controller.Query("*IDN?\x0A");
+        }
+        public void autoScale()
+        {
+            bool passs = true;
+
+            _controller.Write(":DISPlay:WINDow:SCALe:AUTOscale BOTH\x0A");//autoScale
+            Thread.Sleep(1000);
+
+            _controller.Write(":CONFigure:MEASure:PAM:TEQualizer:CALCulate:ALL\x0A");//Calculate
+            Thread.Sleep(1000);
+
+            //passs &= sendCommand(":SCOP:SAMP:STAT RUN");//Sampling
+            //Thread.Sleep(1000);
+
+        }
+        public void Run()
+        {
+            try
+            {
+                _controller.Write(":SENSe:SAMPling:STATus RUN\x0A");
+            }
+            catch (Exception)
+            {
+                throw new Exception("物件 DCA_Anritsu_MP2110A 函數Run()  有問題");
+            }
+
+        }
+        public string Query_power()
+        {
+            return "";
+        }
+        public string Query_ER()
+        {
+            return "";
+        }
+        public string Query_Cross()
+        {
+            return "";
+        }
+        public string Query_Jitter()
+        {
+            return "";
+        }
+        public string Query_Margin()
+        {
+            return "";
+        }
+
+        public string Query_result(string test_items)
+        {
+            string command;
+
+            if (test_items=="TDECQ")
+            {
+                //:FETCh: AMPLitude: TDEC[:CURRent][:{ CHA | CHB | CHC | CHD | ALL}]?   //文件查到的
+                //string strCmd = blTEQ ? ":FETCh:AMPLitude:TEQualizer:TDECQ?" : ":FETCh:AMPLitude:TDECQ?";//舊的程式
+
+                command = ":FETCh:AMPLitude:TEQualizer:TDECQ:ALL?\x0A";
+            }
+            else if (test_items == "RLM")
+            {
+                //:FETCh:AMPLitude[:TEQualizer]:LINearity[:CURRent][:{CHA|CHB|CHC|CHD|ALL}]?   //文件查到的
+                //string strCmd = blTEQ ? ":FETCh:AMPLitude:TEQualizer:LINearity?" : ":FETCh:AMPLitude:LINearity?";  //舊的程式
+                command = ":FETCh:AMPLitude:TEQualizer:LINearity:ALL?\x0A";
+            }
+            else if (test_items == "power")
+            {
+                command = ":FETCh:AMPLitude:AVEPower:DBM:ALL?\x0A";
+            }
+            else if (test_items == "OOMA")
+            {
+                //:FETCh:AMPLitude[:TEQualizer]:OOMA:DBM[:CURRent][:{CHA|CHB|CHC|CHD|ALL}]?
+                command = ":FETCh:AMPLitude:TEQualizer:OOMA:DBM:ALL?\x0A";
+            }
+            //else if (test_items == "OMA_TQ")  //這是 OMA減TDECQ
+            //{
+            //    command = "";
+            //}
+            else if (test_items == "OER")
+            {
+                //:FETCh:AMPLitude[:TEQualizer]:OER[:CURRent][:{CHA|CHB|CHC|CHD|ALL}]?
+                command = ":FETCh:AMPLitude:TEQualizer:OER:ALL?\x0A";
+            }
+            else if (test_items == "Eye23")
+            {
+                //:FETCh:AMPLitude[:TEQualizer]:EYE[0|1|2]:HEIGht[:CURRent][:{CHA|CHB|CHC|CHD|ALL}]?
+                command = ":FETCh:AMPLitude:TEQualizer:EYE2:HEIGht:ALL?\x0A";
+            }
+            else if (test_items == "Eye12")
+            {
+                //:FETCh:AMPLitude[:TEQualizer]:EYE[0|1|2]:HEIGht[:CURRent][:{CHA|CHB|CHC|CHD|ALL}]?
+                command = ":FETCh:AMPLitude:TEQualizer:EYE1:HEIGht:ALL?\x0A";
+            }
+            else if (test_items == "Eye01")
+            {
+                //:FETCh:AMPLitude[:TEQualizer]:EYE[0|1|2]:HEIGht[:CURRent][:{CHA|CHB|CHC|CHD|ALL}]?
+                command = ":FETCh:AMPLitude:TEQualizer:EYE0:HEIGht:ALL?\x0A";
+            }
+            else
+            {
+                throw new Exception("物件 DCA_Anritsu_MP2110A 函數Query_result()  參數有問題");
+            }
+
+
+
+
+            string result = "";
+            try
+            {
+                result=_controller.Query(command);
+            }
+            catch (Exception)
+            {
+                throw new Exception("物件 DCA_Anritsu_MP2110A 函數Query_result()  有問題");
+            }
+
+            return result;
+        }
+
+        public void SaveImageWithPath(string Pathfilename)
+        {
+            var path_name = Pathfilename.Split(',');
+            //":SYSTem:PRINt:COPY \"TempScreen.png\",\"C:\\Screen Copy\"" //以前開發文件查到的
+            string command = $":SYSTem:PRINt:COPY \"{path_name[1]}\",\"{path_name[0]}\"\x0A";
+            try
+            {
+                _controller.Write(command);
+            }
+            catch (Exception)
+            {
+                throw new Exception("物件 DCA_Anritsu_MP2110A 函數SaveImageWithPath()  有問題");
+            }
+        }
+
+        public void OpenChannel(int channel)
+        {
+
+        }
+        public void CloseChannel(int channel)
+        {
+
+        }
+        public void SetMask(string file_name)
+        {
+
+        }
+        public void SetAttenuator(string ch, string value)
+        {
+
         }
     }
 }

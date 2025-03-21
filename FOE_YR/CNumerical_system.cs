@@ -173,4 +173,26 @@ namespace FOE_YR
             }
         }
     }
+
+    public class Optical_transform
+    {
+        public double dBm_to_mW(double dBm)
+        {
+            return Math.Pow(10, (dBm / 10));
+        }
+
+        public double mW_to_dBm(double mW)
+        {
+            return 10*(Math.Log10(mW));
+        }
+
+        public double SenOMA(double Sensitivity_dBm, double ER)
+        {
+            double Sensitivity_mW = dBm_to_mW(Sensitivity_dBm);
+
+            double SenOMA_mW = ((2 * Sensitivity_mW) / (ER + 1)) * (ER - 1);
+
+            return mW_to_dBm(SenOMA_mW);
+        }
+    }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -90,6 +92,36 @@ namespace FOE_YR
             }
         }
 
+        public DataTable TransposeDataTable(DataTable originalTable)//轉置
+        {
+            DataTable transposedTable = new DataTable();
+
+            // 添加第一列，用於存放原始表的列名稱
+            transposedTable.Columns.Add("Field");
+
+            // 添加其他列，列數等於原始表的行數
+            for (int i = 0; i < originalTable.Rows.Count; i++)
+            {
+                transposedTable.Columns.Add($"Row {i + 1}");
+            }
+
+            // 將原始表的每個列轉為行
+            foreach (DataColumn column in originalTable.Columns)
+            {
+                DataRow newRow = transposedTable.NewRow();
+                newRow[0] = column.ColumnName;
+
+                for (int i = 0; i < originalTable.Rows.Count; i++)
+                {
+                    newRow[i + 1] = originalTable.Rows[i][column];
+                }
+
+                transposedTable.Rows.Add(newRow);
+            }
+
+            return transposedTable;
+        }
+
         public void Reset_dgvColor(DataGridView dgv)
         {
             foreach (DataGridViewRow row in dgv.Rows)
@@ -120,7 +152,7 @@ namespace FOE_YR
             }
         }
 
-        public void Reset_dgvValue(DataGridView dgv, int[] Uncleared_col)//第一行  是當作row name 不能清掉
+        public void Reset_dgvValue(DataGridView dgv, int[] Uncleared_col)//不清掉 部分col
         {
             for (int i = 0; i < dgv.RowCount; i++)
             {
@@ -135,6 +167,20 @@ namespace FOE_YR
                         dgv.Rows[i].Cells[j].Value = string.Empty;
                     }
 
+                }
+            }
+        }
+
+        public void Reset_dgvValue(DataGridView dgv, int[] cleared_col, int[] cleared_row)
+        {
+            for (int row = 0; row < dgv.RowCount; row++)
+            {
+                for (int col = 0; col < dgv.ColumnCount; col++)
+                {
+                    if (cleared_col.Contains(col) & cleared_row.Contains(row))
+                    {
+                        dgv.Rows[row].Cells[col].Value = string.Empty;
+                    }
                 }
             }
         }
@@ -254,6 +300,21 @@ namespace FOE_YR
 
             return RowIndex;
         }
+
+        public int Find_Dgv_colIndex_byValue(DataGridView dgv, int rowindex, string cellvalue)
+        {
+            int ColIndex = -1;
+            for (int i = 1; i < dgv.ColumnCount; i++)//第一 col 不用找
+            {
+                if (dgv.Rows[rowindex].Cells[i].Value.ToString() == cellvalue)
+                {
+                    ColIndex = i;
+                    break;
+                }
+            }
+
+            return ColIndex;
+        }
     }
 
     public class UI_groupBox
@@ -271,6 +332,40 @@ namespace FOE_YR
                 {
                     ((ComboBox)ctrl).Items.Clear();
                     ((ComboBox)ctrl).Text = string.Empty;
+                }
+            }
+        }
+    }
+
+    public class UI_cbo
+    {
+        public void Populate_cbo_WithDistinctValues_forFOE(ComboBox cbo, string DB, string FromDBtable, string distinct_col)
+        {
+            cbo.Items.Clear();
+
+            string connstr = $"uid = sa; pwd = dsc; database = {DB}; server = dataserver";
+            string sSQLstr = $"SELECT distinct {distinct_col} FROM {FromDBtable}";
+
+            using (SqlConnection connection = new SqlConnection(connstr)) // 第一個 using: 建立並管理資料庫連線   //結束時，SqlConnection 會自動關閉和釋放
+            using (SqlCommand command = new SqlCommand(sSQLstr, connection))  // 第二個 using: 建立並管理 SQL 指令物件   //using 區塊結束時，SqlCommand 會被釋放資源
+            {
+                //SqlCommand command = new SqlCommand(sSQLstr, connection);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataTable vDT = new DataTable();
+
+                try
+                {
+                    connection.Open();
+                    adapter.Fill(vDT);
+
+                    foreach (DataRow row in vDT.Rows)
+                    {
+                        cbo.Items.Add(row[0]);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error: " + ex.Message);
                 }
             }
         }
