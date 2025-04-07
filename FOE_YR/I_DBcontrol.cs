@@ -37,5 +37,20 @@ namespace FOE_YR
                 }
             }
         }
+
+        public DataTable get_DataTable(string db, SqlCommand cmd)
+        {
+            string connstr = $"uid = sa; pwd = dsc; database = {db}; server = dataserver";
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();
+                cmd.Connection = conn;
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
+            }
+        }
     }
 }
