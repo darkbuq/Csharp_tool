@@ -47,7 +47,7 @@ namespace Dapper_01
             }
         }
 
-        public class Pam4FinalTestRecord//目前只示範 key塞入  忽略過多欄位
+        private class Pam4FinalTestRecord//目前只示範 key塞入  忽略過多欄位
         {
             //以下為key
             public string Lot { get; set; }
@@ -58,6 +58,32 @@ namespace Dapper_01
             //以下為測試 數值填入
             public float? DDMVolt { get; set; }//float? 就是沒賦值時  會自動null
             public float? DDMTemp { get; set; }
+        }
+
+        private void btn_query_Click(object sender, EventArgs e)
+        {
+            string connStr = "uid=sa;pwd=dsc;database=FormericaOE;server=dataserver";
+
+            string sql = "SELECT * FROM PAM4_FinalTest WHERE SN = @SN";
+
+            using (var conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+
+                var result = conn.Query<Pam4FinalTestRecord>(sql, new { SN = txt_sn.Text }).ToList();
+
+                if (result.Count > 0)
+                {
+                    var record = result[0];
+                    MessageBox.Show($"Lot: {record.Lot}, Channel: {record.Channel}, Volt: {record.DDMVolt}");
+                }
+                else
+                {
+                    MessageBox.Show("找不到資料");
+                }
+
+                dgv_result.DataSource = result;
+            }
         }
     }
 
