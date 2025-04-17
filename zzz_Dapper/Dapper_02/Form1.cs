@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration; //這個命名空間裡，有許多用來操作設定檔（如 app.config 或 web.config）的類別
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -50,7 +51,8 @@ namespace Dapper_02
 
         private void btn_insert_Click(object sender, EventArgs e)
         {
-            string connStr = "uid=sa;pwd=dsc;database=FormericaOE;server=dataserver";
+            //string connStr = "uid=sa;pwd=dsc;database=FormericaOE;server=dataserver";
+            string connStr = ConfigurationManager.ConnectionStrings["FormericaDb"].ConnectionString;
 
             var data = new Pam4FinalTestRecord
             {
@@ -72,6 +74,14 @@ namespace Dapper_02
                 conn.Open();
                 conn.Execute(sql, data);    //這是dapper功能
                 MessageBox.Show("Insert 成功");
+            }
+        }
+
+        private class DatabaseHelper
+        {
+            public static string GetConnectionString()
+            {
+                return ConfigurationManager.ConnectionStrings["FormericaDb"].ConnectionString;
             }
         }
     }

@@ -10,3 +10,4 @@ D:\YR\!!!!GitHub\Csharp_tool\zzz_Dapper\Dapper_02\obj\Debug\Dapper_02.csproj.Cor
 D:\YR\!!!!GitHub\Csharp_tool\zzz_Dapper\Dapper_02\obj\Debug\Dapper_02.csproj.CopyComplete
 D:\YR\!!!!GitHub\Csharp_tool\zzz_Dapper\Dapper_02\obj\Debug\Dapper_02.exe
 D:\YR\!!!!GitHub\Csharp_tool\zzz_Dapper\Dapper_02\obj\Debug\Dapper_02.pdb
+D:\YR\!!!!GitHub\Csharp_tool\zzz_Dapper\Dapper_02\bin\Debug\Dapper_02.exe.config
