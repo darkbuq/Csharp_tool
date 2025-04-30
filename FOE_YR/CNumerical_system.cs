@@ -174,6 +174,38 @@ namespace FOE_YR
         }
     }
 
+
+    
+    public class Custom_binary_encoding_1
+    {
+
+        /// <summary>
+        /// 無負數
+        /// 整數部分（小數點左邊） → 轉成二進制 → 轉成十六進位
+        /// 小數部分（小數點右邊） → 轉成二進制（用 2 的負次方加總） → 再轉成十六進位表示
+        /// </summary>
+        public string float_to_2byte(float number)
+        {
+            if (number < 0 || number >= 256)
+                throw new ArgumentOutOfRangeException("Number must be between 0 and less than 256");
+
+            int integerPart = (int)Math.Floor(number);       // 取整數部分
+            float decimalPart = number - integerPart;        // 小數部分
+            int decimalByte = (int)Math.Round(decimalPart * 256);  // 轉成 0~255
+
+            if (decimalByte == 256) // 四捨五入會超過 1.0，要進位
+            {
+                integerPart += 1;
+                decimalByte = 0;
+                if (integerPart >= 256)
+                    throw new ArgumentOutOfRangeException("Rounded result exceeds 16-bit format");
+            }
+
+            // 轉成十六進位字串
+            return $"{integerPart:X2}{decimalByte:X2}";
+        }
+    }
+
     public class Optical_transform
     {
         public double dBm_to_mW(double dBm)
