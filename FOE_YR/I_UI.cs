@@ -169,7 +169,7 @@ namespace FOE_YR
 
                 }
             }
-        }
+        }        
 
         public void Reset_dgvValue(DataGridView dgv, int[] cleared_col, int[] cleared_row)
         {
@@ -180,6 +180,28 @@ namespace FOE_YR
                     if (cleared_col.Contains(col) & cleared_row.Contains(row))
                     {
                         dgv.Rows[row].Cells[col].Value = string.Empty;
+                    }
+                }
+            }
+        }
+
+        public void Reset_dgvValue(DataGridView dgv, string cell_value, int col_index, int[] pass_col)
+        {
+            for (int row = 0; row < dgv.RowCount; row++)
+            {
+                if (dgv.Rows[row].IsNewRow) continue;
+                if (dgv.Rows[row].Cells[col_index].Value == null) continue; // null 就跳過
+
+                string temp = dgv.Rows[row].Cells[col_index].Value.ToString();
+                if (temp == cell_value)
+                {
+                    for (int col = 0; col < dgv.ColumnCount; col++)
+                    {
+                        if (!pass_col.Contains(col))
+                        {
+                            dgv.Rows[row].Cells[col].Value = string.Empty;
+                        }
+                        
                     }
                 }
             }

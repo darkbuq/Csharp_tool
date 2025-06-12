@@ -127,6 +127,30 @@ namespace FOE_YR
         }
     }
 
+    public class HexString_transform
+    {
+        public byte[] HexStr_to_byteArr(string hex_str)
+        {
+            hex_str = hex_str.Trim();
+
+            if (hex_str.Length % 2 != 0)
+            {
+                throw new FormatException("hex string 長度必須是偶數");
+            }
+
+            int byteCount = hex_str.Length / 2;
+            byte[] byte_arr = new byte[byteCount];
+
+            for (int i = 0; i < byteCount; i++)
+            {
+                string hexPair = hex_str.Substring(i * 2, 2);  // 例如 "A1"
+                byte_arr[i] = Convert.ToByte(hexPair, 16);    // 轉成 byte
+            }
+
+            return byte_arr;
+        }
+    }
+
     public class Twos_complement
     {
         public int HexStr_TwoComplement_Int(string HexStr)//對於hex的長度沒有限制 且比較好懂
