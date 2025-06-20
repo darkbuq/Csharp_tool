@@ -777,4 +777,445 @@ namespace FOE_YR
             return val;
         }
     }
+
+    public class C_SFF8636
+    {
+        public byte[] A0L = new byte[128];  
+
+        public byte[] P00 = new byte[128];  // Module Capability
+        public byte[] P03 = new byte[128];  // Alarm Warning Info
+
+        EEPROM_calcualate eeprom_cal = new EEPROM_calcualate();
+
+        public void getTemp(out double RealTemp, out double AlarmH, out double AlarmL, out double WarnH, out double WarnL)
+        {
+            RealTemp = eeprom_cal.MsbLsb_T(A0L[22].ToString("X2") + A0L[23].ToString("X2"));//需要刷新機制
+
+            AlarmH = eeprom_cal.MsbLsb_T(P03[128-128].ToString("X2") + P03[129-128].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_T(P03[130 - 128].ToString("X2") + P03[131 - 128].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_T(P03[132 - 128].ToString("X2") + P03[133 - 128].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_T(P03[134 - 128].ToString("X2") + P03[135 - 128].ToString("X2"));
+        }
+
+        public void getVolt(out double RealVolt, out double AlarmH, out double AlarmL, out double WarnH, out double WarnL)
+        {
+            RealVolt = eeprom_cal.MsbLsb_Vcc(A0L[26].ToString("X2") + A0L[27].ToString("X2"));//需要刷新機制
+
+            AlarmH = eeprom_cal.MsbLsb_Vcc(P03[144 - 128].ToString("X2") + P03[145 - 128].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_Vcc(P03[146 - 128].ToString("X2") + P03[147 - 128].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_Vcc(P03[148 - 128].ToString("X2") + P03[149 - 128].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_Vcc(P03[150 - 128].ToString("X2") + P03[151 - 128].ToString("X2"));
+        }
+
+        public void getBias(out double[] RealBias, out double AlarmH, out double AlarmL, out double WarnH, out double WarnL)
+        {
+            RealBias = new double[4];
+            int RealBias_start = 42;
+            for (int i = 0; i < 4; i++)
+            {
+                int MSB = RealBias_start + i * 2;
+                int LSB = RealBias_start + i * 2 + 1;
+
+                RealBias[i] = eeprom_cal.MsbLsb_Bias(A0L[MSB].ToString("X2") + A0L[LSB].ToString("X2"));//需要刷新機制
+            }
+
+            AlarmH = eeprom_cal.MsbLsb_Bias(P03[184 - 128].ToString("X2") + P03[185 - 128].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_Bias(P03[186 - 128].ToString("X2") + P03[187 - 128].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_Bias(P03[188 - 128].ToString("X2") + P03[189 - 128].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_Bias(P03[190 - 128].ToString("X2") + P03[191 - 128].ToString("X2"));
+        }
+
+        public void getTxP(out double[] RealTxP, out double AlarmH, out double AlarmL, out double WarnH, out double WarnL)
+        {
+            RealTxP = new double[4];
+            int RealBias_start = 50;
+            for (int i = 0; i < 4; i++)
+            {
+                int MSB = RealBias_start + i * 2;
+                int LSB = RealBias_start + i * 2 + 1;
+
+                RealTxP[i] = eeprom_cal.MsbLsb_Txpwr_dBm(A0L[MSB].ToString("X2") + A0L[LSB].ToString("X2"));//需要刷新機制
+            }
+
+            AlarmH = eeprom_cal.MsbLsb_Txpwr_dBm(P03[192 - 128].ToString("X2") + P03[193 - 128].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_Txpwr_dBm(P03[194 - 128].ToString("X2") + P03[195 - 128].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_Txpwr_dBm(P03[196 - 128].ToString("X2") + P03[197 - 128].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_Txpwr_dBm(P03[198 - 128].ToString("X2") + P03[199 - 128].ToString("X2"));
+        }
+
+        public void getRxP(out double[] RealRxP, out double AlarmH, out double AlarmL, out double WarnH, out double WarnL)
+        {
+            RealRxP = new double[4];
+            int RealBias_start = 34;
+            for (int i = 0; i < 4; i++)
+            {
+                int MSB = RealBias_start + i * 2;
+                int LSB = RealBias_start + i * 2 + 1;
+
+                RealRxP[i] = eeprom_cal.MsbLsb_Txpwr_dBm(A0L[MSB].ToString("X2") + A0L[LSB].ToString("X2"));//需要刷新機制
+            }
+
+            AlarmH = eeprom_cal.MsbLsb_Txpwr_dBm(P03[176 - 128].ToString("X2") + P03[177 - 128].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_Txpwr_dBm(P03[178 - 128].ToString("X2") + P03[179 - 128].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_Txpwr_dBm(P03[180 - 128].ToString("X2") + P03[181 - 128].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_Txpwr_dBm(P03[182 - 128].ToString("X2") + P03[183 - 128].ToString("X2"));
+        }
+
+        public bool getCCBASE(out byte correct_checksum)
+        {
+            correct_checksum = eeprom_cal.Cal_checksum(P00, 128-128, 190-128);
+            byte real_checksum = P00[191-128];
+
+            if (correct_checksum == real_checksum)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool getCCEXT(out byte correct_checksum)
+        {
+            correct_checksum = eeprom_cal.Cal_checksum(P00, 192-128, 222-128);
+            byte real_checksum = P00[223-128];
+
+            if (correct_checksum == real_checksum)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public string getVN()
+        {
+            byte[] target = P00.Skip(148-128).Take(16).ToArray();
+
+            // 轉成 ASCII 字串
+            string result = System.Text.Encoding.ASCII.GetString(target);
+
+            //// 移除尾端的 null 或空白（常見於固定長度的 ASCII 區）
+            //return vendorName.TrimEnd('\0', ' ');
+
+            return result;
+        }
+
+        public string getPN()
+        {
+            byte[] target = P00.Skip(168 - 128).Take(16).ToArray();
+
+            // 轉成 ASCII 字串
+            string result = System.Text.Encoding.ASCII.GetString(target);
+
+            //// 移除尾端的 null 或空白（常見於固定長度的 ASCII 區）
+            //return vendorName.TrimEnd('\0', ' ');
+
+            return result;
+        }
+
+        public string getOUI()
+        {
+            byte[] target = P00.Skip(165 - 128).Take(3).ToArray();
+
+            string hexString = string.Join(" ", target.Select(b => b.ToString("X2")));
+
+            return hexString;
+        }
+
+        public string getSN()
+        {
+            byte[] target = P00.Skip(196 - 128).Take(16).ToArray();
+
+            // 轉成 ASCII 字串
+            string result = System.Text.Encoding.ASCII.GetString(target);
+
+            //// 移除尾端的 null 或空白（常見於固定長度的 ASCII 區）
+            //return vendorName.TrimEnd('\0', ' ');
+
+            return result;
+        }
+
+        public string getDC()
+        {
+            byte[] target = P00.Skip(212 - 128).Take(8).ToArray();
+
+            // 轉成 ASCII 字串
+            string result = System.Text.Encoding.ASCII.GetString(target);
+
+            //// 移除尾端的 null 或空白（常見於固定長度的 ASCII 區）
+            //return vendorName.TrimEnd('\0', ' ');
+
+            return result;
+        }
+
+        public string getVver()
+        {
+            byte[] target = P00.Skip(184 - 128).Take(2).ToArray();
+
+            // 轉成 ASCII 字串
+            string result = System.Text.Encoding.ASCII.GetString(target);
+
+            //// 移除尾端的 null 或空白（常見於固定長度的 ASCII 區）
+            //return vendorName.TrimEnd('\0', ' ');
+
+            return result;
+        }
+
+        public string getVver_hexstring()
+        {
+            byte[] target = P00.Skip(184 - 128).Take(2).ToArray();
+
+            string hexString = string.Join(" ", target.Select(b => b.ToString("X2")));
+
+            return hexString;
+        }
+    }
+
+    public class C_SFF8472
+    {
+        public byte[] A0 = new byte[256];
+        public byte[] A2 = new byte[256];
+
+        EEPROM_calcualate eeprom_cal = new EEPROM_calcualate();
+
+        public void getTemp(out double RealTemp, out double AlarmH, out double AlarmL, out double WarnH, out double WarnL)
+        {
+            RealTemp = eeprom_cal.MsbLsb_T(A2[96].ToString("X2") + A2[97].ToString("X2"));//需要刷新機制
+
+            AlarmH = eeprom_cal.MsbLsb_T(A2[0].ToString("X2") + A2[1].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_T(A2[2].ToString("X2") + A2[3].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_T(A2[4].ToString("X2") + A2[5].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_T(A2[6].ToString("X2") + A2[7].ToString("X2"));
+        }
+
+        public void getVolt(out double RealVolt, out double AlarmH, out double AlarmL, out double WarnH, out double WarnL)
+        {
+            RealVolt = eeprom_cal.MsbLsb_Vcc(A2[98].ToString("X2") + A2[99].ToString("X2"));//需要刷新機制
+
+            AlarmH = eeprom_cal.MsbLsb_Vcc(A2[8].ToString("X2") + A2[9].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_Vcc(A2[10].ToString("X2") + A2[11].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_Vcc(A2[12].ToString("X2") + A2[13].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_Vcc(A2[14].ToString("X2") + A2[15].ToString("X2"));
+        }
+
+        public void getBias(out double RealBias, out double AlarmH, out double AlarmL, out double WarnH, out double WarnL)
+        {
+            RealBias = eeprom_cal.MsbLsb_Vcc(A2[100].ToString("X2") + A2[101].ToString("X2"));//需要刷新機制
+
+            AlarmH = eeprom_cal.MsbLsb_Bias(A2[16].ToString("X2") + A2[17].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_Bias(A2[18].ToString("X2") + A2[19].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_Bias(A2[20].ToString("X2") + A2[21].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_Bias(A2[22].ToString("X2") + A2[23].ToString("X2"));
+        }
+
+        public void getTxP(out double RealTxP, out double AlarmH, out double AlarmL, out double WarnH, out double WarnL)
+        {
+            RealTxP = eeprom_cal.MsbLsb_Vcc(A2[102].ToString("X2") + A2[103].ToString("X2"));//需要刷新機制
+
+            AlarmH = eeprom_cal.MsbLsb_Txpwr_dBm(A2[24].ToString("X2") + A2[25].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_Txpwr_dBm(A2[26].ToString("X2") + A2[27].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_Txpwr_dBm(A2[28].ToString("X2") + A2[29].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_Txpwr_dBm(A2[30].ToString("X2") + A2[31].ToString("X2"));
+        }
+
+        public void getRxP(out double RealRxP, out double AlarmH, out double AlarmL, out double WarnH, out double WarnL)
+        {
+            RealRxP = eeprom_cal.MsbLsb_Vcc(A2[104].ToString("X2") + A2[105].ToString("X2"));//需要刷新機制
+
+            AlarmH = eeprom_cal.MsbLsb_Txpwr_dBm(A2[32].ToString("X2") + A2[33].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_Txpwr_dBm(A2[34].ToString("X2") + A2[35].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_Txpwr_dBm(A2[36].ToString("X2") + A2[37].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_Txpwr_dBm(A2[38].ToString("X2") + A2[39].ToString("X2"));
+        }
+
+        public bool getCCBASE(out byte correct_checksum)
+        {
+            correct_checksum = eeprom_cal.Cal_checksum(A0, 0, 62);
+            byte real_checksum = A0[63];
+
+            if (correct_checksum == real_checksum)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool getCCEXT(out byte correct_checksum)
+        {
+            correct_checksum = eeprom_cal.Cal_checksum(A0, 64, 94);
+            byte real_checksum = A0[95];
+
+            if (correct_checksum == real_checksum)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool getCCDMI(out byte correct_checksum)
+        {
+            correct_checksum = eeprom_cal.Cal_checksum(A2, 0, 94);
+            byte real_checksum = A2[95];
+
+            if (correct_checksum == real_checksum)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public string getVN()
+        {
+            byte[] target = A0.Skip(20).Take(16).ToArray();
+
+            // 轉成 ASCII 字串
+            string result = System.Text.Encoding.ASCII.GetString(target);
+
+            //// 移除尾端的 null 或空白（常見於固定長度的 ASCII 區）
+            //return vendorName.TrimEnd('\0', ' ');
+
+            return result;
+        }
+
+        public string getPN()
+        {
+            byte[] target = A0.Skip(40).Take(16).ToArray();
+
+            // 轉成 ASCII 字串
+            string result = System.Text.Encoding.ASCII.GetString(target);
+
+            //// 移除尾端的 null 或空白（常見於固定長度的 ASCII 區）
+            //return vendorName.TrimEnd('\0', ' ');
+
+            return result;
+        }
+
+        public string getOUI()
+        {
+            byte[] target = A0.Skip(37).Take(3).ToArray();
+
+            string hexString = string.Join(" ", target.Select(b => b.ToString("X2")));
+
+            return hexString;
+        }
+
+        public string getSN()
+        {
+            byte[] target = A0.Skip(68).Take(16).ToArray();
+
+            // 轉成 ASCII 字串
+            string result = System.Text.Encoding.ASCII.GetString(target);
+
+            //// 移除尾端的 null 或空白（常見於固定長度的 ASCII 區）
+            //return vendorName.TrimEnd('\0', ' ');
+
+            return result;
+        }
+
+        public string getDC()
+        {
+            byte[] target = A0.Skip(84).Take(8).ToArray();
+
+            // 轉成 ASCII 字串
+            string result = System.Text.Encoding.ASCII.GetString(target);
+
+            //// 移除尾端的 null 或空白（常見於固定長度的 ASCII 區）
+            //return vendorName.TrimEnd('\0', ' ');
+
+            return result;
+        }
+
+        public string getVver()
+        {
+            byte[] target = A0.Skip(56).Take(4).ToArray();
+
+            // 轉成 ASCII 字串
+            string result = System.Text.Encoding.ASCII.GetString(target);
+
+            //// 移除尾端的 null 或空白（常見於固定長度的 ASCII 區）
+            //return vendorName.TrimEnd('\0', ' ');
+
+            return result;
+        }
+
+        public string getVver_hexstring()
+        {
+            byte[] target = A0.Skip(56).Take(4).ToArray();
+
+            string hexString = string.Join(" ", target.Select(b => b.ToString("X2")));
+
+            return hexString;
+        }
+    }
+
+    public class EEPROM_calcualate
+    {
+        public double MsbLsb_T(string MsbLsb)
+        {
+            //Internally measured temperature: signed 2’s
+            //complement in 1 / 256 degree Celsius increments
+            //NOTE: Temp can be below 0.
+
+            Twos_complement Twos_complement = new Twos_complement();
+            double gg = (double)Twos_complement.HexStr_TwoComplement_Int(MsbLsb);
+            return (gg / 256);
+        }
+
+        public double MsbLsb_Vcc(string MsbLsb)
+        {
+            return ((float)Convert.ToInt32(MsbLsb, 16)) / 10000;
+        }
+
+        public double MsbLsb_Bias(string MsbLsb)
+        {
+            return ((float)Convert.ToInt32(MsbLsb, 16)) * 0.002;  //每單位是 2 µA = 0.002 mA
+        }
+
+        public double MsbLsb_Txpwr_dBm(string MsbLsb)
+        {
+            //2個Hex 範圍0~65536 一格為 0.1uW
+            //65535 = 65535*0.1uW = 65535*0.1*0.001mW
+
+            double mW = (double)Convert.ToInt32(MsbLsb, 16) / 10000;
+            double dBm = 10 * Math.Log10(mW);
+
+            if (dBm < -40)
+            {
+                dBm = -40;
+            }
+
+            return dBm;
+        }
+
+        public byte Cal_checksum(byte[] data, int start_byte, int end_byte)
+        {
+            byte checksum = 0;
+
+            // 邊界檢查
+            if (data == null || start_byte < 0 || end_byte >= data.Length || start_byte > end_byte)
+                throw new ArgumentException("Invalid range or data");
+
+            for (int i = start_byte; i <= end_byte; i++)
+            {
+                checksum += data[i]; // 或用 ^= data[i]; 做 XOR checksum
+            }
+
+            return checksum;
+        }
+
+
+    }
 }
