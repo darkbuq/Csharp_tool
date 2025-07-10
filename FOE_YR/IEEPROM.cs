@@ -636,81 +636,25 @@ namespace FOE_YR
         public byte[] B00P10 = new byte[128];
         public byte[] B00P11 = new byte[128];
 
-        //public C_CMIS(byte[] A0L, byte[] P00, byte[] P01, byte[] P02, byte[] B00P11)
-        //{
-        //    this.A0L = A0L;
-        //    this.P00 = P00;
-        //    this.P01 = P01;
-        //    this.P02 = P02;
-        //    this.B00P11 = B00P11;
-        //}
 
-        public double MsbLsb_T(string MsbLsb)
-        {
-            //Internally measured temperature: signed 2’s
-            //complement in 1 / 256 degree Celsius increments
-            //NOTE: Temp can be below 0.
+        EEPROM_calcualate eeprom_cal = new EEPROM_calcualate();
 
-            double gg = (double)HexStr_TwoComplement_Int(MsbLsb);
-            return (gg / 256);
-        }
-
+        
         public double EEPROM_real_T(byte[] A0L)
         {
             int add = 14;
-            double val = MsbLsb_T(A0L[add].ToString("X2") + A0L[add + 1].ToString("X2"));
+            double val = eeprom_cal.MsbLsb_T(A0L[add].ToString("X2") + A0L[add + 1].ToString("X2"));
 
             return val;
-        }
-
-        public int HexStr_TwoComplement_Int(string HexStr)
-        {
-            int result;
-
-            string binaryStr = Convert.ToString(Convert.ToInt64(HexStr, 16), 2).PadLeft(HexStr.Length * 4, '0');
-
-            if (binaryStr[0] == '1')
-            {
-                string revertBinary = "";
-                foreach (var item in binaryStr)
-                {
-                    if (item == '1')
-                    {
-                        revertBinary += "0";
-                    }
-                    else
-                    {
-                        revertBinary += "1";
-                    }
-                }
-                result = (Convert.ToInt32(revertBinary, 2) + 1) * (-1);
-
-            }
-            else
-            {
-                result = Convert.ToInt32(binaryStr, 2);
-            }
-
-            return result;
-        }
-
-        public double MsbLsb_Vcc(string MsbLsb)
-        {
-            return ((float)Convert.ToInt32(MsbLsb, 16)) / 10000;
-        }
+        }        
 
         public double EEPROM_real_Vcc(byte[] A0L)
         {
             int add = 16;
-            double val = MsbLsb_Vcc(A0L[add].ToString("X2") + A0L[add + 1].ToString("X2"));
+            double val = eeprom_cal.MsbLsb_Vcc(A0L[add].ToString("X2") + A0L[add + 1].ToString("X2"));
 
             return val;
-        }
-
-        public double MsbLsb_Bias(string MsbLsb)
-        {
-            return ((float)Convert.ToInt32(MsbLsb, 16)) / 500;
-        }
+        }        
 
         public double[] EEPROM_real_Bias(byte[] B00P11)
         {
@@ -718,26 +662,10 @@ namespace FOE_YR
             for (int i = 0; i < 8; i++)
             {
                 int add = 170 + i * 2 - 128;
-                val[i] = MsbLsb_Bias(B00P11[add].ToString("X2") + B00P11[add + 1].ToString("X2"));
+                val[i] = eeprom_cal.MsbLsb_Bias(B00P11[add].ToString("X2") + B00P11[add + 1].ToString("X2"));
             }
             return val;
-        }
-
-        public double MsbLsb_Txpwr_dBm(string MsbLsb)
-        {
-            //2個Hex 範圍0~65536 一格為 0.1uW
-            //65535 = 65535*0.1uW = 65535*0.1*0.001mW
-
-            double mW = (double)Convert.ToInt32(MsbLsb, 16) / 10000;
-            double dBm = 10 * Math.Log10(mW);
-
-            if (dBm < -40)
-            {
-                dBm = -40;
-            }
-
-            return dBm;
-        }
+        }        
 
         public double[] EEPROM_Txpwr_dBm(byte[] B00P11)
         {
@@ -745,26 +673,10 @@ namespace FOE_YR
             for (int i = 0; i < 8; i++)
             {
                 int add = 154 + i * 2 - 128;
-                val[i] = MsbLsb_Txpwr_dBm(B00P11[add].ToString("X2") + B00P11[add + 1].ToString("X2"));
+                val[i] = eeprom_cal.MsbLsb_TxRxPwr_dBm(B00P11[add].ToString("X2") + B00P11[add + 1].ToString("X2"));
             }
             return val;
-        }
-
-        public double MsbLsb_Rxpwr_dBm(string MsbLsb)
-        {
-            //2個Hex 範圍0~65536 一格為 0.1uW
-            //65535 = 65535*0.1uW = 65535*0.1*0.001mW
-
-            double mW = (double)Convert.ToInt32(MsbLsb, 16) / 10000;
-            double dBm = 10 * Math.Log10(mW);
-
-            if (dBm < -40)
-            {
-                dBm = -40;
-            }
-
-            return dBm;
-        }
+        }               
 
         public double[] EEPROM_Rxpwr_dBm(byte[] B00P11)
         {
@@ -772,9 +684,23 @@ namespace FOE_YR
             for (int i = 0; i < 8; i++)
             {
                 int add = 186 + i * 2 - 128;
-                val[i] = MsbLsb_Rxpwr_dBm(B00P11[add].ToString("X2") + B00P11[add + 1].ToString("X2"));
+                val[i] = eeprom_cal.MsbLsb_TxRxPwr_dBm(B00P11[add].ToString("X2") + B00P11[add + 1].ToString("X2"));
             }
             return val;
+        }
+
+        public void SetSN(string new_SN)
+        {
+            EEPROM_calcualate EEPROM_calcualate = new EEPROM_calcualate();
+
+            string asciiString = new_SN.Trim().PadRight(16);
+            string result = EEPROM_calcualate.AsciiToHex(asciiString);
+
+
+            for (int i = 0; i < 16; i++)
+            {
+                P00[i + 166 - 128] = Convert.ToByte(result.Substring(i * 2, 2), 16);
+            }
         }
     }
 
@@ -834,13 +760,13 @@ namespace FOE_YR
                 int MSB = RealBias_start + i * 2;
                 int LSB = RealBias_start + i * 2 + 1;
 
-                RealTxP[i] = eeprom_cal.MsbLsb_Txpwr_dBm(A0L[MSB].ToString("X2") + A0L[LSB].ToString("X2"));//需要刷新機制
+                RealTxP[i] = eeprom_cal.MsbLsb_TxRxPwr_dBm(A0L[MSB].ToString("X2") + A0L[LSB].ToString("X2"));//需要刷新機制
             }
 
-            AlarmH = eeprom_cal.MsbLsb_Txpwr_dBm(P03[192 - 128].ToString("X2") + P03[193 - 128].ToString("X2"));
-            AlarmL = eeprom_cal.MsbLsb_Txpwr_dBm(P03[194 - 128].ToString("X2") + P03[195 - 128].ToString("X2"));
-            WarnH = eeprom_cal.MsbLsb_Txpwr_dBm(P03[196 - 128].ToString("X2") + P03[197 - 128].ToString("X2"));
-            WarnL = eeprom_cal.MsbLsb_Txpwr_dBm(P03[198 - 128].ToString("X2") + P03[199 - 128].ToString("X2"));
+            AlarmH = eeprom_cal.MsbLsb_TxRxPwr_dBm(P03[192 - 128].ToString("X2") + P03[193 - 128].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_TxRxPwr_dBm(P03[194 - 128].ToString("X2") + P03[195 - 128].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_TxRxPwr_dBm(P03[196 - 128].ToString("X2") + P03[197 - 128].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_TxRxPwr_dBm(P03[198 - 128].ToString("X2") + P03[199 - 128].ToString("X2"));
         }
 
         public void getRxP(out double[] RealRxP, out double AlarmH, out double AlarmL, out double WarnH, out double WarnL)
@@ -852,13 +778,13 @@ namespace FOE_YR
                 int MSB = RealBias_start + i * 2;
                 int LSB = RealBias_start + i * 2 + 1;
 
-                RealRxP[i] = eeprom_cal.MsbLsb_Txpwr_dBm(A0L[MSB].ToString("X2") + A0L[LSB].ToString("X2"));//需要刷新機制
+                RealRxP[i] = eeprom_cal.MsbLsb_TxRxPwr_dBm(A0L[MSB].ToString("X2") + A0L[LSB].ToString("X2"));//需要刷新機制
             }
 
-            AlarmH = eeprom_cal.MsbLsb_Txpwr_dBm(P03[176 - 128].ToString("X2") + P03[177 - 128].ToString("X2"));
-            AlarmL = eeprom_cal.MsbLsb_Txpwr_dBm(P03[178 - 128].ToString("X2") + P03[179 - 128].ToString("X2"));
-            WarnH = eeprom_cal.MsbLsb_Txpwr_dBm(P03[180 - 128].ToString("X2") + P03[181 - 128].ToString("X2"));
-            WarnL = eeprom_cal.MsbLsb_Txpwr_dBm(P03[182 - 128].ToString("X2") + P03[183 - 128].ToString("X2"));
+            AlarmH = eeprom_cal.MsbLsb_TxRxPwr_dBm(P03[176 - 128].ToString("X2") + P03[177 - 128].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_TxRxPwr_dBm(P03[178 - 128].ToString("X2") + P03[179 - 128].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_TxRxPwr_dBm(P03[180 - 128].ToString("X2") + P03[181 - 128].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_TxRxPwr_dBm(P03[182 - 128].ToString("X2") + P03[183 - 128].ToString("X2"));
         }
 
         public bool getCCBASE(out byte correct_checksum)
@@ -1016,20 +942,20 @@ namespace FOE_YR
         {
             RealTxP = eeprom_cal.MsbLsb_Vcc(A2[102].ToString("X2") + A2[103].ToString("X2"));//需要刷新機制
 
-            AlarmH = eeprom_cal.MsbLsb_Txpwr_dBm(A2[24].ToString("X2") + A2[25].ToString("X2"));
-            AlarmL = eeprom_cal.MsbLsb_Txpwr_dBm(A2[26].ToString("X2") + A2[27].ToString("X2"));
-            WarnH = eeprom_cal.MsbLsb_Txpwr_dBm(A2[28].ToString("X2") + A2[29].ToString("X2"));
-            WarnL = eeprom_cal.MsbLsb_Txpwr_dBm(A2[30].ToString("X2") + A2[31].ToString("X2"));
+            AlarmH = eeprom_cal.MsbLsb_TxRxPwr_dBm(A2[24].ToString("X2") + A2[25].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_TxRxPwr_dBm(A2[26].ToString("X2") + A2[27].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_TxRxPwr_dBm(A2[28].ToString("X2") + A2[29].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_TxRxPwr_dBm(A2[30].ToString("X2") + A2[31].ToString("X2"));
         }
 
         public void getRxP(out double RealRxP, out double AlarmH, out double AlarmL, out double WarnH, out double WarnL)
         {
             RealRxP = eeprom_cal.MsbLsb_Vcc(A2[104].ToString("X2") + A2[105].ToString("X2"));//需要刷新機制
 
-            AlarmH = eeprom_cal.MsbLsb_Txpwr_dBm(A2[32].ToString("X2") + A2[33].ToString("X2"));
-            AlarmL = eeprom_cal.MsbLsb_Txpwr_dBm(A2[34].ToString("X2") + A2[35].ToString("X2"));
-            WarnH = eeprom_cal.MsbLsb_Txpwr_dBm(A2[36].ToString("X2") + A2[37].ToString("X2"));
-            WarnL = eeprom_cal.MsbLsb_Txpwr_dBm(A2[38].ToString("X2") + A2[39].ToString("X2"));
+            AlarmH = eeprom_cal.MsbLsb_TxRxPwr_dBm(A2[32].ToString("X2") + A2[33].ToString("X2"));
+            AlarmL = eeprom_cal.MsbLsb_TxRxPwr_dBm(A2[34].ToString("X2") + A2[35].ToString("X2"));
+            WarnH = eeprom_cal.MsbLsb_TxRxPwr_dBm(A2[36].ToString("X2") + A2[37].ToString("X2"));
+            WarnL = eeprom_cal.MsbLsb_TxRxPwr_dBm(A2[38].ToString("X2") + A2[39].ToString("X2"));
         }
 
         public bool getCCBASE(out byte correct_checksum)
@@ -1184,7 +1110,7 @@ namespace FOE_YR
             return ((float)Convert.ToInt32(MsbLsb, 16)) * 0.002;  //每單位是 2 µA = 0.002 mA
         }
 
-        public double MsbLsb_Txpwr_dBm(string MsbLsb)
+        public double MsbLsb_TxRxPwr_dBm(string MsbLsb)
         {
             //2個Hex 範圍0~65536 一格為 0.1uW
             //65535 = 65535*0.1uW = 65535*0.1*0.001mW
@@ -1216,6 +1142,44 @@ namespace FOE_YR
             return checksum;
         }
 
+        public static string AsciiToHex(string asciiString)
+        {
+            StringBuilder hex = new StringBuilder();
 
+            foreach (char c in asciiString)
+            {
+                hex.Append(((int)c).ToString("X2"));
+            }
+
+            return hex.ToString();
+        }
+
+        public static string HexToAscii(string hexStr)
+        {
+            // 去掉输入字符串中的所有空格
+            hexStr = hexStr.Replace(" ", string.Empty);
+
+            // 检查输入字符串长度是否为偶数
+            if (hexStr.Length % 2 != 0)
+            {
+                throw new ArgumentException("Invalid length of the hexadecimal string.");
+            }
+
+            // 创建一个 StringBuilder 来存储结果
+            StringBuilder asciiStr = new StringBuilder(hexStr.Length / 2);
+
+            // 逐个字节地将十六进制转换为字符
+            for (int i = 0; i < hexStr.Length; i += 2)
+            {
+                // 解析两个十六进制字符为一个字节
+                string hexByte = hexStr.Substring(i, 2);
+                byte byteValue = Convert.ToByte(hexByte, 16);
+
+                // 将字节转换为字符并附加到结果中
+                asciiStr.Append((char)byteValue);
+            }
+
+            return asciiStr.ToString();
+        }
     }
 }
