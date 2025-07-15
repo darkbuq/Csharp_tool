@@ -29,7 +29,7 @@ namespace async_await_01
         public static async Task WaitExampleAsync()
         {
             Console.WriteLine($"Start async wait...{DateTime.Now}");
-            await Task.Delay(2000); // 模擬長時間非同步等待
+            await Task.Delay(2000); // 這時會放開 控制權2秒  所以控制權會回到  Main(string[] args)
             Console.WriteLine($"Finished waiting asynchronously!.....{DateTime.Now}");
         }
     }
