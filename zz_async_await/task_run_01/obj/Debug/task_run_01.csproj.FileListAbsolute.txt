@@ -1,0 +1,7 @@
+D:\YR\!!!!GitHub\Csharp_tool\zz_async_await\task_run_01\bin\Debug\task_run_01.exe.config
+D:\YR\!!!!GitHub\Csharp_tool\zz_async_await\task_run_01\bin\Debug\task_run_01.exe
+D:\YR\!!!!GitHub\Csharp_tool\zz_async_await\task_run_01\bin\Debug\task_run_01.pdb
+D:\YR\!!!!GitHub\Csharp_tool\zz_async_await\task_run_01\obj\Debug\task_run_01.csproj.AssemblyReference.cache
+D:\YR\!!!!GitHub\Csharp_tool\zz_async_await\task_run_01\obj\Debug\task_run_01.csproj.CoreCompileInputs.cache
+D:\YR\!!!!GitHub\Csharp_tool\zz_async_await\task_run_01\obj\Debug\task_run_01.exe
+D:\YR\!!!!GitHub\Csharp_tool\zz_async_await\task_run_01\obj\Debug\task_run_01.pdb
