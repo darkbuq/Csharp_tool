@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using Excel = Microsoft.Office.Interop.Excel;
+
 namespace FOE_YR
 {
     interface I_UI
@@ -320,6 +322,11 @@ namespace FOE_YR
                 }
             }
 
+            if (RowIndex == -1)
+            {
+                throw new Exception($"Find_Dgv_rowIndex_byValue return is -1\r\ncellvalue = {cellvalue}");
+            }
+
             return RowIndex;
         }
 
@@ -335,7 +342,53 @@ namespace FOE_YR
                 }
             }
 
+            if (ColIndex == -1)
+            {
+                throw new Exception($"Find_Dgv_rowIndex_byValue return is -1\r\ncellvalue = {cellvalue}");
+            }
+
             return ColIndex;
+        }
+
+        public void Export_dgv_to_excel(DataGridView dgv)
+        {
+            //把dgv的內容全選 存進剪貼
+            dgv.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText; // 確保複製時包含標題
+
+            dgv.SelectAll();
+            DataObject dataObj = dgv.GetClipboardContent();
+            //if (dataObj != null)
+            //    Clipboard.SetDataObject(dataObj);
+
+            if (dataObj == null)
+            {
+                throw new Exception("the target of save is null!!\r\n");
+            }
+            else
+            {
+                Clipboard.SetDataObject(dataObj);//放在系統剪貼簿上
+            }
+
+
+            Microsoft.Office.Interop.Excel.Application xlexcel;
+            Microsoft.Office.Interop.Excel.Workbook xlWorkBook;
+            Microsoft.Office.Interop.Excel.Worksheet xlWorkSheet;
+
+            object misValue = System.Reflection.Missing.Value;
+            xlexcel = new Excel.Application();
+            xlexcel.Visible = true;
+            xlWorkBook = xlexcel.Workbooks.Add(misValue);
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+
+            Excel.Range CR = (Excel.Range)xlWorkSheet.Cells[1, 1];
+            CR.Select();
+            xlWorkSheet.Paste();
+
+            // 釋放 Excel 物件，避免背景殘留 Excel 進程
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlWorkSheet);
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlWorkBook);
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlexcel);
         }
     }
 

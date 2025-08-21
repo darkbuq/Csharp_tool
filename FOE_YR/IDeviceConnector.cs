@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
@@ -77,7 +78,7 @@ namespace FOE_YR
             string result = "";
             foreach (object idnItem in idnItems)
             {
-                result = idnItem + "\r\n";
+                result += idnItem + "\r\n";
             }
 
             return result;

@@ -54,6 +54,37 @@ namespace FOE_YR
             }
         }
 
+
+        public DataTable TransposeDataTable(DataTable originalTable)//轉置資料表
+        {
+            DataTable transposedTable = new DataTable();
+
+            // 添加第一列，用於存放原始表的列名稱
+            transposedTable.Columns.Add("Field");
+
+            // 添加其他列，列數等於原始表的行數
+            for (int i = 0; i < originalTable.Rows.Count; i++)
+            {
+                transposedTable.Columns.Add($"Row {i + 1}");
+            }
+
+            // 將原始表的每個列轉為行
+            foreach (DataColumn column in originalTable.Columns)
+            {
+                DataRow newRow = transposedTable.NewRow();
+                newRow[0] = column.ColumnName;
+
+                for (int i = 0; i < originalTable.Rows.Count; i++)
+                {
+                    newRow[i + 1] = originalTable.Rows[i][column];
+                }
+
+                transposedTable.Rows.Add(newRow);
+            }
+
+            return transposedTable;
+        }
+
         public void getModelList(ComboBox cbo, string database, string tablename, string where_str, string DISTINCT_col)
         {
             //用法

@@ -39,6 +39,10 @@
     <Reference Include="MathNet.Numerics">
       <HintPath>..\..\..\SVN\SFF_Utility_New\2338\Bin\MathNet.Numerics.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -52,6 +56,7 @@
   <ItemGroup>
     <Compile Include="CLogManager.cs" />
     <Compile Include="CNumerical_system.cs" />
+    <Compile Include="IAttenuator.cs" />
     <Compile Include="IBert.cs" />
     <Compile Include="IDCA.cs" />
     <Compile Include="IDeviceConnector.cs" />
@@ -63,6 +68,9 @@
     <Compile Include="I_DBcontrol.cs" />
     <Compile Include="I_UI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
