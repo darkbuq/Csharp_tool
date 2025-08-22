@@ -12,20 +12,64 @@ namespace FOE_YR
 
         string GetDeviceInfo();
         void autoScale();
+
         void Run();
+
         string Query_power();
+
         string Query_ER();
-        string Query_Cross();
-        string Query_Jitter();
-        string Query_Margin();
+
+        double Query_Cross();
+
+        (double Jitter_ps_PP, double Jitter_ps_RMS) Query_Jitter();//單位都以ps  皮秒 
+
+        double Query_Margin();
+
         string Query_result(string test_items);
 
         void SaveImageWithPath(string Pathfilename);
 
         void OpenChannel(int channel);
+
         void CloseChannel(int channel);
+
         void SetMask(string file_name);
+
         void SetAttenuator(string ch, string value);
+    }
+
+    public class DCA_Dummy : IDCA
+    {
+        public void disconnect() { }
+
+        public string GetDeviceInfo() { return "The DCA is dummy"; }
+
+        public void autoScale() => Thread.Sleep(500);
+
+        public void Run() => Thread.Sleep(500);
+
+        public string Query_power() => "NA";
+
+        public string Query_ER() => "NA";
+
+        public double Query_Cross() => double.NaN;
+
+        public (double Jitter_ps_PP, double Jitter_ps_RMS) Query_Jitter() => (double.NaN, double.NaN);//單位都以ps  皮秒 
+
+        public double Query_Margin() => double.NaN;
+
+        public string Query_result(string test_items) => "NA";
+
+        public void SaveImageWithPath(string Pathfilename) { }
+
+        public void OpenChannel(int channel) { }
+
+        public void CloseChannel(int channel) { }
+
+        public void SetMask(string file_name) { }
+
+        public void SetAttenuator(string ch, string value) { }
+
     }
 
     public class DCA_Keysight86100D_FlexDCA : IDCA
@@ -76,20 +120,27 @@ namespace FOE_YR
             return _connector.Query("MEASure:EYE:ERATio?\x0A");
         }
 
-        public string Query_Cross()
+        public double Query_Cross()
         {
-            return _connector.Query("MEASure:EYE:CROSsing?\x0A");
+            return double.Parse(_connector.Query("MEASure:EYE:CROSsing?\x0A"));
         }
 
-        public string Query_Jitter()
+        public (double Jitter_ps_PP, double Jitter_ps_RMS) Query_Jitter()
         {
             _connector.Write("MEASure:EYE:JITTer:FORMat PP\x0A");
-            return _connector.Query("MEASure:EYE:JITTer?\x0A");
+            double Jitter_PP = double.Parse(_connector.Query("MEASure:EYE:JITTer?\x0A")) * 1E12;
+
+            Thread.Sleep(200);
+
+            _connector.Write("MEASure:EYE:JITTer:FORMat RMS\x0A");
+            double Jitter_RMS = double.Parse(_connector.Query("MEASure:EYE:JITTer?\x0A")) * 1E12;
+
+            return (Jitter_PP, Jitter_RMS);
         }
 
-        public string Query_Margin()
+        public double Query_Margin()
         {
-            return _connector.Query("MEASure:MTESt1:MARGin?\x0A");
+            return double.Parse(_connector.Query("MEASure:MTESt1:MARGin?\x0A"));
         }
 
         public string Query_result(string test_items)
@@ -186,18 +237,25 @@ namespace FOE_YR
         {
             return _connector.Query("MEASure:EYE:ERATio?\x0A");
         }
-        public string Query_Cross()
+        public double Query_Cross()
         {
-            return _connector.Query("MEASure:EYE:CROSsing?\x0A");
+            return double.Parse(_connector.Query("MEASure:EYE:CROSsing?\x0A"));
         }
-        public string Query_Jitter()
+        public (double Jitter_ps_PP, double Jitter_ps_RMS) Query_Jitter()
         {
             _connector.Write("MEASure:EYE:JITTer:FORMat PP\x0A");
-            return _connector.Query("MEASure:EYE:JITTer?\x0A");
+            double Jitter_PP = double.Parse(_connector.Query("MEASure:EYE:JITTer?\x0A")) * 1E12;
+
+            Thread.Sleep(200);
+
+            _connector.Write("MEASure:EYE:JITTer:FORMat RMS\x0A");
+            double Jitter_RMS = double.Parse(_connector.Query("MEASure:EYE:JITTer?\x0A")) * 1E12;
+
+            return (Jitter_PP, Jitter_RMS);
         }
-        public string Query_Margin()
+        public double Query_Margin()
         {
-            return _connector.Query("MEASure:MTESt1:MARGin?\x0A");
+            return double.Parse(_connector.Query("MEASure:MTESt1:MARGin?\x0A"));
         }
         public string Query_result(string test_items)
         {
@@ -306,17 +364,17 @@ namespace FOE_YR
         {
             return "";
         }
-        public string Query_Cross()
+        public double Query_Cross()
         {
-            return "";
+            throw new NotSupportedException("This device does not support Query_Cross()");
         }
-        public string Query_Jitter()
+        public (double Jitter_ps_PP, double Jitter_ps_RMS) Query_Jitter()
         {
-            return "";
+            throw new NotSupportedException("This device does not support Query_Jitter()");
         }
-        public string Query_Margin()
+        public double Query_Margin()
         {
-            return "";
+            throw new NotSupportedException("This device does not support Query_Margin()");
         }
 
         public string Query_result(string test_items)

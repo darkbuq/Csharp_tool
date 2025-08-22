@@ -10,7 +10,17 @@ namespace FOE_YR
         void disconnect();
 
         string GetDeviceInfo();
+
         void setChannel(int nChannel);
+    }
+
+    public class OSwitch_Dummy : ISwitch
+    {
+        public void disconnect() { }
+
+        public string GetDeviceInfo() => "The OSwitch is dummy";
+
+        public void setChannel(int nChannel) { }
     }
 
     public class OSwitch_EOS104 : ISwitch

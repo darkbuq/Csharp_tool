@@ -10,17 +10,30 @@ namespace FOE_YR
         void disconnect();
 
         string GetDeviceInfo();
-        //bool connect();
+
         void setPowerState(bool bOn);
 
         void setVcc(int channel, string vccValue);
+
         string getVcc(int channel);
 
-
         string getICC(int channel);
-
-        //bool SelectOutputChannel(int channel);
         
+    }
+
+    public class PowerSupply_Dummy : IPowerSupply
+    {        
+        public void disconnect() { }
+
+        public string GetDeviceInfo() => "The PowerSupply is dummy";
+
+        public void setPowerState(bool bOn) { }
+
+        public void setVcc(int channel, string vccValue) { }
+
+        public string getVcc(int channel) => "NA";
+
+        public string getICC(int channel) => "NA";
     }
 
     public class PowerSupply_PST3202 : IPowerSupply
