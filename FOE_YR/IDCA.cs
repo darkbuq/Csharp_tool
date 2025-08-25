@@ -6,11 +6,31 @@ using System.Threading;
 
 namespace FOE_YR
 {
+    //原則上 不同的站都使用不同的DCA功能  
+    //所以 會有   到底 interface要改   還是  做個萬用的查詢 多的都塞進去
+
+    public enum QueryResultType
+    {
+        TDECQ,
+        RLM,
+        OOMA,
+        OER,
+        Eye23,
+        Eye12,
+        Eye01,
+
+        Amplitude,
+        TxRiseT,
+        TxFallT,
+        EyeWidth
+    }
+
     public interface IDCA
     {
         void disconnect();
 
         string GetDeviceInfo();
+
         void autoScale();
 
         void Run();
@@ -25,7 +45,7 @@ namespace FOE_YR
 
         double Query_Margin();
 
-        string Query_result(string test_items);
+        string Query_result(QueryResultType Query_result_type);
 
         void SaveImageWithPath(string Pathfilename);
 
@@ -58,7 +78,7 @@ namespace FOE_YR
 
         public double Query_Margin() => double.NaN;
 
-        public string Query_result(string test_items) => "NA";
+        public string Query_result(QueryResultType Query_result_type) => "NA";
 
         public void SaveImageWithPath(string Pathfilename) { }
 
@@ -143,9 +163,9 @@ namespace FOE_YR
             return double.Parse(_connector.Query("MEASure:MTESt1:MARGin?\x0A"));
         }
 
-        public string Query_result(string test_items)
+        public string Query_result(QueryResultType queryType)
         {
-            return "";
+            throw new Exception("物件 DCA_Keysight86100D_FlexDCA 函數Query_result()  無支援");
         }
 
         public void SaveImageWithPath(string Pathfilename)
@@ -221,26 +241,32 @@ namespace FOE_YR
         {
             return _connector.Query("*IDN?\x0A");
         }
+
         public void autoScale()
         {
             _connector.Write("SYSTem:AUToscale\x0A");
         }
+
         public void Run()
         {
             _connector.Write("ACQuire:RUN\x0A");
         }
+
         public string Query_power()
         {
             return _connector.Query("MEASure:EYE:APOWer?\x0A");
         }
+
         public string Query_ER()
         {
             return _connector.Query("MEASure:EYE:ERATio?\x0A");
         }
+
         public double Query_Cross()
         {
             return double.Parse(_connector.Query("MEASure:EYE:CROSsing?\x0A"));
         }
+
         public (double Jitter_ps_PP, double Jitter_ps_RMS) Query_Jitter()
         {
             _connector.Write("MEASure:EYE:JITTer:FORMat PP\x0A");
@@ -253,13 +279,52 @@ namespace FOE_YR
 
             return (Jitter_PP, Jitter_RMS);
         }
+
         public double Query_Margin()
         {
             return double.Parse(_connector.Query("MEASure:MTESt1:MARGin?\x0A"));
         }
-        public string Query_result(string test_items)
+
+        public string Query_result(QueryResultType queryType)
         {
-            return "undone";
+            string command;
+
+
+            switch (queryType)
+            {
+                case QueryResultType.Amplitude:
+                    command = ":MEASure:EYE:AMPLitude?\x0A";
+                    break;
+
+                case QueryResultType.TxRiseT:
+                    command = ":MEASure:EYE:RISetime?\x0A";
+                    break;
+
+                case QueryResultType.TxFallT:
+                    command = ":MEASure:EYE:FALLtime?\x0A";
+                    break;
+
+                case QueryResultType.EyeWidth:
+                    command = ":MEASure:EYE:EWIDth?\x0A";
+                    break;
+
+                default:
+                    throw new NotSupportedException($"Test item {queryType} is not supported on this device.");
+            }
+
+
+            string result = "";
+            try
+            {
+                result = _connector.Query(command);
+            }
+            catch (Exception)
+            {
+                throw new Exception("物件 DCA_Keysight_DCA_M_N1092A 函數Query_result()  有問題");
+            }
+
+            return result;
+
         }
 
         public void SaveImageWithPath(string Pathfilename)
@@ -278,10 +343,12 @@ namespace FOE_YR
         {
 
         }
+
         public void CloseChannel(int channel)
         {
 
         }
+
         public void SetMask(string file_name)
         {
             //bool IObool = true;
@@ -297,6 +364,7 @@ namespace FOE_YR
             Thread.Sleep(100);
             _connector.Write($":MTESt1:LOAD\x0A");
         }
+
         public void SetAttenuator(string ch, string value)
         {
             //Ch定義   //"CHAN1A", "CHAN2A", "CHAN3A", "CHAN4A"
@@ -377,61 +445,37 @@ namespace FOE_YR
             throw new NotSupportedException("This device does not support Query_Margin()");
         }
 
-        public string Query_result(string test_items)
+        public string Query_result(QueryResultType queryType)
         {
             string command;
 
-            if (test_items=="TDECQ")
-            {
-                //:FETCh: AMPLitude: TDEC[:CURRent][:{ CHA | CHB | CHC | CHD | ALL}]?   //文件查到的
-                //string strCmd = blTEQ ? ":FETCh:AMPLitude:TEQualizer:TDECQ?" : ":FETCh:AMPLitude:TDECQ?";//舊的程式
 
-                command = ":FETCh:AMPLitude:TEQualizer:TDECQ:ALL?\x0A";
-            }
-            else if (test_items == "RLM")
+            switch (queryType)
             {
-                //:FETCh:AMPLitude[:TEQualizer]:LINearity[:CURRent][:{CHA|CHB|CHC|CHD|ALL}]?   //文件查到的
-                //string strCmd = blTEQ ? ":FETCh:AMPLitude:TEQualizer:LINearity?" : ":FETCh:AMPLitude:LINearity?";  //舊的程式
-                command = ":FETCh:AMPLitude:TEQualizer:LINearity:ALL?\x0A";
+                case QueryResultType.TDECQ:
+                    command = ":FETCh:AMPLitude:TEQualizer:TDECQ:ALL?\x0A";
+                    break;
+                case QueryResultType.RLM:
+                    command = ":FETCh:AMPLitude:TEQualizer:LINearity:ALL?\x0A";
+                    break;
+                case QueryResultType.OOMA:
+                    command = ":FETCh:AMPLitude:TEQualizer:OOMA:DBM:ALL?\x0A";
+                    break;
+                case QueryResultType.OER:
+                    command = ":FETCh:AMPLitude:TEQualizer:OER:ALL?\x0A";
+                    break;
+                case QueryResultType.Eye23:
+                    command = ":FETCh:AMPLitude:TEQualizer:EYE2:HEIGht:ALL?\x0A";
+                    break;
+                case QueryResultType.Eye12:
+                    command = ":FETCh:AMPLitude:TEQualizer:EYE1:HEIGht:ALL?\x0A";
+                    break;
+                case QueryResultType.Eye01:
+                    command = ":FETCh:AMPLitude:TEQualizer:EYE0:HEIGht:ALL?\x0A";
+                    break;
+                default:
+                    throw new NotSupportedException($"Test item {queryType} is not supported on this device.");
             }
-            else if (test_items == "power")
-            {
-                command = ":FETCh:AMPLitude:AVEPower:DBM:ALL?\x0A";
-            }
-            else if (test_items == "OOMA")
-            {
-                //:FETCh:AMPLitude[:TEQualizer]:OOMA:DBM[:CURRent][:{CHA|CHB|CHC|CHD|ALL}]?
-                command = ":FETCh:AMPLitude:TEQualizer:OOMA:DBM:ALL?\x0A";
-            }
-            //else if (test_items == "OMA_TQ")  //這是 OMA減TDECQ
-            //{
-            //    command = "";
-            //}
-            else if (test_items == "OER")
-            {
-                //:FETCh:AMPLitude[:TEQualizer]:OER[:CURRent][:{CHA|CHB|CHC|CHD|ALL}]?
-                command = ":FETCh:AMPLitude:TEQualizer:OER:ALL?\x0A";
-            }
-            else if (test_items == "Eye23")
-            {
-                //:FETCh:AMPLitude[:TEQualizer]:EYE[0|1|2]:HEIGht[:CURRent][:{CHA|CHB|CHC|CHD|ALL}]?
-                command = ":FETCh:AMPLitude:TEQualizer:EYE2:HEIGht:ALL?\x0A";
-            }
-            else if (test_items == "Eye12")
-            {
-                //:FETCh:AMPLitude[:TEQualizer]:EYE[0|1|2]:HEIGht[:CURRent][:{CHA|CHB|CHC|CHD|ALL}]?
-                command = ":FETCh:AMPLitude:TEQualizer:EYE1:HEIGht:ALL?\x0A";
-            }
-            else if (test_items == "Eye01")
-            {
-                //:FETCh:AMPLitude[:TEQualizer]:EYE[0|1|2]:HEIGht[:CURRent][:{CHA|CHB|CHC|CHD|ALL}]?
-                command = ":FETCh:AMPLitude:TEQualizer:EYE0:HEIGht:ALL?\x0A";
-            }
-            else
-            {
-                throw new Exception("物件 DCA_Anritsu_MP2110A 函數Query_result()  參數有問題");
-            }
-
 
 
 
@@ -480,4 +524,5 @@ namespace FOE_YR
 
         }
     }
+
 }

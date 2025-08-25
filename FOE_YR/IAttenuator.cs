@@ -20,6 +20,35 @@ namespace FOE_YR
         string GetOffsetByChanel(int ch, out string cmd);
     }
 
+    public class Attenuator_Dummy : IAttenuator
+    {
+        public void disconnect() { }
+
+        public string GetDeviceInfo() => "The Attenuator is Dummy";
+
+        public void SetValueByChanel(double dAttValue, int ch, out string cmd)
+        {
+            cmd = "NA";   // 一定要給值
+        }
+
+        public void SetOffsetByChanel(double dOffset, int ch, out string cmd)
+        {
+            cmd = "NA";   // 一定要給值
+        }
+
+        public string GetValueByChanel(int ch, out string cmd)
+        {
+            cmd = "NA";   // 一定要給值
+            return "NA";
+        }
+
+        public string GetOffsetByChanel(int ch, out string cmd)
+        {
+            cmd = "NA";   // 一定要給值
+            return "NA";
+        }
+    }
+
     public class Attenuator_EXFO_IQS610P_IQS3150 : IAttenuator
     {
         private IDeviceConnector _connector;
