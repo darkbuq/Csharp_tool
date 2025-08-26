@@ -9,7 +9,7 @@ namespace FOE_YR
     //原則上 不同的站都使用不同的DCA功能  
     //所以 會有   到底 interface要改   還是  做個萬用的查詢 多的都塞進去
 
-    public enum QueryResultType
+    public enum DCA_QueryResultType
     {
         TDECQ,
         RLM,
@@ -45,7 +45,7 @@ namespace FOE_YR
 
         double Query_Margin();
 
-        string Query_result(QueryResultType Query_result_type);
+        string Query_result(DCA_QueryResultType Query_result_type);
 
         void SaveImageWithPath(string Pathfilename);
 
@@ -78,7 +78,7 @@ namespace FOE_YR
 
         public double Query_Margin() => double.NaN;
 
-        public string Query_result(QueryResultType Query_result_type) => "NA";
+        public string Query_result(DCA_QueryResultType Query_result_type) => "NA";
 
         public void SaveImageWithPath(string Pathfilename) { }
 
@@ -163,7 +163,7 @@ namespace FOE_YR
             return double.Parse(_connector.Query("MEASure:MTESt1:MARGin?\x0A"));
         }
 
-        public string Query_result(QueryResultType queryType)
+        public string Query_result(DCA_QueryResultType queryType)
         {
             throw new Exception("物件 DCA_Keysight86100D_FlexDCA 函數Query_result()  無支援");
         }
@@ -285,45 +285,43 @@ namespace FOE_YR
             return double.Parse(_connector.Query("MEASure:MTESt1:MARGin?\x0A"));
         }
 
-        public string Query_result(QueryResultType queryType)
+        public string Query_result(DCA_QueryResultType queryType)
         {
-            string command;
 
-
-            switch (queryType)
+            if (queryType == DCA_QueryResultType.OOMA)
             {
-                case QueryResultType.Amplitude:
-                    command = ":MEASure:EYE:AMPLitude?\x0A";
-                    break;
+                double ER = double.Parse(Query_ER());
+                double AveragePower_dBm = double.Parse(Query_power());
 
-                case QueryResultType.TxRiseT:
-                    command = ":MEASure:EYE:RISetime?\x0A";
-                    break;
+                Optical_transform O_transform = new Optical_transform();
+                string OMA = O_transform.SenOMA(AveragePower_dBm, ER).ToString();
 
-                case QueryResultType.TxFallT:
-                    command = ":MEASure:EYE:FALLtime?\x0A";
-                    break;
+                string result = $"ER = {ER}\r\nPower_dBm = {AveragePower_dBm}\r\nOMA = {OMA}";
 
-                case QueryResultType.EyeWidth:
-                    command = ":MEASure:EYE:EWIDth?\x0A";
-                    break;
-
-                default:
-                    throw new NotSupportedException($"Test item {queryType} is not supported on this device.");
+                //return result;
+                return OMA;
+            }
+            else if (queryType == DCA_QueryResultType.Amplitude)
+            {
+                return _connector.Query(":MEASure:EYE:AMPLitude?\x0A");
+            }
+            else if (queryType == DCA_QueryResultType.TxRiseT)
+            {
+                return _connector.Query(":MEASure:EYE:RISetime?\x0A");
+            }
+            else if (queryType == DCA_QueryResultType.TxFallT)
+            {
+                return _connector.Query(":MEASure:EYE:FALLtime?\x0A");
+            }
+            else if (queryType == DCA_QueryResultType.EyeWidth)
+            {
+                return _connector.Query(":MEASure:EYE:EWIDth?\x0A");
+            }
+            else
+            {
+                throw new NotSupportedException($"Test item {queryType} is not supported on this device.");
             }
 
-
-            string result = "";
-            try
-            {
-                result = _connector.Query(command);
-            }
-            catch (Exception)
-            {
-                throw new Exception("物件 DCA_Keysight_DCA_M_N1092A 函數Query_result()  有問題");
-            }
-
-            return result;
 
         }
 
@@ -398,6 +396,7 @@ namespace FOE_YR
         {
             return _connector.Query("*IDN?\x0A");
         }
+
         public void autoScale()
         {
             bool passs = true;
@@ -412,6 +411,7 @@ namespace FOE_YR
             //Thread.Sleep(1000);
 
         }
+
         public void Run()
         {
             try
@@ -424,53 +424,58 @@ namespace FOE_YR
             }
 
         }
+
         public string Query_power()
         {
             return "";
         }
+
         public string Query_ER()
         {
             return "";
         }
+
         public double Query_Cross()
         {
             throw new NotSupportedException("This device does not support Query_Cross()");
         }
+
         public (double Jitter_ps_PP, double Jitter_ps_RMS) Query_Jitter()
         {
             throw new NotSupportedException("This device does not support Query_Jitter()");
         }
+
         public double Query_Margin()
         {
             throw new NotSupportedException("This device does not support Query_Margin()");
         }
 
-        public string Query_result(QueryResultType queryType)
+        public string Query_result(DCA_QueryResultType queryType)
         {
             string command;
 
 
             switch (queryType)
             {
-                case QueryResultType.TDECQ:
+                case DCA_QueryResultType.TDECQ:
                     command = ":FETCh:AMPLitude:TEQualizer:TDECQ:ALL?\x0A";
                     break;
-                case QueryResultType.RLM:
+                case DCA_QueryResultType.RLM:
                     command = ":FETCh:AMPLitude:TEQualizer:LINearity:ALL?\x0A";
                     break;
-                case QueryResultType.OOMA:
+                case DCA_QueryResultType.OOMA:
                     command = ":FETCh:AMPLitude:TEQualizer:OOMA:DBM:ALL?\x0A";
                     break;
-                case QueryResultType.OER:
+                case DCA_QueryResultType.OER:
                     command = ":FETCh:AMPLitude:TEQualizer:OER:ALL?\x0A";
                     break;
-                case QueryResultType.Eye23:
+                case DCA_QueryResultType.Eye23:
                     command = ":FETCh:AMPLitude:TEQualizer:EYE2:HEIGht:ALL?\x0A";
                     break;
-                case QueryResultType.Eye12:
+                case DCA_QueryResultType.Eye12:
                     command = ":FETCh:AMPLitude:TEQualizer:EYE1:HEIGht:ALL?\x0A";
                     break;
-                case QueryResultType.Eye01:
+                case DCA_QueryResultType.Eye01:
                     command = ":FETCh:AMPLitude:TEQualizer:EYE0:HEIGht:ALL?\x0A";
                     break;
                 default:
@@ -511,14 +516,17 @@ namespace FOE_YR
         {
 
         }
+
         public void CloseChannel(int channel)
         {
 
         }
+
         public void SetMask(string file_name)
         {
 
         }
+
         public void SetAttenuator(string ch, string value)
         {
 

@@ -242,11 +242,14 @@ namespace FOE_YR
             return 10*(Math.Log10(mW));
         }
 
-        public double SenOMA(double Sensitivity_dBm, double ER)
+
+        public double SenOMA(double Sensitivity_dBm, double ER_dB)
         {
             double Sensitivity_mW = dBm_to_mW(Sensitivity_dBm);
 
-            double SenOMA_mW = ((2 * Sensitivity_mW) / (ER + 1)) * (ER - 1);
+            double ER_lin = dBm_to_mW(ER_dB);//換成線性 比值
+
+            double SenOMA_mW = ((2 * Sensitivity_mW) / (ER_lin + 1)) * (ER_lin - 1);
 
             return mW_to_dBm(SenOMA_mW);
         }
