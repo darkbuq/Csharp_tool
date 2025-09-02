@@ -27,20 +27,20 @@ namespace task_run_02
             var longRunningTask = Task.Run(() => HeavyCalculation());
 
             // 主線每 0.5 秒更新一次
-            for (int i = 0; i < 10; i++)
-            {
-                txt_result.Text += $"主線工作中... {i} - {DateTime.Now:HH:mm:ss.fff}\r\n";
-                await Task.Delay(500); // 用 await，避免卡住 UI
-            }
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    txt_result.Text += $"主線工作中... {i} - {DateTime.Now:HH:mm:ss.fff}\r\n";
+            //    await Task.Delay(500); // 用 await，避免卡住 UI
+            //}
 
-            await longRunningTask;
+            await longRunningTask;//沒有這一行  HeavyCalculation()的錯誤 會接不到
             txt_result.Text += "支線計算完成！\r\n";
         }
 
         // 因為是 Task.Run 內部，所以不能直接改 UI，要用 Invoke
         private void HeavyCalculation()
         {
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 10; i++)
             {
                 string message = $"        支線工作中... {i} - {DateTime.Now:HH:mm:ss.fff}\r\n";
 
@@ -52,6 +52,8 @@ namespace task_run_02
 
                 Thread.Sleep(500); // 模擬工作延遲
             }
+
+            //throw new Exception("GG");
         }
 
         private void button2_Click(object sender, EventArgs e)

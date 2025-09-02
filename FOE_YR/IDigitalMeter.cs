@@ -7,21 +7,46 @@ namespace FOE_YR
 {
     public interface IDigitalMeter
     {
+        void disconnect();
+
+        string GetDeviceInfo();
+
         string readVoltage();
+    }
+
+    public class DigitalMeter_Dummy : IDigitalMeter
+    {
+        public DigitalMeter_Dummy() { }
+
+        public void disconnect() { }
+
+        public string GetDeviceInfo() => "The DigitalMeter is Dummy";
+
+        public string readVoltage() => "NA";
     }
 
     public class DigitalMeterHP34401 : IDigitalMeter
     {
-        private IDeviceConnector _controller;
+        private IDeviceConnector _connector;
 
-        public DigitalMeterHP34401(IDeviceConnector Controller)//_nGBIB_ID = 10;
+        public DigitalMeterHP34401(IDeviceConnector Connector)//_nGBIB_ID = 10;
         {
-            this._controller = Controller;
+            this._connector = Connector;
+        }
+
+        public void disconnect()
+        {
+            _connector.disconnect();
+        }
+
+        public string GetDeviceInfo()
+        {
+            return _connector.Query("*IDN?\x0A");
         }
 
         public string readVoltage()
         {
-            return _controller.Query("Read?\x0A");
+            return _connector.Query("Read?\x0A");
         }
     }
 }
