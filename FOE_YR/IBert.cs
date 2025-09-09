@@ -370,25 +370,13 @@ namespace FOE_YR
         //bool Polling_ErrorRate(ref double[] ber_result, UInt32 totaltime, double rate, out bool done);
 
 
-        public void PPG_on()
-        {
+        public void PPG_on() { }
 
-        }
+        public void PPG_off() { }
 
-        public void PPG_off()
-        {
+        public void ED_on() { }
 
-        }
-
-        public void ED_on()
-        {
-
-        }
-
-        public void ED_off()
-        {
-
-        }
+        public void ED_off() { }
 
 
         public void Set_test_time(uint testTime_sec)
