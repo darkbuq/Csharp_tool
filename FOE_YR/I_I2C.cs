@@ -28,25 +28,33 @@ namespace FOE_YR
         {
             port.Open();
 
-            byte main_code = 0x55; //主USB-ISS指令
-            byte device_addr = 0xA0; //設備位址 + R/W位
+            byte main_code = 0x55; // 主USB-ISS指令
+            byte device_addr = 0xA0; // 設備位址 + R/W位
+            const int MAX_CHUNK = 50; // 每次最多寫50 bytes
 
-            //要求的最大資料位元組數不應超過 60
-            //以免溢出 USB-ISS 的內部緩衝區
-            if (value.Length >59)
+            int offset = 0;
+
+            while (offset < value.Length)
             {
-                throw new Exception("要求的最大資料位元組數不應超過 60，以免溢出 USB-ISS 的內部緩衝區");
+                // 計算這次要寫入的資料長度
+                int chunkSize = Math.Min(MAX_CHUNK, value.Length - offset);
+                byte length = (byte)chunkSize;
+
+                // 組出這段要寫入的指令封包
+                byte[] writeCmd = new byte[4 + chunkSize];
+                writeCmd[0] = main_code;
+                writeCmd[1] = device_addr;
+                writeCmd[2] = (byte)(address + offset); // 偏移內部位址
+                writeCmd[3] = length;
+
+                Array.Copy(value, offset, writeCmd, 4, chunkSize);
+
+                // 寫入資料
+                port.Write(writeCmd, 0, writeCmd.Length);
+                Thread.Sleep(100); // 稍微延遲，避免溢出
+
+                offset += chunkSize;
             }
-            byte length = (byte)value.Length;
-
-
-            byte[] writeCmd = { main_code, device_addr, address, length};
-
-            writeCmd = writeCmd.Concat(value).ToArray();
-
-
-            port.Write(writeCmd, 0, writeCmd.Length);
-            Thread.Sleep(100);
 
             port.Close();
         }
