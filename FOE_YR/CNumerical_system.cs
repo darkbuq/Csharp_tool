@@ -48,6 +48,23 @@ namespace FOE_YR
             var coefficient = Fit.Polynomial(xdata, ydata, 1);
             return coefficient[1] * setX + coefficient[0];
         }
+
+        public (double predictedY, double rSquared) simple_regression_setX_findY_findR2(double[] xdata, double[] ydata, double setX)
+        {
+            // 線性回歸 (degree = 1)
+            var coefficient = Fit.Polynomial(xdata, ydata, 1);
+
+            // 計算指定 X 的預測 Y
+            double predictedY = coefficient[1] * setX + coefficient[0];
+
+            // 計算所有點的預測值
+            var yPred = xdata.Select(x => coefficient[1] * x + coefficient[0]);
+
+            // 計算 R²
+            double rSquared = GoodnessOfFit.RSquared(yPred, ydata);
+
+            return (predictedY, rSquared);
+        }
     }
 
     public class Binary_control
