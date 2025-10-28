@@ -1,0 +1,15 @@
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\bin\Debug\CMIS_forPRBSmode_readBER.exe.config
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\bin\Debug\CMIS_forPRBSmode_readBER.exe
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\bin\Debug\CMIS_forPRBSmode_readBER.pdb
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\obj\Debug\CMIS_forPRBSmode_readBER.Form1.resources
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\obj\Debug\CMIS_forPRBSmode_readBER.Properties.Resources.resources
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\obj\Debug\CMIS_forPRBSmode_readBER.csproj.GenerateResource.cache
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\obj\Debug\CMIS_forPRBSmode_readBER.csproj.CoreCompileInputs.cache
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\obj\Debug\CMIS_forPRBSmode_readBER.exe
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\obj\Debug\CMIS_forPRBSmode_readBER.pdb
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\bin\Debug\FOE_YR.dll
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\bin\Debug\MathNet.Numerics.dll
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\bin\Debug\FOE_YR.pdb
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\bin\Debug\MathNet.Numerics.xml
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\obj\Debug\CMIS_forPRBSmode_readBER.csproj.CopyComplete
+D:\YR\!!!軟體開發\20251016_CMIS 切換 PRBS 模式與 BER讀取方法_for Leo\CMIS_forPRBSmode_readBER\obj\Debug\CMIS_forPRBSmode_readBER.csproj.AssemblyReference.cache
