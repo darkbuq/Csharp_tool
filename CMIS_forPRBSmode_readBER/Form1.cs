@@ -285,5 +285,11 @@ namespace CMIS_forPRBSmode_readBER
             } 
             #endregion
         }
+
+        private void btn_I2C_cmd_Click(object sender, EventArgs e)
+        {
+            var result = I2C.Query(txt_cmd.Text);
+            txt_result.Text = string.Join(" ", result.Select(v => v.ToString("X2")));
+        }
     }
 }

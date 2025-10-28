@@ -148,7 +148,38 @@ namespace FOE_YR
             return result.ToArray();
         }        
 
-        
+        public byte[] Query(string cmd)
+        {
+            byte[] writeCmd = null;
+
+            try
+            {
+                HexString_transform HexString_transform = new HexString_transform();
+                writeCmd = HexString_transform.HexStr_to_byteArr(cmd.Trim());
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("指令轉16進制失敗");
+            }
+
+            port.Open();
+
+            port.Write(writeCmd, 0, writeCmd.Length);
+            Thread.Sleep(100);
+
+            // 接收資料
+            int bytesToRead = port.BytesToRead;
+            byte[] buffer = new byte[bytesToRead];
+            port.Read(buffer, 0, buffer.Length);
+
+            List<byte> result = new List<byte>();
+            result.AddRange(buffer);
+
+            port.Close();
+
+            return result.ToArray();
+        }
 
     }
 
