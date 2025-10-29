@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FOE_YR
 {
     interface I_Script_Interpreter
     {
+
     }
 
     public class Script_Interpreter
@@ -103,6 +105,10 @@ namespace FOE_YR
                         currentCommand = CommandType.WriteBit;
                         internalState = (int)WriteBitState.LoadPage;
                     }
+                    else if (runItemVal == "ww")
+                    {
+                        Thread.Sleep(100);
+                    }
                     else
                     {
                         return "ScriptError: Unknown Command or Data outside of command.";
@@ -128,7 +134,7 @@ namespace FOE_YR
 
                             case WriteState.WriteHexString:
                                 // 若不是結束符號，先加進 Buffer
-                                if (runItemVal != "ss" && runItemVal != "gg")
+                                if (runItemVal != "ss" && runItemVal != "gg" && runItemVal != "ww")
                                 {
                                     Buffer.Add(Convert.ToByte(runItemVal, 16));
                                 }

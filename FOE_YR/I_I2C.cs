@@ -13,6 +13,8 @@ namespace FOE_YR
         void Write(byte address, byte[] value);
 
         byte[] Read(int startAddress, int totalLength);
+
+        byte[] Query(string cmd);
     }
 
     public class I2C_USB_ISS : I_I2C
