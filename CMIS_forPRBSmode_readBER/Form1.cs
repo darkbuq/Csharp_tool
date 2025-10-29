@@ -182,8 +182,42 @@ namespace CMIS_forPRBSmode_readBER
             script_obj.RunScript(Wcode);
 
             #endregion
+        }
+
+        private void dgv_Media_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // 將 sender 轉換回 DataGridView 類型
+            DataGridView dgv = sender as DataGridView;
+
+            if (!(e.ColumnIndex == dgv.Columns["btn"].Index & e.RowIndex != -1))//反相邏輯  不做事
+            {
+                return;
+            }
+            //以上 反相邏輯  不做事
 
 
+            #region -- 換頁及確認 --
+
+            string page = dgv.Rows[e.RowIndex].Cells["page"].Value.ToString().Replace("0x", "");
+
+            try
+            {
+                ChangePage("00", page, script_obj);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            #endregion
+
+
+            #region -- 實際動作 --
+
+            string Wcode = dgv.Rows[e.RowIndex].Cells["Wcode"].Value.ToString().Trim();
+            script_obj.RunScript(Wcode);
+
+            #endregion
         }
 
         void ChangePage(string bank, string page, Script_Interpreter script)
@@ -291,5 +325,7 @@ namespace CMIS_forPRBSmode_readBER
             var result = I2C.Query(txt_cmd.Text);
             txt_result.Text = string.Join(" ", result.Select(v => v.ToString("X2")));
         }
+
+        
     }
 }
