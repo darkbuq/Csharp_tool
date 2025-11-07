@@ -27,6 +27,10 @@ namespace CMIS_forPRBSmode_readBER_02
         C_CMIS C_CMIS = null;
 
 
+        private System.Windows.Forms.Timer timer_BER = new System.Windows.Forms.Timer(); // ← 宣告成欄位
+        private System.Windows.Forms.Timer timer_DDMI = new System.Windows.Forms.Timer(); // ← 宣告成欄位
+
+
         private void Initialize_dgv_BER_result(DataGridView dgv)
         {
             dgv.EnableHeadersVisualStyles = false;
@@ -52,6 +56,9 @@ namespace CMIS_forPRBSmode_readBER_02
             UI_dgv.Dgv_EEPROM_initialize(dgv_EEPROM, "", 0, 16);
 
             Initialize_dgv_BER_result(dgv_BER_result);
+
+            timer_BER.Tick += Timer_BER_Tick;
+            timer_DDMI.Tick += Timer_DDMI_Tick;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -145,6 +152,252 @@ namespace CMIS_forPRBSmode_readBER_02
             txt_result.Text = string.Join(" ", result.Select(v => v.ToString("X2")));
         }
 
+        
+
+        private void btn_Host_PRBS_Generator_ON_Click(object sender, EventArgs e)
+        {
+            ChangePage("00", "13", script_obj);
+            script_obj.RunScript("ssA090FF");
+        }
+
+        private void btn_Host_PRBS_Generator_OFF_Click(object sender, EventArgs e)
+        {
+            ChangePage("00", "13", script_obj);
+            script_obj.RunScript("ssA09000");
+        }
+
+        private void btn_Media_PRBS_Generator_ON_Click(object sender, EventArgs e)
+        {
+            ChangePage("00", "13", script_obj);
+            script_obj.RunScript("ssA098FF");
+        }
+
+        private void btn_Media_PRBS_Generator_OFF_Click(object sender, EventArgs e)
+        {
+            ChangePage("00", "13", script_obj);
+            script_obj.RunScript("ssA09800");
+        }
+
+        private void btn_Host_pattern_Click(object sender, EventArgs e)
+        {
+            if (cbo_Host_pattern.SelectedIndex == -1)
+            {
+                MessageBox.Show("下拉選單要選");
+                return;
+            }
+            
+            ChangePage("00", "13", script_obj);
+
+            string value = cbo_Host_pattern.Text.Split(',')[0].Replace("0x", "");
+            script_obj.RunScript($"ssA094{value}{value}{value}{value}");
+        }
+
+        private void btn_Media_pattern_Click(object sender, EventArgs e)
+        {
+            if (cbo_Media_pattern.SelectedIndex == -1)
+            {
+                MessageBox.Show("下拉選單要選");
+                return;
+            }
+
+            ChangePage("00", "13", script_obj);
+
+            string value = cbo_Media_pattern.Text.Split(',')[0].Replace("0x", "");
+            script_obj.RunScript($"ssA09C{value}{value}{value}{value}");
+        }
+
+        private void btn_Host_PRBS_checker_ON_Click(object sender, EventArgs e)
+        {
+            ChangePage("00", "13", script_obj);
+            script_obj.RunScript("ssA0A0FF");
+        }
+
+        private void btn_Host_PRBS_checker_OFF_Click(object sender, EventArgs e)
+        {
+            ChangePage("00", "13", script_obj);
+            script_obj.RunScript("ssA0A000");
+        }
+
+        private void btn_Media_PRBS_checker_ON_Click(object sender, EventArgs e)
+        {
+            ChangePage("00", "13", script_obj);
+            script_obj.RunScript("ssA0A8FF");
+        }
+
+        private void btn_Media_PRBS_checker_OFF_Click(object sender, EventArgs e)
+        {
+            ChangePage("00", "13", script_obj);
+            script_obj.RunScript("ssA0A800");
+        }
+
+        private void btn_AutoRestart_Enable_Click(object sender, EventArgs e)
+        {
+            ChangePage("00", "13", script_obj);
+            script_obj.RunScript("ttA0B11010");
+        }
+
+        private void btn_AutoRestart_Disable_Click(object sender, EventArgs e)
+        {
+            ChangePage("00", "13", script_obj);
+            script_obj.RunScript("ttA0B11000");
+        }
+
+        private void btn_Set_MeasureTime_Click(object sender, EventArgs e)
+        {
+            if (cbo_Measure_Time.SelectedIndex == -1)
+            {
+                MessageBox.Show("下拉選單要選");
+                return;
+            }
+
+            ChangePage("00", "13", script_obj);
+
+            string value = cbo_Measure_Time.Text.Split(':')[0].Replace("b","0");
+            string hex = Convert.ToByte(value, 2).ToString("X2");
+
+            string mask = Convert.ToByte("1110", 2).ToString("X2");
+
+            script_obj.RunScript($"ssA0B1{mask}{hex}");
+        }
+
+        private void btn_BER_Reading_ON_Click(object sender, EventArgs e)
+        {
+            ChangePage("00", "14", script_obj);
+            script_obj.RunScript("ssA08001");
+        }
+
+        private void btn_BER_Reading_OFF_Click(object sender, EventArgs e)
+        {
+            ChangePage("00", "14", script_obj);
+            script_obj.RunScript("ssA08000");
+        }
+
+        private void btn_BER_read_once_Click(object sender, EventArgs e)
+        {
+            double[] result = Refresh_BER(cbo_Host_Media);
+
+            for (int i = 0; i < 8; i++)
+            {
+                dgv_BER_result.Rows[0].Cells[i + 1].Value = result[i].ToString("E3");
+            }
+            
+        }
+
+        private double[] Refresh_BER(ComboBox cbo)
+        {
+            if (cbo.SelectedIndex == -1)
+            {
+                throw new Exception("Choose a value form cbo_Host_Media !!");
+            }
+
+
+            ChangePage("00", "14", script_obj);
+            byte[] P_14h = script_obj.Readpage_128byte("80");
+
+
+
+            string address_head;
+            if (cbo.Text == "Host")
+            {
+                address_head = "C";
+            }
+            else if (cbo.Text == "Media")
+            {
+                address_head = "D";
+            }
+            else
+            {
+                throw new Exception("Choose a vlaue form cbo_Host_Media!!");
+            }
+
+
+            double[] BER_value = new double[8];
+            for (int ch = 0; ch < 8; ch++)
+            {
+                string address_hexstr = $"{address_head}{(ch * 2).ToString("X1")}";
+                var address_temp = Convert.ToByte(address_hexstr, 16);
+
+                byte LSB = P_14h[address_temp - 128];
+                byte MSB = P_14h[address_temp - 128 + 1];
+
+
+
+                //var s =(byte)(Convert.ToByte("72", 16) >> 3); //看起來 係數項只需要右移三位  通常位運算底層會自動升型 所以要強制再轉回來
+                byte s = (byte)(LSB >> 3);
+
+                byte high = (byte)((byte)(LSB << 5) >> 5);
+                byte low = MSB;
+                ushort m = (ushort)((high << 8) | low);
+
+                BER_value[ch] = (m * Math.Pow(10, s - 24));
+            }
+
+            return BER_value;
+        }
+
+        private List<Control> controlList_forBER;
+
+        private void btn_BER_RealTime_ON_Click(object sender, EventArgs e)
+        {
+            if (cbo_Host_Media.SelectedIndex == -1)
+            {
+                MessageBox.Show("Choose a value form cbo_Host_Media !!");
+                return;
+            }
+
+
+            //關閉部分按鍵
+            controlList_forBER = new List<Control>()
+            {
+                btn_I2C_cmd,
+
+                btn_read_256byte,
+                btn_script_set,
+
+                cbo_Host_Media,
+
+                btn_BER_read_once,
+                btn_DDMI_read_once,
+
+                btn_BER_RealTime_ON,
+
+                btn_DDMI_RealTime_ON,
+                btn_DDMI_RealTime_OFF
+            };
+
+            foreach (var ctrl in controlList_forBER)
+            {
+                ctrl.Enabled = false;
+            }
+
+
+
+            timer_BER.Interval = 1 * 1000; // 每 ? 秒觸發一次
+            timer_BER.Start(); // 開始
+        }
+
+        private void btn_BER_RealTime_OFF_Click(object sender, EventArgs e)
+        {
+            timer_BER.Stop(); // 停止
+
+
+            //關閉部分按鍵
+            foreach (var ctrl in controlList_forBER)
+            {
+                ctrl.Enabled = true;
+            }
+        }
+
+        private void Timer_BER_Tick(object sender, EventArgs e)
+        {
+            double[] result = Refresh_BER(cbo_Host_Media);
+
+            for (int i = 0; i < 8; i++)
+            {
+                dgv_BER_result.Rows[0].Cells[i + 1].Value = result[i].ToString("E3");
+            }
+        }
+
         private void btn_read_once_Click(object sender, EventArgs e)
         {
             try
@@ -160,7 +413,7 @@ namespace CMIS_forPRBSmode_readBER_02
 
         private void Update_DDMI()
         {
-            if (C_CMIS ==null)
+            if (C_CMIS == null)
             {
                 throw new Exception($"CMIS object is null !!");
             }
@@ -444,122 +697,71 @@ namespace CMIS_forPRBSmode_readBER_02
 
         }
 
-        private void btn_Host_PRBS_Generator_ON_Click(object sender, EventArgs e)
-        {
-            ChangePage("00", "13", script_obj);
-            script_obj.RunScript("ssA090FF");
-        }
+        private List<Control> controlList_forDDMI;
 
-        private void btn_Host_PRBS_Generator_OFF_Click(object sender, EventArgs e)
+        private void btn_DDMI_RealTime_ON_Click(object sender, EventArgs e)
         {
-            ChangePage("00", "13", script_obj);
-            script_obj.RunScript("ssA09000");
-        }
-
-        private void btn_Media_PRBS_Generator_ON_Click(object sender, EventArgs e)
-        {
-            ChangePage("00", "13", script_obj);
-            script_obj.RunScript("ssA098FF");
-        }
-
-        private void btn_Media_PRBS_Generator_OFF_Click(object sender, EventArgs e)
-        {
-            ChangePage("00", "13", script_obj);
-            script_obj.RunScript("ssA09800");
-        }
-
-        private void btn_Host_pattern_Click(object sender, EventArgs e)
-        {
-            if (cbo_Host_pattern.SelectedIndex == -1)
+            if (C_CMIS == null)
             {
-                MessageBox.Show("下拉選單要選");
-                return;
-            }
-            
-            ChangePage("00", "13", script_obj);
-
-            string value = cbo_Host_pattern.Text.Split(',')[0].Replace("0x", "");
-            script_obj.RunScript($"ssA094{value}{value}{value}{value}");
-        }
-
-        private void btn_Media_pattern_Click(object sender, EventArgs e)
-        {
-            if (cbo_Media_pattern.SelectedIndex == -1)
-            {
-                MessageBox.Show("下拉選單要選");
+                MessageBox.Show("Please connect Dongle !!");
                 return;
             }
 
-            ChangePage("00", "13", script_obj);
 
-            string value = cbo_Media_pattern.Text.Split(',')[0].Replace("0x", "");
-            script_obj.RunScript($"ssA09C{value}{value}{value}{value}");
-        }
-
-        private void btn_Host_PRBS_checker_ON_Click(object sender, EventArgs e)
-        {
-            ChangePage("00", "13", script_obj);
-            script_obj.RunScript("ssA0A0FF");
-        }
-
-        private void btn_Host_PRBS_checker_OFF_Click(object sender, EventArgs e)
-        {
-            ChangePage("00", "13", script_obj);
-            script_obj.RunScript("ssA0A000");
-        }
-
-        private void btn_Media_PRBS_checker_ON_Click(object sender, EventArgs e)
-        {
-            ChangePage("00", "13", script_obj);
-            script_obj.RunScript("ssA0A8FF");
-        }
-
-        private void btn_Media_PRBS_checker_OFF_Click(object sender, EventArgs e)
-        {
-            ChangePage("00", "13", script_obj);
-            script_obj.RunScript("ssA0A800");
-        }
-
-        private void btn_AutoRestart_Enable_Click(object sender, EventArgs e)
-        {
-            ChangePage("00", "13", script_obj);
-            script_obj.RunScript("ttA0B11010");
-        }
-
-        private void btn_AutoRestart_Disable_Click(object sender, EventArgs e)
-        {
-            ChangePage("00", "13", script_obj);
-            script_obj.RunScript("ttA0B11000");
-        }
-
-        private void btn_Set_MeasureTime_Click(object sender, EventArgs e)
-        {
-            if (cbo_Measure_Time.SelectedIndex == -1)
+            //關閉部分按鍵
+            controlList_forDDMI = new List<Control>()
             {
-                MessageBox.Show("下拉選單要選");
-                return;
+                btn_I2C_cmd,
+
+                btn_read_256byte,
+                btn_script_set,
+
+                cbo_Host_Media,
+
+                btn_BER_read_once,
+                btn_DDMI_read_once,
+
+                btn_BER_RealTime_ON,
+                btn_BER_RealTime_OFF,
+
+                btn_DDMI_RealTime_ON                
+            };
+
+            foreach (var ctrl in controlList_forDDMI)
+            {
+                ctrl.Enabled = false;
             }
 
-            ChangePage("00", "13", script_obj);
-
-            string value = cbo_Measure_Time.Text.Split(':')[0].Replace("b","0");
-            string hex = Convert.ToByte(value, 2).ToString("X2");
-
-            string mask = Convert.ToByte("1110", 2).ToString("X2");
-
-            script_obj.RunScript($"ssA0B1{mask}{hex}");
+            timer_DDMI.Interval = 1 * 1000; // 每 ? 秒觸發一次
+            timer_DDMI.Start(); // 開始
         }
 
-        private void btn_BER_Reading_ON_Click(object sender, EventArgs e)
+        private void btn_DDMI_RealTime_OFF_Click(object sender, EventArgs e)
         {
-            ChangePage("00", "14", script_obj);
-            script_obj.RunScript("ssA08001");
+            timer_DDMI.Stop(); // 停止
+
+
+            //關閉部分按鍵
+            foreach (var ctrl in controlList_forDDMI)
+            {
+                ctrl.Enabled = true;
+            }
         }
 
-        private void btn_BER_Reading_OFF_Click(object sender, EventArgs e)
+        private void Timer_DDMI_Tick(object sender, EventArgs e)
         {
-            ChangePage("00", "14", script_obj);
-            script_obj.RunScript("ssA08000");
+            try
+            {
+                Update_DDMI();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
+
+
+
     }
 }

@@ -375,6 +375,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_BER_RealTime_OFF.TabIndex = 13;
             this.btn_BER_RealTime_OFF.Text = "Real-time OFF";
             this.btn_BER_RealTime_OFF.UseVisualStyleBackColor = true;
+            this.btn_BER_RealTime_OFF.Click += new System.EventHandler(this.btn_BER_RealTime_OFF_Click);
             // 
             // btn_BER_RealTime_ON
             // 
@@ -385,6 +386,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_BER_RealTime_ON.TabIndex = 14;
             this.btn_BER_RealTime_ON.Text = "Real-time ON";
             this.btn_BER_RealTime_ON.UseVisualStyleBackColor = true;
+            this.btn_BER_RealTime_ON.Click += new System.EventHandler(this.btn_BER_RealTime_ON_Click);
             // 
             // btn_BER_read_once
             // 
@@ -395,6 +397,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_BER_read_once.TabIndex = 15;
             this.btn_BER_read_once.Text = "Read once";
             this.btn_BER_read_once.UseVisualStyleBackColor = true;
+            this.btn_BER_read_once.Click += new System.EventHandler(this.btn_BER_read_once_Click);
             // 
             // label33
             // 
@@ -933,6 +936,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_DDMI_RealTime_OFF.TabIndex = 12;
             this.btn_DDMI_RealTime_OFF.Text = "Real-time OFF";
             this.btn_DDMI_RealTime_OFF.UseVisualStyleBackColor = true;
+            this.btn_DDMI_RealTime_OFF.Click += new System.EventHandler(this.btn_DDMI_RealTime_OFF_Click);
             // 
             // btn_DDMI_RealTime_ON
             // 
@@ -943,6 +947,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_DDMI_RealTime_ON.TabIndex = 13;
             this.btn_DDMI_RealTime_ON.Text = "Real-time ON";
             this.btn_DDMI_RealTime_ON.UseVisualStyleBackColor = true;
+            this.btn_DDMI_RealTime_ON.Click += new System.EventHandler(this.btn_DDMI_RealTime_ON_Click);
             // 
             // btn_DDMI_read_once
             // 
