@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace FOE_YR
@@ -639,7 +640,63 @@ namespace FOE_YR
 
         EEPROM_calcualate eeprom_cal = new EEPROM_calcualate();
 
-        
+        I_Script_Interpreter script = null;
+
+        public C_CMIS(I_Script_Interpreter script)
+        {
+            this.script = script;
+        }
+
+        public void Update_CMISpage(int delay_time)
+        {
+            //A0L
+            A0L = script.Readpage_128byte("00");
+            Thread.Sleep(delay_time);
+
+            //P00
+            ChangePage("00", "00", script, delay_time);
+            P00 = script.Readpage_128byte("80");
+            Thread.Sleep(delay_time);
+
+            //P01
+            ChangePage("00", "01", script, delay_time);
+            P01 = script.Readpage_128byte("80");
+            Thread.Sleep(delay_time);
+
+            //P02
+            ChangePage("00", "02", script, delay_time);
+            P02 = script.Readpage_128byte("80");
+            Thread.Sleep(delay_time);
+
+            //B00P10
+            ChangePage("00", "10", script, delay_time);
+            B00P10 = script.Readpage_128byte("80");
+            Thread.Sleep(delay_time);
+
+            //B00P11
+            ChangePage("00", "11", script, delay_time);
+            B00P11 = script.Readpage_128byte("80");
+            Thread.Sleep(delay_time);
+        }
+
+        private void ChangePage(string bank, string page, I_Script_Interpreter script, int delay_time)
+        {
+            script.RunScript($"ssA07E{bank}{page}");
+            Thread.Sleep(delay_time);
+
+            var temp = script.RunScript("ggA07E02").Split(' ');
+
+            if (temp[0] != bank)
+            {
+                throw new Exception($"bank={bank}h 錯誤");
+            }
+
+            if (temp[1] != page)
+            {
+                throw new Exception($"page={page}h 錯誤");
+            }
+        }
+
         public double EEPROM_real_T(byte[] A0L)
         {
             int add = 14;
@@ -701,6 +758,232 @@ namespace FOE_YR
             {
                 P00[i + 166 - 128] = Convert.ToByte(result.Substring(i * 2, 2), 16);
             }
+        }
+
+        public (double realval, double alarmL, double alarmH, double warningL, double warningH, bool[] flag) GetTemp()
+        {
+            int add = 14;
+            double realval = eeprom_cal.MsbLsb_T(A0L[add].ToString("X2") + A0L[add + 1].ToString("X2"));
+
+            add = 130-128;
+            double alarmL = eeprom_cal.MsbLsb_T(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 128-128;
+            double alarmH = eeprom_cal.MsbLsb_T(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 134-128;
+            double warningL = eeprom_cal.MsbLsb_T(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 132-128;
+            double warningH = eeprom_cal.MsbLsb_T(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 9;
+            bool[] flag = new bool[4];
+            flag[0] = ((A0L[add] >> 1) & 1) == 1;  //bit1 = AlarmL
+            flag[1] = ((A0L[add]) & 1) == 1;  //bit0 = AlarmH
+            flag[2] = ((A0L[add] >> 3) & 1) == 1;  //bit3 = WarningL
+            flag[3] = ((A0L[add] >> 2) & 1) == 1;  //bit2 = WarningH
+
+            return (realval, alarmL, alarmH, warningL, warningH, flag);
+        }
+
+        public (double realval, double alarmL, double alarmH, double warningL, double warningH, bool[] flag) GetVcc()
+        {
+            int add = 16;
+            double realval = eeprom_cal.MsbLsb_Vcc(A0L[add].ToString("X2") + A0L[add + 1].ToString("X2"));
+
+            add = 138 - 128;
+            double alarmL = eeprom_cal.MsbLsb_Vcc(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 136 - 128;
+            double alarmH = eeprom_cal.MsbLsb_Vcc(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 142 - 128;
+            double warningL = eeprom_cal.MsbLsb_Vcc(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 140 - 128;
+            double warningH = eeprom_cal.MsbLsb_Vcc(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 9;
+            bool[] flag = new bool[4];
+            flag[0] = ((A0L[add] >> 5) & 1) == 1;  //bit5 = AlarmL
+            flag[1] = ((A0L[add] >> 4) & 1) == 1;  //bit4 = AlarmH
+            flag[2] = ((A0L[add] >> 7) & 1) == 1;  //bit7 = WarningL
+            flag[3] = ((A0L[add] >> 6) & 1) == 1;  //bit6 = WarningH
+
+            return (realval, alarmL, alarmH, warningL, warningH, flag);
+        }
+
+        public (double[] realval, double alarmL, double alarmH, double warningL, double warningH, List<bool[]> flagList_AWLH_ch) GetBias()
+        {
+            double[] realval = new double[8];
+            int add = 170;
+            for (int i = 0; i < 8; i++)
+            {
+                string MSB = B00P11[(add + i * 2) - 128].ToString("X2");
+                string LSB = B00P11[(add + i * 2) - 128 + 1].ToString("X2");
+                realval[i] = eeprom_cal.MsbLsb_Bias($"{MSB}{LSB}");
+            }
+
+
+            add = 186 - 128;
+            double alarmL = eeprom_cal.MsbLsb_Bias(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 184 - 128;
+            double alarmH = eeprom_cal.MsbLsb_Bias(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 190 - 128;
+            double warningL = eeprom_cal.MsbLsb_Bias(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 188 - 128;
+            double warningH = eeprom_cal.MsbLsb_Bias(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+
+
+            //AlarmL  AlarmH  WarningL  WarningH
+
+            List<bool[]> flagList = new List<bool[]>();
+
+            int[] add_arr = new int[] { 144, 143, 146, 145 };
+
+            for (int i = 0; i < 4; i++)
+            {
+                add = add_arr[i] - 128;
+                bool[] flag = new bool[8];
+                for (int ch = 0; ch < 8; ch++)
+                {
+                    flag[ch] = ((B00P11[add] >> ch) & 1) == 1;  //AlarmL
+                }
+                flagList.Add(flag);
+            }
+
+            return (realval, alarmL, alarmH, warningL, warningH, flagList);
+        }
+
+        public (double[] realval, double alarmL, double alarmH, double warningL, double warningH, List<bool[]> flagList_AWLH_ch) GetTxP()
+        {
+            double[] realval = new double[8];
+            int add = 154;
+            for (int i = 0; i < 8; i++)
+            {
+                string MSB = B00P11[(add + i * 2) - 128].ToString("X2");
+                string LSB = B00P11[(add + i * 2) - 128 + 1].ToString("X2");
+                realval[i] = eeprom_cal.MsbLsb_TxRxPwr_dBm($"{MSB}{LSB}");
+            }
+
+
+            add = 178 - 128;
+            double alarmL = eeprom_cal.MsbLsb_TxRxPwr_dBm(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 176 - 128;
+            double alarmH = eeprom_cal.MsbLsb_TxRxPwr_dBm(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 182 - 128;
+            double warningL = eeprom_cal.MsbLsb_TxRxPwr_dBm(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 180 - 128;
+            double warningH = eeprom_cal.MsbLsb_TxRxPwr_dBm(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+
+
+            //AlarmL  AlarmH  WarningL  WarningH
+
+            List<bool[]> flagList = new List<bool[]>();
+
+            int[] add_arr = new int[] { 140, 139, 142, 141 };
+
+            for (int i = 0; i < 4; i++)
+            {
+                add = add_arr[i] - 128;
+                bool[] flag = new bool[8];
+                for (int ch = 0; ch < 8; ch++)
+                {
+                    flag[ch] = ((B00P11[add] >> ch) & 1) == 1;  //AlarmL
+                }
+                flagList.Add(flag);
+            }
+
+            return (realval, alarmL, alarmH, warningL, warningH, flagList);
+        }
+
+        public (double[] realval, double alarmL, double alarmH, double warningL, double warningH, List<bool[]> flagList_AWLH_ch) GetRxP()
+        {
+            double[] realval = new double[8];
+            int add = 186;
+            for (int i = 0; i < 8; i++)
+            {
+                string MSB = B00P11[(add + i * 2) - 128].ToString("X2");
+                string LSB = B00P11[(add + i * 2) - 128 + 1].ToString("X2");
+                realval[i] = eeprom_cal.MsbLsb_TxRxPwr_dBm($"{MSB}{LSB}");
+            }
+
+
+            add = 194 - 128;
+            double alarmL = eeprom_cal.MsbLsb_TxRxPwr_dBm(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 192 - 128;
+            double alarmH = eeprom_cal.MsbLsb_TxRxPwr_dBm(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 198 - 128;
+            double warningL = eeprom_cal.MsbLsb_TxRxPwr_dBm(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+            add = 196 - 128;
+            double warningH = eeprom_cal.MsbLsb_TxRxPwr_dBm(P02[add].ToString("X2") + P02[add + 1].ToString("X2"));
+
+
+
+            //AlarmL  AlarmH  WarningL  WarningH
+
+            List<bool[]> flagList = new List<bool[]>();
+
+            int[] add_arr = new int[] { 150, 149, 152, 151 };
+
+            for (int i = 0; i < 4; i++)
+            {
+                add = add_arr[i] - 128;
+                bool[] flag = new bool[8];
+                for (int ch = 0; ch < 8; ch++)
+                {
+                    flag[ch] = ((B00P11[add] >> ch) & 1) == 1;  //AlarmL
+                }
+                flagList.Add(flag);
+            }
+
+            return (realval, alarmL, alarmH, warningL, warningH, flagList);
+        }
+
+        public (bool[] RxLOS, bool[] RxLOL) GetRx_LOS_LOL()
+        {
+            bool[] LOS = new bool[8];
+            for (int ch = 0; ch < 8; ch++)
+            {
+                LOS[ch] = ((B00P11[147 - 128] >> ch) & 1) == 1;
+            }
+
+            bool[] LOL = new bool[8];
+            for (int ch = 0; ch < 8; ch++)
+            {
+                LOL[ch] = ((B00P11[148 - 128] >> ch) & 1) == 1;
+            }
+
+            return (LOS, LOL);
+        }
+
+        public (bool[] TxLOS, bool[] TxLOL) GetTx_LOS_LOL()
+        {
+            bool[] LOS = new bool[8];
+            for (int ch = 0; ch < 8; ch++)
+            {
+                LOS[ch] = ((B00P11[136 - 128] >> ch) & 1) == 1;
+            }
+
+            bool[] LOL = new bool[8];
+            for (int ch = 0; ch < 8; ch++)
+            {
+                LOL[ch] = ((B00P11[137 - 128] >> ch) & 1) == 1;
+            }
+
+            return (LOS, LOL);
         }
     }
 

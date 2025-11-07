@@ -15,6 +15,8 @@ namespace FOE_YR
         byte[] Read(int startAddress, int totalLength);
 
         byte[] Query(string cmd);
+
+        void Disconnect();
     }
 
     public class I2C_USB_ISS : I_I2C
@@ -96,8 +98,8 @@ namespace FOE_YR
             {
                 throw new Exception("長度不可超過256");
             }
-            
-            const int MAX_READ_PER_TIME = 50;//最大只讀50個   以免L2C溢位
+
+            const int MAX_READ_PER_TIME = 64; //文件是說 最大只讀50個   以免L2C溢位  //我測了一下64似乎 還行
             const int RANGE_BOUNDARY = 128;
 
             List<byte> result = new List<byte>();
@@ -131,7 +133,7 @@ namespace FOE_YR
 
                 // 發出命令
                 port.Write(writeCmd, 0, writeCmd.Length);
-                Thread.Sleep(100);
+                Thread.Sleep(50);
 
                 // 接收資料
                 int bytesToRead = port.BytesToRead;
@@ -181,6 +183,12 @@ namespace FOE_YR
             port.Close();
 
             return result.ToArray();
+        }
+
+        public void Disconnect()
+        {
+            port.Close();
+            port.Dispose();
         }
 
     }

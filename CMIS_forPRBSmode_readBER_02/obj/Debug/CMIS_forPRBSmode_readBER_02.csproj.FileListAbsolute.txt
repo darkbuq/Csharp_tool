@@ -1,0 +1,15 @@
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\bin\Debug\CMIS_forPRBSmode_readBER_02.exe.config
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\bin\Debug\CMIS_forPRBSmode_readBER_02.exe
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\bin\Debug\CMIS_forPRBSmode_readBER_02.pdb
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\obj\Debug\CMIS_forPRBSmode_readBER_02.csproj.AssemblyReference.cache
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\obj\Debug\CMIS_forPRBSmode_readBER_02.Form1.resources
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\obj\Debug\CMIS_forPRBSmode_readBER_02.Properties.Resources.resources
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\obj\Debug\CMIS_forPRBSmode_readBER_02.csproj.GenerateResource.cache
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\obj\Debug\CMIS_forPRBSmode_readBER_02.csproj.CoreCompileInputs.cache
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\obj\Debug\CMIS_forPRBSmode_readBER_02.exe
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\obj\Debug\CMIS_forPRBSmode_readBER_02.pdb
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\bin\Debug\FOE_YR.dll
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\bin\Debug\MathNet.Numerics.dll
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\bin\Debug\FOE_YR.pdb
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\bin\Debug\MathNet.Numerics.xml
+D:\YR\!!!!GitHub\Csharp_tool\CMIS_forPRBSmode_readBER_02\obj\Debug\CMIS_forPRBSmode_readBER_02.csproj.CopyComplete

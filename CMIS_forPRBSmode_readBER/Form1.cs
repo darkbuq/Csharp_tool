@@ -19,6 +19,10 @@ namespace CMIS_forPRBSmode_readBER
         UI_dgv UI_dgv = new UI_dgv();
         I2C_USB_ISS I2C = null;
         Script_Interpreter script_obj = null;
+        C_CMIS C_CMIS = new C_CMIS();
+
+        private System.Windows.Forms.Timer timer_1 = new System.Windows.Forms.Timer(); // ← 宣告成欄位
+
 
         private void Initialize_dgv_Host(DataGridView dgv)
         {
@@ -74,6 +78,44 @@ namespace CMIS_forPRBSmode_readBER
             {
                 dgv.Rows.Add($"ch{i+1}");
             }
+        }        
+
+        private void Initialize_dgv_DDMI_result(DataGridView dgv)
+        {
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.LightYellow;
+
+            string[] colname = "Item,ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch7".Split(',');
+            string[] coltxt = "Item,ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch7".Split(',');
+            string[] coltype = "txt,txt,txt,txt,txt,txt,txt,txt,txt".Split(',');
+            int[] colW = { 63, 63, 63, 63, 63, 63, 63, 63, 63 };
+            UI_dgv.Add_dgv_col(dgv, colname, coltxt, coltype, colW);
+
+            dgv.Rows.Add($"T");
+            dgv.Rows.Add($"Vcc");
+            dgv.Rows.Add($"Bias");
+            dgv.Rows.Add($"TxP_dBm");
+            dgv.Rows.Add($"RxP_dBm");
+
+        }
+
+        private void Initialize_dgv_DDMI2_result(DataGridView dgv)
+        {
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.LightYellow;
+
+            string[] colname = "Item,ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch7".Split(',');
+            string[] coltxt = "Item,ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch7".Split(',');
+            string[] coltype = "txt,txt,txt,txt,txt,txt,txt,txt,txt".Split(',');
+            int[] colW = { 90, 100, 100, 100, 100, 100, 100, 100, 100 };
+            UI_dgv.Add_dgv_col(dgv, colname, coltxt, coltype, colW);
+
+            dgv.Rows.Add($"T");
+            dgv.Rows.Add($"Vcc");
+            dgv.Rows.Add($"Bias");
+            dgv.Rows.Add($"TxP_dBm");
+            dgv.Rows.Add($"RxP_dBm");
+            dgv.Rows.Add($"BER");
         }
 
         public Form1()
@@ -85,10 +127,18 @@ namespace CMIS_forPRBSmode_readBER
             Initialize_dgv_Host(dgv_Host);
             Initialize_dgv_Media(dgv_Media);
             Initialize_dgv_BER_result(dgv_BER_result);
+
+            Initialize_dgv_DDMI_result(dgv_DDMI);
+            Initialize_dgv_DDMI2_result(dgv_DDMI2);
+            
+
+
+            timer_1.Tick += Timer_Tick;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            I2C.Disconnect();
             I2C = null;
         }
 
@@ -240,6 +290,11 @@ namespace CMIS_forPRBSmode_readBER
 
         private void cbo_Host_Media_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //同步兩頁控件
+            cbo_Host_Media_2.SelectedIndex = cbo_Host_Media.SelectedIndex;
+
+
+
             if (cbo_Host_Media.Text == "Host")
             {
                 for (int i = 0; i < dgv_BER_result.RowCount; i++)
@@ -276,6 +331,7 @@ namespace CMIS_forPRBSmode_readBER
             if (cbo_Host_Media.SelectedIndex == -1)
             {
                 MessageBox.Show("cbo_Host_Media 下拉選單要選");
+                return;
             }
 
 
@@ -326,6 +382,195 @@ namespace CMIS_forPRBSmode_readBER
             txt_result.Text = string.Join(" ", result.Select(v => v.ToString("X2")));
         }
 
-        
+        private void btn_RealTime_ON_Click(object sender, EventArgs e)
+        {
+            if (cbo_Host_Media.SelectedIndex == -1)
+            {
+                MessageBox.Show("cbo_Host_Media 下拉選單要選");
+                return;
+            }
+
+            //關閉部分按鍵
+            btn_I2C_cmd.Enabled = false;
+
+            btn_read_256byte.Enabled = false;
+            btn_script_set.Enabled = false;
+
+            cbo_Host_Media.Enabled = false;
+            btn_read_once.Enabled = false;
+
+            btn_RealTime_ON.Enabled = false;
+
+
+
+            timer_1.Interval = 2 * 1000; // 每 ? 秒觸發一次
+
+            timer_1.Start(); // 開始
+        }
+
+        private void btn_RealTime_OFF_Click(object sender, EventArgs e)
+        {
+            timer_1.Stop(); // 停止
+
+
+            //解凍部分按鍵
+            btn_I2C_cmd.Enabled = true;
+
+            btn_read_256byte.Enabled = true;
+            btn_script_set.Enabled = true;
+
+            cbo_Host_Media.Enabled = true;
+            btn_read_once.Enabled = true;
+
+            btn_RealTime_ON.Enabled = false;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            // 這裡放你的即時讀取或顯示邏輯
+
+
+            if (cbo_Host_Media.SelectedIndex == -1)
+            {
+                MessageBox.Show("cbo_Host_Media 下拉選單要選");
+                timer_1.Stop(); // 停止
+            }
+
+
+            #region -- 換頁 --
+            try
+            {
+                ChangePage("00", "14", script_obj); //依文件 是在page = 14h 讀值
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            #endregion
+
+
+            #region -- dgv BER --
+            byte[] P_14h = script_obj.Readpage_128byte("80");
+
+            for (int i = 0; i < dgv_BER_result.RowCount; i++)
+            {
+                var address_temp1 = Convert.ToByte(dgv_BER_result.Rows[i].Cells["L_add"].Value.ToString(), 16);
+                byte LSB = P_14h[address_temp1 - 128];
+                dgv_BER_result.Rows[i].Cells["LSB_v"].Value = LSB.ToString("X2");
+
+                var address_temp2 = Convert.ToByte(dgv_BER_result.Rows[i].Cells["M_add"].Value.ToString(), 16);
+                byte MSB = P_14h[address_temp2 - 128];
+                dgv_BER_result.Rows[i].Cells["MSB_v"].Value = MSB.ToString("X2");
+
+
+                //var s =(byte)(Convert.ToByte("72", 16) >> 3); //看起來 係數項只需要右移三位  通常位運算底層會自動升型 所以要強制再轉回來
+                byte s = (byte)(LSB >> 3);
+                dgv_BER_result.Rows[i].Cells["left_zero_padding"].Value = $"{Convert.ToString(s, 2)} ";
+
+                byte high = (byte)((byte)(LSB << 5) >> 5);
+                byte low = MSB;
+                ushort m = (ushort)((high << 8) | low);
+                dgv_BER_result.Rows[i].Cells["left_zero_padding"].Value += $"{Convert.ToString(m, 2)}";
+
+
+                dgv_BER_result.Rows[i].Cells["BER"].Value = (m * Math.Pow(10, s - 24)).ToString("E2");
+
+                dgv_DDMI2.Rows[dgv_DDMI2.RowCount-1].Cells[i+1].Value = (m * Math.Pow(10, s - 24)).ToString("E2");
+            }
+            #endregion
+
+
+
+            #region -- dgv_DDMI refresh --
+            byte[] A0L = script_obj.Readpage_128byte("00");
+
+            try
+            {
+                ChangePage("00", "11", script_obj); //依文件 是在page = 14h 讀值
+                Thread.Sleep(100);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            byte[] P_11h = script_obj.Readpage_128byte("80");
+
+
+
+            //C_CMIS.A0L = A0L;
+            //C_CMIS.B00P11 = P_11h;
+
+            double real_T = C_CMIS.EEPROM_real_T(A0L);
+            dgv_DDMI.Rows[0].Cells[1].Value = real_T.ToString("0.00");
+            dgv_DDMI2.Rows[0].Cells[1].Value = real_T.ToString("0.00");
+
+            double real_V = C_CMIS.EEPROM_real_Vcc(A0L);
+            dgv_DDMI.Rows[1].Cells[1].Value = real_V.ToString("0.00");
+            dgv_DDMI2.Rows[1].Cells[1].Value = real_V.ToString("0.00");
+
+
+            double[] real_Bias = C_CMIS.EEPROM_real_Bias(P_11h);
+            double[] real_TxP = C_CMIS.EEPROM_Txpwr_dBm(P_11h);
+            double[] real_RxP = C_CMIS.EEPROM_Rxpwr_dBm(P_11h);
+
+            for (int i = 0; i < 8; i++)
+            {
+                dgv_DDMI.Rows[2].Cells[i + 1].Value = real_Bias[i].ToString();
+                dgv_DDMI.Rows[3].Cells[i + 1].Value = real_TxP[i].ToString("0.00");
+                dgv_DDMI.Rows[4].Cells[i + 1].Value = real_RxP[i].ToString("0.00");
+
+                dgv_DDMI2.Rows[2].Cells[i + 1].Value = real_Bias[i].ToString();
+                dgv_DDMI2.Rows[3].Cells[i + 1].Value = real_TxP[i].ToString("0.00");
+                dgv_DDMI2.Rows[4].Cells[i + 1].Value = real_RxP[i].ToString("0.00");
+            }
+            #endregion
+        }
+
+        private void btn_Host_pattern_Click(object sender, EventArgs e)
+        {
+            ComboBox cbo = cbo_Host_pattern;
+
+            if (cbo.SelectedIndex == -1)
+            {
+                MessageBox.Show("下拉選單要選");
+                return;
+            }
+
+            string address = "94";
+            string value=cbo.Text.Split(',')[0].Replace("0x", "");
+
+            script_obj.RunScript($"ssA0{address}{value}{value}{value}{value}");
+        }
+
+        private void btn_Media_pattern_Click(object sender, EventArgs e)
+        {
+            ComboBox cbo = cbo_Media_pattern;
+
+            if (cbo.SelectedIndex == -1)
+            {
+                MessageBox.Show("下拉選單要選");
+                return;
+            }
+
+            string address = "9C";
+            string value = cbo.Text.Split(',')[0].Replace("0x", "");
+
+            script_obj.RunScript($"ssA0{address}{value}{value}{value}{value}");
+        }
+
+        private void btn_RealTime_ON2_Click(object sender, EventArgs e)
+        {
+            btn_RealTime_ON_Click(sender, e);
+        }
+
+        private void btn_RealTime_OFF2_Click(object sender, EventArgs e)
+        {
+            btn_RealTime_OFF_Click(sender, e);
+        }
+
+        private void cbo_Host_Media_2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbo_Host_Media.SelectedIndex = cbo_Host_Media_2.SelectedIndex;
+        }
     }
 }

@@ -7,16 +7,25 @@ using System.Threading.Tasks;
 
 namespace FOE_YR
 {
-    interface I_Script_Interpreter
+    public interface I_Script_Interpreter
     {
+        string Help_txt();
 
+        string RunScript(string Script);
+
+        byte[] Readpage_128byte(string address_hex);
     }
 
-    public class Script_Interpreter
+    public class Script_Interpreter : I_Script_Interpreter
     {
-        I2C_USB_ISS I2C = null;
+        I_I2C I2C = null;
 
-        public Script_Interpreter(I2C_USB_ISS I2C)
+        //public Script_Interpreter(I2C_USB_ISS I2C)
+        //{
+        //    this.I2C = I2C;
+        //}
+
+        public Script_Interpreter(I_I2C I2C)
         {
             this.I2C = I2C;
         }
@@ -108,6 +117,7 @@ namespace FOE_YR
                     else if (runItemVal == "ww")
                     {
                         Thread.Sleep(100);
+                        continue;
                     }
                     else
                     {
