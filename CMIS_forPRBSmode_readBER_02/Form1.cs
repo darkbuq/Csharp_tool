@@ -39,7 +39,7 @@ namespace CMIS_forPRBSmode_readBER_02
             string[] colname = "ch,ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8".Split(',');
             string[] coltxt = "ch,ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8".Split(',');
             string[] coltype = "txt,txt,txt,txt,txt,txt,txt,txt,txt".Split(',');
-            int[] colW = { 40, 80, 80, 80, 80, 80, 80, 80, 80 };
+            int[] colW = { 50, 110, 110, 110, 110, 110, 110, 110, 110 };
 
             UI_dgv.Add_dgv_col(dgv, colname, coltxt, coltype, colW);
 
@@ -63,8 +63,12 @@ namespace CMIS_forPRBSmode_readBER_02
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            I2C.Disconnect();
-            I2C = null;
+            if (I2C != null)
+            {
+                I2C.Disconnect();
+                I2C = null;
+            }
+            
         }
 
         private void ChangePage(string bank, string page, I_Script_Interpreter script)
@@ -274,7 +278,18 @@ namespace CMIS_forPRBSmode_readBER_02
 
         private void btn_BER_read_once_Click(object sender, EventArgs e)
         {
-            double[] result = Refresh_BER(cbo_Host_Media);
+            double[] result;
+            try
+            {
+                result = Refresh_BER(cbo_Host_Media);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+
+
 
             for (int i = 0; i < 8; i++)
             {
@@ -362,7 +377,31 @@ namespace CMIS_forPRBSmode_readBER_02
                 btn_BER_RealTime_ON,
 
                 btn_DDMI_RealTime_ON,
-                btn_DDMI_RealTime_OFF
+                btn_DDMI_RealTime_OFF,
+
+                //調整區
+                btn_Host_PRBS_Generator_ON,
+                btn_Host_PRBS_Generator_OFF,
+                btn_Media_PRBS_Generator_ON,
+                btn_Media_PRBS_Generator_OFF,
+
+                cbo_Host_pattern,
+                btn_Host_pattern,
+                cbo_Media_pattern,
+                btn_Media_pattern,
+
+                btn_Host_PRBS_checker_ON,
+                btn_Host_PRBS_checker_OFF,
+                btn_Media_PRBS_checker_ON,
+                btn_Media_PRBS_checker_OFF,
+
+                btn_AutoRestart_Enable,
+                btn_AutoRestart_Disable,
+
+                btn_Set_MeasureTime,
+
+                btn_BER_Reading_ON,
+                btn_BER_Reading_OFF
             };
 
             foreach (var ctrl in controlList_forBER)
@@ -372,7 +411,7 @@ namespace CMIS_forPRBSmode_readBER_02
 
 
 
-            timer_BER.Interval = 1 * 1000; // 每 ? 秒觸發一次
+            timer_BER.Interval = 2 * 1000; // 每 ? 秒觸發一次
             timer_BER.Start(); // 開始
         }
 
@@ -724,7 +763,32 @@ namespace CMIS_forPRBSmode_readBER_02
                 btn_BER_RealTime_ON,
                 btn_BER_RealTime_OFF,
 
-                btn_DDMI_RealTime_ON                
+                btn_DDMI_RealTime_ON,
+                
+
+                //調整區
+                btn_Host_PRBS_Generator_ON,
+                btn_Host_PRBS_Generator_OFF,
+                btn_Media_PRBS_Generator_ON,
+                btn_Media_PRBS_Generator_OFF,
+
+                cbo_Host_pattern,
+                btn_Host_pattern,
+                cbo_Media_pattern,
+                btn_Media_pattern,
+
+                btn_Host_PRBS_checker_ON,
+                btn_Host_PRBS_checker_OFF,
+                btn_Media_PRBS_checker_ON,
+                btn_Media_PRBS_checker_OFF,
+
+                btn_AutoRestart_Enable,
+                btn_AutoRestart_Disable,
+
+                btn_Set_MeasureTime,
+
+                btn_BER_Reading_ON,
+                btn_BER_Reading_OFF
             };
 
             foreach (var ctrl in controlList_forDDMI)
@@ -732,7 +796,7 @@ namespace CMIS_forPRBSmode_readBER_02
                 ctrl.Enabled = false;
             }
 
-            timer_DDMI.Interval = 1 * 1000; // 每 ? 秒觸發一次
+            timer_DDMI.Interval = 2 * 1000; // 每 ? 秒觸發一次
             timer_DDMI.Start(); // 開始
         }
 
