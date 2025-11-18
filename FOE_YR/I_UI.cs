@@ -94,6 +94,51 @@ namespace FOE_YR
             }
         }
 
+        public void Dgv_DDMI_initialize(DataGridView dgv, int[] col_width)
+        {
+            dgv.RowTemplate.Height = 20;
+
+
+            //.Rows //.Columns
+            dgv.Columns.Add("_", "#");
+
+            dgv.Columns.Add("A_H", "A_H");
+            dgv.Columns.Add("A_L", "A_L");
+            dgv.Columns.Add("W_H", "W_H");
+            dgv.Columns.Add("W_L", "W_L");
+
+            dgv.Rows.Add("T");
+            dgv.Rows.Add("V");
+            dgv.Rows.Add("Bs");
+            dgv.Rows.Add("Tx");
+            dgv.Rows.Add("Rx");
+
+
+            dgv.RowHeadersWidth = 5;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+
+            if (col_width == null || col_width.Length != 5)
+                throw new ArgumentException("col_width must contain exactly 5 elements.");
+
+
+            for (int i = 0; i < 5; i++)
+            {
+                dgv.Columns[i].Width = col_width[i];
+            }            
+
+
+            dgv.Columns[0].DefaultCellStyle.BackColor = Color.LightYellow;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.LightYellow;
+            dgv.EnableHeadersVisualStyles = false;
+
+
+            foreach (DataGridViewColumn column in dgv.Columns) //禁用排序
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+        }
+
         public DataTable TransposeDataTable(DataTable originalTable)//轉置
         {
             DataTable transposedTable = new DataTable();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,7 +13,7 @@ using System.Windows.Forms;
 
 namespace CMIS_forPRBSmode_readBER_02
 {
-    public partial class Form1 : Form
+    public partial class Form_CMIS_forPRBSmode_readBER : Form
     {
         Color _resetC = Color.Silver;
         Color _runC = Color.Gold;
@@ -33,6 +34,15 @@ namespace CMIS_forPRBSmode_readBER_02
 
         private void Initialize_dgv_BER_result(DataGridView dgv)
         {
+            // 取得 exe 的執行目錄
+            string exeDir = Application.StartupPath;
+
+            // 相對路徑，例如圖片放在 exe 同一資料夾的 "Images" 子資料夾
+            string imagePath = Path.Combine(exeDir, "Images", "FOE_logo.jpg");
+
+            pictureBox1.Image = Image.FromFile($"{imagePath}");
+
+
             dgv.EnableHeadersVisualStyles = false;
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.LightYellow;
 
@@ -49,7 +59,7 @@ namespace CMIS_forPRBSmode_readBER_02
         }
 
 
-        public Form1()
+        public Form_CMIS_forPRBSmode_readBER()
         {
             InitializeComponent();
 
@@ -160,30 +170,55 @@ namespace CMIS_forPRBSmode_readBER_02
 
         private void btn_Host_PRBS_Generator_ON_Click(object sender, EventArgs e)
         {
+            Label lbl = lbl_Host_PRBS_Generator_ON as Label;
+
+
+            lbl.BackColor = _resetC;
+
             ChangePage("00", "13", script_obj);
             script_obj.RunScript("ssA090FF");
+
+            lbl.BackColor = _finishC;
         }
 
         private void btn_Host_PRBS_Generator_OFF_Click(object sender, EventArgs e)
         {
+            Label lbl = lbl_Host_PRBS_Generator_OFF as Label;
+            lbl.BackColor = _resetC;
+
             ChangePage("00", "13", script_obj);
             script_obj.RunScript("ssA09000");
+
+            lbl.BackColor = _finishC;
         }
 
         private void btn_Media_PRBS_Generator_ON_Click(object sender, EventArgs e)
         {
+            Label lbl = lbl_Media_PRBS_Generator_ON as Label;
+            lbl.BackColor = _resetC;
+
             ChangePage("00", "13", script_obj);
             script_obj.RunScript("ssA098FF");
+
+            lbl.BackColor = _finishC;
         }
 
         private void btn_Media_PRBS_Generator_OFF_Click(object sender, EventArgs e)
         {
+            Label lbl = lbl_Media_PRBS_Generator_OFF as Label;
+            lbl.BackColor = _resetC;
+
             ChangePage("00", "13", script_obj);
             script_obj.RunScript("ssA09800");
+
+
         }
 
         private void btn_Host_pattern_Click(object sender, EventArgs e)
         {
+            lbl_Host_pattern.BackColor = _resetC;
+
+
             if (cbo_Host_pattern.SelectedIndex == -1)
             {
                 MessageBox.Show("下拉選單要選");
@@ -194,10 +229,16 @@ namespace CMIS_forPRBSmode_readBER_02
 
             string value = cbo_Host_pattern.Text.Split(',')[0].Replace("0x", "");
             script_obj.RunScript($"ssA094{value}{value}{value}{value}");
+
+
+            lbl_Host_pattern.BackColor = _finishC;
         }
 
         private void btn_Media_pattern_Click(object sender, EventArgs e)
         {
+            lbl_Media_pattern.BackColor = _resetC;
+
+
             if (cbo_Media_pattern.SelectedIndex == -1)
             {
                 MessageBox.Show("下拉選單要選");
@@ -208,42 +249,75 @@ namespace CMIS_forPRBSmode_readBER_02
 
             string value = cbo_Media_pattern.Text.Split(',')[0].Replace("0x", "");
             script_obj.RunScript($"ssA09C{value}{value}{value}{value}");
+
+
+            lbl_Media_pattern.BackColor = _finishC;
         }
 
         private void btn_Host_PRBS_checker_ON_Click(object sender, EventArgs e)
         {
+            Label lbl = lbl_Host_PRBS_checker_ON as Label;
+            lbl.BackColor = _resetC;
+
             ChangePage("00", "13", script_obj);
             script_obj.RunScript("ssA0A0FF");
+
+            lbl.BackColor = _finishC;
         }
 
         private void btn_Host_PRBS_checker_OFF_Click(object sender, EventArgs e)
         {
+            Label lbl = lbl_Host_PRBS_checker_OFF as Label;
+            lbl.BackColor = _resetC;
+
             ChangePage("00", "13", script_obj);
             script_obj.RunScript("ssA0A000");
+
+            lbl.BackColor = _finishC;
         }
 
         private void btn_Media_PRBS_checker_ON_Click(object sender, EventArgs e)
         {
+            Label lbl = lbl_Media_PRBS_checker_ON as Label;
+            lbl.BackColor = _resetC;
+
             ChangePage("00", "13", script_obj);
             script_obj.RunScript("ssA0A8FF");
+
+            lbl.BackColor = _finishC;
         }
 
         private void btn_Media_PRBS_checker_OFF_Click(object sender, EventArgs e)
         {
+            Label lbl = lbl_Media_PRBS_checker_OFF as Label;
+            lbl.BackColor = _resetC;
+
             ChangePage("00", "13", script_obj);
             script_obj.RunScript("ssA0A800");
+
+            lbl.BackColor = _finishC;
         }
 
         private void btn_AutoRestart_Enable_Click(object sender, EventArgs e)
         {
+            Label lbl = lbl_AutoRestart_Enable as Label;
+            lbl.BackColor = _resetC;
+
             ChangePage("00", "13", script_obj);
             script_obj.RunScript("ttA0B11010");
+
+            lbl.BackColor = _finishC;
         }
 
         private void btn_AutoRestart_Disable_Click(object sender, EventArgs e)
         {
+            Label lbl = lbl_AutoRestart_Disable as Label;
+            lbl.BackColor = _resetC;
+
             ChangePage("00", "13", script_obj);
             script_obj.RunScript("ttA0B11000");
+
+            lbl.BackColor = _finishC;
         }
 
         private void btn_Set_MeasureTime_Click(object sender, EventArgs e)
@@ -254,6 +328,10 @@ namespace CMIS_forPRBSmode_readBER_02
                 return;
             }
 
+            Label lbl = lbl_Set_MeasureTime as Label;
+            lbl.BackColor = _resetC;
+
+
             ChangePage("00", "13", script_obj);
 
             string value = cbo_Measure_Time.Text.Split(':')[0].Replace("b","0");
@@ -262,18 +340,31 @@ namespace CMIS_forPRBSmode_readBER_02
             string mask = Convert.ToByte("1110", 2).ToString("X2");
 
             script_obj.RunScript($"ssA0B1{mask}{hex}");
+
+
+            lbl.BackColor = _finishC;
         }
 
         private void btn_BER_Reading_ON_Click(object sender, EventArgs e)
         {
+            Label lbl = lbl_BER_Reading_ON as Label;
+            lbl.BackColor = _resetC;
+
             ChangePage("00", "14", script_obj);
             script_obj.RunScript("ssA08001");
+
+            lbl.BackColor = _finishC;
         }
 
         private void btn_BER_Reading_OFF_Click(object sender, EventArgs e)
         {
+            Label lbl = lbl_BER_Reading_OFF as Label;
+            lbl.BackColor = _resetC;
+
             ChangePage("00", "14", script_obj);
             script_obj.RunScript("ssA08000");
+
+            lbl.BackColor = _finishC;
         }
 
         private void btn_BER_read_once_Click(object sender, EventArgs e)

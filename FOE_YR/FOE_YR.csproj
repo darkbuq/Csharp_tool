@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="CLogManager.cs" />
     <Compile Include="CNumerical_system.cs" />
+    <Compile Include="C_Form_FinalTest_TRxAsync.cs" />
     <Compile Include="IAttenuator.cs" />
     <Compile Include="IBert.cs" />
     <Compile Include="IDCA.cs" />

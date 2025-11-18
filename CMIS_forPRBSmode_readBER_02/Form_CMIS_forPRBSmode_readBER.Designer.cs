@@ -1,7 +1,7 @@
 ﻿
 namespace CMIS_forPRBSmode_readBER_02
 {
-    partial class Form1
+    partial class Form_CMIS_forPRBSmode_readBER
     {
         /// <summary>
         /// 設計工具所需的變數。
@@ -29,9 +29,7 @@ namespace CMIS_forPRBSmode_readBER_02
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_CMIS_forPRBSmode_readBER));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.cbo_Host_Media = new System.Windows.Forms.ComboBox();
@@ -295,12 +293,29 @@ namespace CMIS_forPRBSmode_readBER_02
             this.txt_port = new System.Windows.Forms.TextBox();
             this.txt_baudRate = new System.Windows.Forms.TextBox();
             this.lbl_new_SerialPort = new System.Windows.Forms.Label();
+            this.lbl_Host_pattern = new System.Windows.Forms.Label();
+            this.lbl_Media_pattern = new System.Windows.Forms.Label();
+            this.lbl_Host_PRBS_Generator_ON = new System.Windows.Forms.Label();
+            this.lbl_Host_PRBS_Generator_OFF = new System.Windows.Forms.Label();
+            this.lbl_Host_PRBS_checker_OFF = new System.Windows.Forms.Label();
+            this.lbl_Host_PRBS_checker_ON = new System.Windows.Forms.Label();
+            this.lbl_Media_PRBS_Generator_ON = new System.Windows.Forms.Label();
+            this.lbl_Media_PRBS_checker_ON = new System.Windows.Forms.Label();
+            this.lbl_Media_PRBS_Generator_OFF = new System.Windows.Forms.Label();
+            this.lbl_Media_PRBS_checker_OFF = new System.Windows.Forms.Label();
+            this.lbl_AutoRestart_Enable = new System.Windows.Forms.Label();
+            this.lbl_AutoRestart_Disable = new System.Windows.Forms.Label();
+            this.lbl_Set_MeasureTime = new System.Windows.Forms.Label();
+            this.lbl_BER_Reading_ON = new System.Windows.Forms.Label();
+            this.lbl_BER_Reading_OFF = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_BER_result)).BeginInit();
             this.tabPage_DDMI.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_EEPROM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -317,6 +332,21 @@ namespace CMIS_forPRBSmode_readBER_02
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lbl_Media_pattern);
+            this.tabPage1.Controls.Add(this.lbl_Media_PRBS_checker_OFF);
+            this.tabPage1.Controls.Add(this.lbl_Media_PRBS_Generator_OFF);
+            this.tabPage1.Controls.Add(this.lbl_Media_PRBS_checker_ON);
+            this.tabPage1.Controls.Add(this.lbl_Media_PRBS_Generator_ON);
+            this.tabPage1.Controls.Add(this.lbl_Host_PRBS_checker_ON);
+            this.tabPage1.Controls.Add(this.lbl_Host_PRBS_checker_OFF);
+            this.tabPage1.Controls.Add(this.lbl_Host_PRBS_Generator_OFF);
+            this.tabPage1.Controls.Add(this.lbl_Host_PRBS_Generator_ON);
+            this.tabPage1.Controls.Add(this.lbl_Set_MeasureTime);
+            this.tabPage1.Controls.Add(this.lbl_AutoRestart_Disable);
+            this.tabPage1.Controls.Add(this.lbl_BER_Reading_OFF);
+            this.tabPage1.Controls.Add(this.lbl_BER_Reading_ON);
+            this.tabPage1.Controls.Add(this.lbl_AutoRestart_Enable);
+            this.tabPage1.Controls.Add(this.lbl_Host_pattern);
             this.tabPage1.Controls.Add(this.cbo_Host_Media);
             this.tabPage1.Controls.Add(this.btn_BER_RealTime_OFF);
             this.tabPage1.Controls.Add(this.btn_BER_RealTime_ON);
@@ -364,7 +394,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.cbo_Host_Media.Items.AddRange(new object[] {
             "Host",
             "Media"});
-            this.cbo_Host_Media.Location = new System.Drawing.Point(107, 419);
+            this.cbo_Host_Media.Location = new System.Drawing.Point(61, 426);
             this.cbo_Host_Media.Name = "cbo_Host_Media";
             this.cbo_Host_Media.Size = new System.Drawing.Size(94, 27);
             this.cbo_Host_Media.TabIndex = 16;
@@ -372,7 +402,7 @@ namespace CMIS_forPRBSmode_readBER_02
             // btn_BER_RealTime_OFF
             // 
             this.btn_BER_RealTime_OFF.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_BER_RealTime_OFF.Location = new System.Drawing.Point(639, 420);
+            this.btn_BER_RealTime_OFF.Location = new System.Drawing.Point(841, 426);
             this.btn_BER_RealTime_OFF.Name = "btn_BER_RealTime_OFF";
             this.btn_BER_RealTime_OFF.Size = new System.Drawing.Size(111, 27);
             this.btn_BER_RealTime_OFF.TabIndex = 13;
@@ -383,7 +413,7 @@ namespace CMIS_forPRBSmode_readBER_02
             // btn_BER_RealTime_ON
             // 
             this.btn_BER_RealTime_ON.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_BER_RealTime_ON.Location = new System.Drawing.Point(522, 420);
+            this.btn_BER_RealTime_ON.Location = new System.Drawing.Point(724, 426);
             this.btn_BER_RealTime_ON.Name = "btn_BER_RealTime_ON";
             this.btn_BER_RealTime_ON.Size = new System.Drawing.Size(111, 27);
             this.btn_BER_RealTime_ON.TabIndex = 14;
@@ -394,7 +424,7 @@ namespace CMIS_forPRBSmode_readBER_02
             // btn_BER_read_once
             // 
             this.btn_BER_read_once.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_BER_read_once.Location = new System.Drawing.Point(207, 419);
+            this.btn_BER_read_once.Location = new System.Drawing.Point(161, 426);
             this.btn_BER_read_once.Name = "btn_BER_read_once";
             this.btn_BER_read_once.Size = new System.Drawing.Size(90, 27);
             this.btn_BER_read_once.TabIndex = 15;
@@ -406,7 +436,7 @@ namespace CMIS_forPRBSmode_readBER_02
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(66, 424);
+            this.label33.Location = new System.Drawing.Point(20, 430);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(35, 19);
             this.label33.TabIndex = 12;
@@ -416,38 +446,14 @@ namespace CMIS_forPRBSmode_readBER_02
             // 
             this.dgv_BER_result.AllowUserToAddRows = false;
             this.dgv_BER_result.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_BER_result.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_BER_result.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Calibri", 14F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_BER_result.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgv_BER_result.Location = new System.Drawing.Point(65, 452);
+            this.dgv_BER_result.Location = new System.Drawing.Point(19, 459);
             this.dgv_BER_result.Name = "dgv_BER_result";
             this.dgv_BER_result.ReadOnly = true;
             this.dgv_BER_result.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_BER_result.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgv_BER_result.RowHeadersVisible = false;
             this.dgv_BER_result.RowHeadersWidth = 51;
-            this.dgv_BER_result.Size = new System.Drawing.Size(933, 57);
+            this.dgv_BER_result.Size = new System.Drawing.Size(933, 50);
             this.dgv_BER_result.TabIndex = 11;
             // 
             // cbo_Measure_Time
@@ -475,7 +481,7 @@ namespace CMIS_forPRBSmode_readBER_02
             "0x00, PRBS31Q",
             "0x66, PRBS13Q",
             "0xCC, SSPRQ"});
-            this.cbo_Media_pattern.Location = new System.Drawing.Point(338, 103);
+            this.cbo_Media_pattern.Location = new System.Drawing.Point(338, 59);
             this.cbo_Media_pattern.Name = "cbo_Media_pattern";
             this.cbo_Media_pattern.Size = new System.Drawing.Size(141, 27);
             this.cbo_Media_pattern.TabIndex = 10;
@@ -483,9 +489,9 @@ namespace CMIS_forPRBSmode_readBER_02
             // btn_Media_pattern
             // 
             this.btn_Media_pattern.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Media_pattern.Location = new System.Drawing.Point(338, 136);
+            this.btn_Media_pattern.Location = new System.Drawing.Point(338, 92);
             this.btn_Media_pattern.Name = "btn_Media_pattern";
-            this.btn_Media_pattern.Size = new System.Drawing.Size(141, 27);
+            this.btn_Media_pattern.Size = new System.Drawing.Size(116, 27);
             this.btn_Media_pattern.TabIndex = 9;
             this.btn_Media_pattern.Text = "set pattern";
             this.btn_Media_pattern.UseVisualStyleBackColor = true;
@@ -499,7 +505,7 @@ namespace CMIS_forPRBSmode_readBER_02
             "0x00, PRBS31Q",
             "0x66, PRBS13Q",
             "0xCC, SSPRQ"});
-            this.cbo_Host_pattern.Location = new System.Drawing.Point(151, 103);
+            this.cbo_Host_pattern.Location = new System.Drawing.Point(151, 59);
             this.cbo_Host_pattern.Name = "cbo_Host_pattern";
             this.cbo_Host_pattern.Size = new System.Drawing.Size(141, 27);
             this.cbo_Host_pattern.TabIndex = 8;
@@ -507,9 +513,9 @@ namespace CMIS_forPRBSmode_readBER_02
             // btn_Host_pattern
             // 
             this.btn_Host_pattern.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Host_pattern.Location = new System.Drawing.Point(151, 136);
+            this.btn_Host_pattern.Location = new System.Drawing.Point(151, 92);
             this.btn_Host_pattern.Name = "btn_Host_pattern";
-            this.btn_Host_pattern.Size = new System.Drawing.Size(141, 27);
+            this.btn_Host_pattern.Size = new System.Drawing.Size(116, 27);
             this.btn_Host_pattern.TabIndex = 7;
             this.btn_Host_pattern.Text = "set pattern";
             this.btn_Host_pattern.UseVisualStyleBackColor = true;
@@ -520,7 +526,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_BER_Reading_OFF.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_BER_Reading_OFF.Location = new System.Drawing.Point(338, 323);
             this.btn_BER_Reading_OFF.Name = "btn_BER_Reading_OFF";
-            this.btn_BER_Reading_OFF.Size = new System.Drawing.Size(141, 27);
+            this.btn_BER_Reading_OFF.Size = new System.Drawing.Size(116, 27);
             this.btn_BER_Reading_OFF.TabIndex = 3;
             this.btn_BER_Reading_OFF.Text = "OFF";
             this.btn_BER_Reading_OFF.UseVisualStyleBackColor = true;
@@ -531,7 +537,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_AutoRestart_Disable.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_AutoRestart_Disable.Location = new System.Drawing.Point(338, 227);
             this.btn_AutoRestart_Disable.Name = "btn_AutoRestart_Disable";
-            this.btn_AutoRestart_Disable.Size = new System.Drawing.Size(141, 27);
+            this.btn_AutoRestart_Disable.Size = new System.Drawing.Size(116, 27);
             this.btn_AutoRestart_Disable.TabIndex = 3;
             this.btn_AutoRestart_Disable.Text = "Disable";
             this.btn_AutoRestart_Disable.UseVisualStyleBackColor = true;
@@ -542,7 +548,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_AutoRestart_Enable.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_AutoRestart_Enable.Location = new System.Drawing.Point(151, 227);
             this.btn_AutoRestart_Enable.Name = "btn_AutoRestart_Enable";
-            this.btn_AutoRestart_Enable.Size = new System.Drawing.Size(141, 27);
+            this.btn_AutoRestart_Enable.Size = new System.Drawing.Size(116, 27);
             this.btn_AutoRestart_Enable.TabIndex = 3;
             this.btn_AutoRestart_Enable.Text = "Enable";
             this.btn_AutoRestart_Enable.UseVisualStyleBackColor = true;
@@ -553,7 +559,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_BER_Reading_ON.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_BER_Reading_ON.Location = new System.Drawing.Point(151, 323);
             this.btn_BER_Reading_ON.Name = "btn_BER_Reading_ON";
-            this.btn_BER_Reading_ON.Size = new System.Drawing.Size(141, 27);
+            this.btn_BER_Reading_ON.Size = new System.Drawing.Size(116, 27);
             this.btn_BER_Reading_ON.TabIndex = 3;
             this.btn_BER_Reading_ON.Text = "ON";
             this.btn_BER_Reading_ON.UseVisualStyleBackColor = true;
@@ -564,7 +570,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_Set_MeasureTime.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Set_MeasureTime.Location = new System.Drawing.Point(338, 275);
             this.btn_Set_MeasureTime.Name = "btn_Set_MeasureTime";
-            this.btn_Set_MeasureTime.Size = new System.Drawing.Size(141, 27);
+            this.btn_Set_MeasureTime.Size = new System.Drawing.Size(116, 27);
             this.btn_Set_MeasureTime.TabIndex = 3;
             this.btn_Set_MeasureTime.Text = "set ";
             this.btn_Set_MeasureTime.UseVisualStyleBackColor = true;
@@ -615,7 +621,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_Media_PRBS_checker_OFF.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Media_PRBS_checker_OFF.Location = new System.Drawing.Point(411, 180);
             this.btn_Media_PRBS_checker_OFF.Name = "btn_Media_PRBS_checker_OFF";
-            this.btn_Media_PRBS_checker_OFF.Size = new System.Drawing.Size(68, 27);
+            this.btn_Media_PRBS_checker_OFF.Size = new System.Drawing.Size(56, 27);
             this.btn_Media_PRBS_checker_OFF.TabIndex = 3;
             this.btn_Media_PRBS_checker_OFF.Text = "OFF";
             this.btn_Media_PRBS_checker_OFF.UseVisualStyleBackColor = true;
@@ -624,9 +630,9 @@ namespace CMIS_forPRBSmode_readBER_02
             // btn_Media_PRBS_Generator_OFF
             // 
             this.btn_Media_PRBS_Generator_OFF.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Media_PRBS_Generator_OFF.Location = new System.Drawing.Point(411, 59);
+            this.btn_Media_PRBS_Generator_OFF.Location = new System.Drawing.Point(411, 139);
             this.btn_Media_PRBS_Generator_OFF.Name = "btn_Media_PRBS_Generator_OFF";
-            this.btn_Media_PRBS_Generator_OFF.Size = new System.Drawing.Size(68, 27);
+            this.btn_Media_PRBS_Generator_OFF.Size = new System.Drawing.Size(56, 27);
             this.btn_Media_PRBS_Generator_OFF.TabIndex = 3;
             this.btn_Media_PRBS_Generator_OFF.Text = "OFF";
             this.btn_Media_PRBS_Generator_OFF.UseVisualStyleBackColor = true;
@@ -637,7 +643,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_Media_PRBS_checker_ON.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Media_PRBS_checker_ON.Location = new System.Drawing.Point(338, 180);
             this.btn_Media_PRBS_checker_ON.Name = "btn_Media_PRBS_checker_ON";
-            this.btn_Media_PRBS_checker_ON.Size = new System.Drawing.Size(68, 27);
+            this.btn_Media_PRBS_checker_ON.Size = new System.Drawing.Size(56, 27);
             this.btn_Media_PRBS_checker_ON.TabIndex = 3;
             this.btn_Media_PRBS_checker_ON.Text = "ON";
             this.btn_Media_PRBS_checker_ON.UseVisualStyleBackColor = true;
@@ -646,9 +652,9 @@ namespace CMIS_forPRBSmode_readBER_02
             // btn_Media_PRBS_Generator_ON
             // 
             this.btn_Media_PRBS_Generator_ON.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Media_PRBS_Generator_ON.Location = new System.Drawing.Point(338, 59);
+            this.btn_Media_PRBS_Generator_ON.Location = new System.Drawing.Point(338, 139);
             this.btn_Media_PRBS_Generator_ON.Name = "btn_Media_PRBS_Generator_ON";
-            this.btn_Media_PRBS_Generator_ON.Size = new System.Drawing.Size(68, 27);
+            this.btn_Media_PRBS_Generator_ON.Size = new System.Drawing.Size(56, 27);
             this.btn_Media_PRBS_Generator_ON.TabIndex = 3;
             this.btn_Media_PRBS_Generator_ON.Text = "ON";
             this.btn_Media_PRBS_Generator_ON.UseVisualStyleBackColor = true;
@@ -659,7 +665,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_Host_PRBS_checker_OFF.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Host_PRBS_checker_OFF.Location = new System.Drawing.Point(224, 180);
             this.btn_Host_PRBS_checker_OFF.Name = "btn_Host_PRBS_checker_OFF";
-            this.btn_Host_PRBS_checker_OFF.Size = new System.Drawing.Size(68, 27);
+            this.btn_Host_PRBS_checker_OFF.Size = new System.Drawing.Size(56, 27);
             this.btn_Host_PRBS_checker_OFF.TabIndex = 3;
             this.btn_Host_PRBS_checker_OFF.Text = "OFF";
             this.btn_Host_PRBS_checker_OFF.UseVisualStyleBackColor = true;
@@ -668,9 +674,9 @@ namespace CMIS_forPRBSmode_readBER_02
             // btn_Host_PRBS_Generator_OFF
             // 
             this.btn_Host_PRBS_Generator_OFF.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Host_PRBS_Generator_OFF.Location = new System.Drawing.Point(224, 59);
+            this.btn_Host_PRBS_Generator_OFF.Location = new System.Drawing.Point(224, 139);
             this.btn_Host_PRBS_Generator_OFF.Name = "btn_Host_PRBS_Generator_OFF";
-            this.btn_Host_PRBS_Generator_OFF.Size = new System.Drawing.Size(68, 27);
+            this.btn_Host_PRBS_Generator_OFF.Size = new System.Drawing.Size(56, 27);
             this.btn_Host_PRBS_Generator_OFF.TabIndex = 3;
             this.btn_Host_PRBS_Generator_OFF.Text = "OFF";
             this.btn_Host_PRBS_Generator_OFF.UseVisualStyleBackColor = true;
@@ -681,7 +687,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.btn_Host_PRBS_checker_ON.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Host_PRBS_checker_ON.Location = new System.Drawing.Point(151, 180);
             this.btn_Host_PRBS_checker_ON.Name = "btn_Host_PRBS_checker_ON";
-            this.btn_Host_PRBS_checker_ON.Size = new System.Drawing.Size(68, 27);
+            this.btn_Host_PRBS_checker_ON.Size = new System.Drawing.Size(56, 27);
             this.btn_Host_PRBS_checker_ON.TabIndex = 3;
             this.btn_Host_PRBS_checker_ON.Text = "ON";
             this.btn_Host_PRBS_checker_ON.UseVisualStyleBackColor = true;
@@ -690,9 +696,9 @@ namespace CMIS_forPRBSmode_readBER_02
             // btn_Host_PRBS_Generator_ON
             // 
             this.btn_Host_PRBS_Generator_ON.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Host_PRBS_Generator_ON.Location = new System.Drawing.Point(151, 59);
+            this.btn_Host_PRBS_Generator_ON.Location = new System.Drawing.Point(151, 139);
             this.btn_Host_PRBS_Generator_ON.Name = "btn_Host_PRBS_Generator_ON";
-            this.btn_Host_PRBS_Generator_ON.Size = new System.Drawing.Size(68, 27);
+            this.btn_Host_PRBS_Generator_ON.Size = new System.Drawing.Size(56, 27);
             this.btn_Host_PRBS_Generator_ON.TabIndex = 3;
             this.btn_Host_PRBS_Generator_ON.Text = "ON";
             this.btn_Host_PRBS_Generator_ON.UseVisualStyleBackColor = true;
@@ -702,7 +708,7 @@ namespace CMIS_forPRBSmode_readBER_02
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(15, 59);
+            this.label7.Location = new System.Drawing.Point(15, 139);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(111, 19);
             this.label7.TabIndex = 2;
@@ -712,7 +718,7 @@ namespace CMIS_forPRBSmode_readBER_02
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(15, 103);
+            this.label9.Location = new System.Drawing.Point(15, 59);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(93, 19);
             this.label9.TabIndex = 2;
@@ -2909,18 +2915,149 @@ namespace CMIS_forPRBSmode_readBER_02
             this.lbl_new_SerialPort.Size = new System.Drawing.Size(27, 27);
             this.lbl_new_SerialPort.TabIndex = 7;
             // 
-            // Form1
+            // lbl_Host_pattern
+            // 
+            this.lbl_Host_pattern.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Host_pattern.Location = new System.Drawing.Point(273, 92);
+            this.lbl_Host_pattern.Name = "lbl_Host_pattern";
+            this.lbl_Host_pattern.Size = new System.Drawing.Size(19, 27);
+            this.lbl_Host_pattern.TabIndex = 7;
+            // 
+            // lbl_Media_pattern
+            // 
+            this.lbl_Media_pattern.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Media_pattern.Location = new System.Drawing.Point(460, 92);
+            this.lbl_Media_pattern.Name = "lbl_Media_pattern";
+            this.lbl_Media_pattern.Size = new System.Drawing.Size(19, 27);
+            this.lbl_Media_pattern.TabIndex = 7;
+            // 
+            // lbl_Host_PRBS_Generator_ON
+            // 
+            this.lbl_Host_PRBS_Generator_ON.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Host_PRBS_Generator_ON.Location = new System.Drawing.Point(211, 139);
+            this.lbl_Host_PRBS_Generator_ON.Name = "lbl_Host_PRBS_Generator_ON";
+            this.lbl_Host_PRBS_Generator_ON.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Host_PRBS_Generator_ON.TabIndex = 7;
+            // 
+            // lbl_Host_PRBS_Generator_OFF
+            // 
+            this.lbl_Host_PRBS_Generator_OFF.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Host_PRBS_Generator_OFF.Location = new System.Drawing.Point(282, 139);
+            this.lbl_Host_PRBS_Generator_OFF.Name = "lbl_Host_PRBS_Generator_OFF";
+            this.lbl_Host_PRBS_Generator_OFF.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Host_PRBS_Generator_OFF.TabIndex = 7;
+            // 
+            // lbl_Host_PRBS_checker_OFF
+            // 
+            this.lbl_Host_PRBS_checker_OFF.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Host_PRBS_checker_OFF.Location = new System.Drawing.Point(282, 180);
+            this.lbl_Host_PRBS_checker_OFF.Name = "lbl_Host_PRBS_checker_OFF";
+            this.lbl_Host_PRBS_checker_OFF.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Host_PRBS_checker_OFF.TabIndex = 7;
+            // 
+            // lbl_Host_PRBS_checker_ON
+            // 
+            this.lbl_Host_PRBS_checker_ON.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Host_PRBS_checker_ON.Location = new System.Drawing.Point(211, 180);
+            this.lbl_Host_PRBS_checker_ON.Name = "lbl_Host_PRBS_checker_ON";
+            this.lbl_Host_PRBS_checker_ON.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Host_PRBS_checker_ON.TabIndex = 7;
+            // 
+            // lbl_Media_PRBS_Generator_ON
+            // 
+            this.lbl_Media_PRBS_Generator_ON.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Media_PRBS_Generator_ON.Location = new System.Drawing.Point(398, 139);
+            this.lbl_Media_PRBS_Generator_ON.Name = "lbl_Media_PRBS_Generator_ON";
+            this.lbl_Media_PRBS_Generator_ON.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Media_PRBS_Generator_ON.TabIndex = 7;
+            // 
+            // lbl_Media_PRBS_checker_ON
+            // 
+            this.lbl_Media_PRBS_checker_ON.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Media_PRBS_checker_ON.Location = new System.Drawing.Point(398, 180);
+            this.lbl_Media_PRBS_checker_ON.Name = "lbl_Media_PRBS_checker_ON";
+            this.lbl_Media_PRBS_checker_ON.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Media_PRBS_checker_ON.TabIndex = 7;
+            // 
+            // lbl_Media_PRBS_Generator_OFF
+            // 
+            this.lbl_Media_PRBS_Generator_OFF.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Media_PRBS_Generator_OFF.Location = new System.Drawing.Point(469, 139);
+            this.lbl_Media_PRBS_Generator_OFF.Name = "lbl_Media_PRBS_Generator_OFF";
+            this.lbl_Media_PRBS_Generator_OFF.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Media_PRBS_Generator_OFF.TabIndex = 7;
+            // 
+            // lbl_Media_PRBS_checker_OFF
+            // 
+            this.lbl_Media_PRBS_checker_OFF.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Media_PRBS_checker_OFF.Location = new System.Drawing.Point(469, 180);
+            this.lbl_Media_PRBS_checker_OFF.Name = "lbl_Media_PRBS_checker_OFF";
+            this.lbl_Media_PRBS_checker_OFF.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Media_PRBS_checker_OFF.TabIndex = 7;
+            // 
+            // lbl_AutoRestart_Enable
+            // 
+            this.lbl_AutoRestart_Enable.BackColor = System.Drawing.Color.Silver;
+            this.lbl_AutoRestart_Enable.Location = new System.Drawing.Point(273, 227);
+            this.lbl_AutoRestart_Enable.Name = "lbl_AutoRestart_Enable";
+            this.lbl_AutoRestart_Enable.Size = new System.Drawing.Size(19, 27);
+            this.lbl_AutoRestart_Enable.TabIndex = 7;
+            // 
+            // lbl_AutoRestart_Disable
+            // 
+            this.lbl_AutoRestart_Disable.BackColor = System.Drawing.Color.Silver;
+            this.lbl_AutoRestart_Disable.Location = new System.Drawing.Point(460, 227);
+            this.lbl_AutoRestart_Disable.Name = "lbl_AutoRestart_Disable";
+            this.lbl_AutoRestart_Disable.Size = new System.Drawing.Size(19, 27);
+            this.lbl_AutoRestart_Disable.TabIndex = 7;
+            // 
+            // lbl_Set_MeasureTime
+            // 
+            this.lbl_Set_MeasureTime.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Set_MeasureTime.Location = new System.Drawing.Point(460, 275);
+            this.lbl_Set_MeasureTime.Name = "lbl_Set_MeasureTime";
+            this.lbl_Set_MeasureTime.Size = new System.Drawing.Size(19, 27);
+            this.lbl_Set_MeasureTime.TabIndex = 7;
+            // 
+            // lbl_BER_Reading_ON
+            // 
+            this.lbl_BER_Reading_ON.BackColor = System.Drawing.Color.Silver;
+            this.lbl_BER_Reading_ON.Location = new System.Drawing.Point(273, 323);
+            this.lbl_BER_Reading_ON.Name = "lbl_BER_Reading_ON";
+            this.lbl_BER_Reading_ON.Size = new System.Drawing.Size(19, 27);
+            this.lbl_BER_Reading_ON.TabIndex = 7;
+            // 
+            // lbl_BER_Reading_OFF
+            // 
+            this.lbl_BER_Reading_OFF.BackColor = System.Drawing.Color.Silver;
+            this.lbl_BER_Reading_OFF.Location = new System.Drawing.Point(460, 323);
+            this.lbl_BER_Reading_OFF.Name = "lbl_BER_Reading_OFF";
+            this.lbl_BER_Reading_OFF.Size = new System.Drawing.Size(19, 27);
+            this.lbl_BER_Reading_OFF.TabIndex = 7;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(935, 9);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(103, 56);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
+            // Form_CMIS_forPRBSmode_readBER
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1051, 626);
+            this.ClientSize = new System.Drawing.Size(1045, 618);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbl_new_SerialPort);
             this.Controls.Add(this.btn_new_SerialPort);
             this.Controls.Add(this.txt_port);
             this.Controls.Add(this.txt_baudRate);
             this.Controls.Add(this.tabControl1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Form_CMIS_forPRBSmode_readBER";
+            this.Text = "Form_CMIS_forPRBSmode_readBER";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -2931,6 +3068,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_EEPROM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3201,6 +3339,22 @@ namespace CMIS_forPRBSmode_readBER_02
         private System.Windows.Forms.Button btn_Host_PRBS_checker_OFF;
         private System.Windows.Forms.Button btn_Host_PRBS_Generator_OFF;
         private System.Windows.Forms.Button btn_Host_PRBS_checker_ON;
+        private System.Windows.Forms.Label lbl_Media_pattern;
+        private System.Windows.Forms.Label lbl_Media_PRBS_checker_OFF;
+        private System.Windows.Forms.Label lbl_Media_PRBS_Generator_OFF;
+        private System.Windows.Forms.Label lbl_Media_PRBS_checker_ON;
+        private System.Windows.Forms.Label lbl_Media_PRBS_Generator_ON;
+        private System.Windows.Forms.Label lbl_Host_PRBS_checker_ON;
+        private System.Windows.Forms.Label lbl_Host_PRBS_checker_OFF;
+        private System.Windows.Forms.Label lbl_Host_PRBS_Generator_OFF;
+        private System.Windows.Forms.Label lbl_Host_PRBS_Generator_ON;
+        private System.Windows.Forms.Label lbl_Set_MeasureTime;
+        private System.Windows.Forms.Label lbl_AutoRestart_Disable;
+        private System.Windows.Forms.Label lbl_BER_Reading_OFF;
+        private System.Windows.Forms.Label lbl_BER_Reading_ON;
+        private System.Windows.Forms.Label lbl_AutoRestart_Enable;
+        private System.Windows.Forms.Label lbl_Host_pattern;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
