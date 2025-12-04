@@ -543,7 +543,7 @@ namespace FOE_YR
         #region -- EXFO_BA4000 dll --
 
         const string location = @"";
-        const string dll_name = @"BA_API_6.17_l.dll";
+        const string dll_name = @"BA_API.dll";
 
         [return: MarshalAs(UnmanagedType.I1)]
         [DllImport(location + dll_name, EntryPoint = "Connect", CallingConvention = CallingConvention.StdCall)]
@@ -578,35 +578,26 @@ namespace FOE_YR
         public static extern bool SetBAStatusAPI();
 
         [return: MarshalAs(UnmanagedType.I1)]
+        [DllImport(location + dll_name, EntryPoint = "SetPowerTXRX", CallingConvention = CallingConvention.StdCall)]
+        private static extern bool SetPowerTXRXAPI(bool powerOn, byte reloadSettings);
+
+        [return: MarshalAs(UnmanagedType.I1)]
+        [DllImport(location + dll_name, EntryPoint = "GetPowerTXRX", CallingConvention = CallingConvention.StdCall)]
+        private static extern bool GetPowerTXRXAPI(ref bool powerOn);
+
+        [return: MarshalAs(UnmanagedType.I1)]
         [DllImport(location + dll_name, EntryPoint = "GetBAStatus", CallingConvention = CallingConvention.StdCall)]
         public static extern bool GetBAStatusAPI();
 
         [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "ReadBAStatus", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool ReadBAStatusAPI(byte[] data);
-
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "WriteBAStatus", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool WriteBAStatusAPI(byte[] data);
-
-        [return: MarshalAs(UnmanagedType.I1)]
         [DllImport(location + dll_name, EntryPoint = "SwitchPPGEDOptions", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool SwitchPPGEDOptionsAPI(bool basic, bool multiRate, bool OneP5Vpp,
-            bool FEC, bool FiftyThreeG, bool isPAM4, bool is8Ch);
+        public static extern bool SwitchPPGEDOptionsAPI(ref bool basic, ref bool multiRate, ref bool OneP5Vpp,
+            ref bool FEC, ref bool FiftyThreeG, ref bool isPAM4, ref bool is8Ch);
 
         [return: MarshalAs(UnmanagedType.I1)]
         [DllImport(location + dll_name, EntryPoint = "SwitchPPGEDOptionsV2", CallingConvention = CallingConvention.StdCall)]
         public static extern bool SwitchPPGEDOptionsV2API(ref bool basic, ref bool multiRate, ref bool OneP5Vpp,
             ref bool FEC, ref bool FiftyThreeG, ref bool isPAM4, ref bool is8Ch, ref bool isMA);
-
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "SwitchPPGEDOptionsV3", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool SwitchPPGEDOptionsV3API(ref bool basic, ref bool multiRate, ref bool OneP5Vpp,
-            ref bool FEC, ref bool FiftyThreeG, ref bool isPAM4, ref bool is8Ch, ref bool isMA, ref bool is25GNRZ);
-
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "SwitchPPGEDOptionsV4", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool SwitchPPGEDOptionsV4API(byte[] options);
 
         [return: MarshalAs(UnmanagedType.I1)]
         [DllImport(location + dll_name, EntryPoint = "SetBAConfig", CallingConvention = CallingConvention.StdCall)]
@@ -616,11 +607,6 @@ namespace FOE_YR
         [DllImport(location + dll_name, EntryPoint = "SetBAConfigAdv", CallingConvention = CallingConvention.StdCall)]
         public static extern bool SetBAConfigAdvAPI(byte signalMode, int dataRate, byte clockDiv,
                                             byte rxSensitivity, ushort ctleValue, byte mapping, byte preCoding);
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "SetBAConfigAdvV2", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool SetBAConfigAdvV2API(byte signalMode, int dataRate, byte clockDiv,
-                                    byte rxSensitivity, ushort ctleValue, byte mapping, byte preCoding, short PPMTuneVal);
-
         [return: MarshalAs(UnmanagedType.I1)]
         [DllImport(location + dll_name, EntryPoint = "SetPattern", CallingConvention = CallingConvention.StdCall)]
         public static extern bool SetPatternAPI(byte channelIndex, byte patternSelect, UInt64 userPattern, bool isAutoLock, byte fecType);
@@ -731,60 +717,7 @@ namespace FOE_YR
             double[] margin, double[] marginPct, sbyte[] taps
             );
 
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "ReadBERResultMarginV3", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool ReadBERResultMarginV3API(
-            ref long captureTimeIns,
-            byte[] patternTX,
-            byte[] rxPatternLSB,
-            byte[] rxLockMSB,
-            byte[] rxLockLSB,
-            byte[] rxLock,
-            byte[] rxInvertMSB,
-            byte[] rxInvertLSB,
-            UInt64[] bertErrorCountMSB, UInt64[] bertErrorCountLSB,
-            UInt64[] bertErrorCount, UInt64[] bertBitCount,
-            double[] realTimer, double[] bertValue,
-            UInt64[] fecCOR, UInt64[] fecUnCOR, double[] fecBertValues, UInt64[] fecResults,
-            double[] margin, double[] marginPct, sbyte[] taps
-            );
 
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "ReadBERResultMarginV4", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool ReadBERResultMarginV4API(
-        ref long captureTimeIns,
-        byte[] patternTX,
-        byte[] rxPatternLSB,
-        byte[] rxLockMSB,
-        byte[] rxLockLSB,
-        byte[] rxLock,
-        byte[] rxInvertMSB,
-        byte[] rxInvertLSB,
-        UInt64[] bertErrorCountMSB, UInt64[] bertErrorCountLSB,
-        UInt64[] bertErrorCount, UInt64[] bertBitCount,
-        double[] realTimer, double[] bertValue,
-        UInt64[] fecCOR, UInt64[] fecUnCOR, double[] cerValues, double[] flrValues, UInt64[] fecResults,
-        double[] margin, double[] marginPct, sbyte[] taps
-        );
-
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "ReadBERResultMarginV5", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool ReadBERResultMarginV5API(
-        ref long captureTimeIns,
-        byte[] patternTX,
-        byte[] rxPatternLSB,
-        byte[] rxLockMSB,
-        byte[] rxLockLSB,
-        byte[] rxLock,
-        byte[] rxInvertMSB,
-        byte[] rxInvertLSB,
-        UInt64[] bertErrorCountMSB, UInt64[] bertErrorCountLSB,
-        UInt64[] bertErrorCount, UInt64[] bertBitCount,
-        double[] realTimer, double[] bertValue,
-        UInt64[] fecCOR, UInt64[] fecUnCOR, double[] cerValues, double[] flrValues, UInt64[] fecResults,
-        double[] margin, double[] marginPct, sbyte[] taps, double[] SNRResults,
-        uint[] histResults, double[] levelResults, double[] eyeHeightResults
-        );
 
         [return: MarshalAs(UnmanagedType.I1)]
         [DllImport(location + dll_name, EntryPoint = "ReadMAPower", CallingConvention = CallingConvention.StdCall)]
@@ -795,22 +728,9 @@ namespace FOE_YR
         public static extern bool ReadMAModuleStatusAPI(byte[] status);
 
         [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "ReadMAModuleStatusV2", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool ReadMAModuleStatusV2API(byte[] status);
-
-        [return: MarshalAs(UnmanagedType.I1)]
         [DllImport(location + dll_name, EntryPoint = "ReadSelectedPPGOptions", CallingConvention = CallingConvention.StdCall)]
         public static extern bool ReadSelectedPPGOptionsAPI(ref bool basic, ref bool multiRate, ref bool OneP5Vpp,
                 ref bool FEC, ref bool FiftyThreeG, ref bool isPAM4, ref bool is8Ch, ref bool isMA);
-
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "ReadSelectedPPGOptionsV2", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool ReadSelectedPPGOptionsV2API(ref bool basic, ref bool multiRate, ref bool OneP5Vpp,
-        ref bool FEC, ref bool FiftyThreeG, ref bool isPAM4, ref bool is8Ch, ref bool isMA, ref bool is25GNRZ);
-
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "ReadSelectedPPGOptionsV3", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool ReadSelectedPPGOptionsV3API(byte[] options);
 
         [return: MarshalAs(UnmanagedType.I1)]
         [DllImport(location + dll_name, EntryPoint = "ReadDataRate", CallingConvention = CallingConvention.StdCall)]
@@ -863,10 +783,6 @@ namespace FOE_YR
                 byte[] rxSensitivity,
                 ushort[] ctle
             );
-
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "ReadBERTSettings", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool ReadBERTSettingsAPI(ref byte BERTType, ref bool realtimeUpdate, ref double timeSpanInS);
 
         [return: MarshalAs(UnmanagedType.I1)]
         [DllImport(location + dll_name, EntryPoint = "Relock", CallingConvention = CallingConvention.StdCall)]
@@ -940,33 +856,22 @@ namespace FOE_YR
         [DllImport(location + dll_name, EntryPoint = "MAIOControl", CallingConvention = CallingConvention.StdCall)]
         public static extern bool MAIOControlAPI(bool read, byte index, ref byte val);
 
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "PPMTune", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool PPMTuneAPI(bool read, ref short ppmValue);
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "LoadSettings", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool LoadSettingsAPI(string filePath);
-
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "SaveSettings", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool SaveSettingsAPI(string filePath);
-
-        [return: MarshalAs(UnmanagedType.I1)]
-        [DllImport(location + dll_name, EntryPoint = "HistogramConfig", CallingConvention = CallingConvention.StdCall)]
-        public static extern bool HistogramConfigAPI(bool read, ref double eyeHeightBERTarget, byte[] histChEnable);
-
         #endregion
 
 
 
-        public BERT_EXFO_BA4000(string ip)
+        public BERT_EXFO_BA4000(string ip, out bool pass_fail, ref byte FWStatus, out string helptxt)
         {
-            byte FWStatus = 0;
-            bool status = ConnectV2API(ip, ref FWStatus);
+            //FWStatus = 0;
+            pass_fail = ConnectV2API(ip, ref FWStatus);
+            
+
             //FWStatus : 
             //• Return 2 : Update API / GUI
             //• Return 1 : Use GUI to Upgrade
             //• Return 0 : Not Required
+
+            helptxt = "FWStatus :\r\nReturn 2 : Update API / GUI\r\nReturn 1 : Use GUI to Upgrade\r\nReturn 0 : Not Required";
         }
 
 
@@ -1039,6 +944,23 @@ namespace FOE_YR
         }
         public void test_start()
         {
+            for (byte ch = 0; ch < 8; ch++)
+            {
+                try
+                {
+                    if (!ClearBERTestAPI(ch))
+                    {
+                        throw new Exception($"Bert物件  函數ClearBERTestAPI({ch}) 失敗");
+                    }
+                }
+                catch (Exception)
+                {
+                    throw new Exception($"Bert物件  函數ClearBERTestAPI({ch}) 異常");
+                }
+                Thread.Sleep(200);
+            }
+
+            Thread.Sleep(1000);
             bool status = StartBERTestAPI();
             if (!status)
             {
