@@ -125,4 +125,46 @@ namespace FOE_YR
             return _connector.Query($"Measure:Current?\x0A");
         }
     }
+
+    public class PowerSupply_GWInstek_GPP1326 : IPowerSupply
+    {
+        private IDeviceConnector _connector;
+
+        public PowerSupply_GWInstek_GPP1326(IDeviceConnector Connector)
+        {
+            //IDeviceConnector _connector = new COM_Connector(txt_PowerSupply_comport.Text,115200, Parity.None,8, StopBits.One,500,500);
+            this._connector = Connector;
+        }
+
+        public void disconnect()
+        {
+            _connector.disconnect();
+        }
+
+        public string GetDeviceInfo()
+        {
+            return _connector.Query("*IDN?\n");
+        }
+
+        public void setPowerState(bool bOn)
+        {
+            int on_off = bOn ? 1 : 0;
+            _connector.Write($"OUT{on_off}\n");
+        }
+
+        public void setVcc(int channel, string vccValue)
+        {
+            _connector.Write($"VSET{channel}:{vccValue}\n");
+        }
+
+        public string getVcc(int channel)
+        {
+            return _connector.Query($"VSET{channel}?\n");
+        }
+
+        public string getICC(int channel)
+        {
+            return _connector.Query($"IOUT{channel}?\n");
+        }
+    }
 }
