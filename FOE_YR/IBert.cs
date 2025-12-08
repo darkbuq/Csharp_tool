@@ -32,33 +32,13 @@ namespace FOE_YR
 
     public struct BertTestResult
     {
-        // 從舊的 Result(..., out double[] result_BER) 中擷取
-        /// <summary>BER (Bit Error Rate) / Post-FEC BER</summary>
-        public double[] BertValues { get; set; } // 對應 ReadBERResultAPI 中的 bertValue
+        //bool status, double[] BER, double[] PreBER, double[] PostBER, double[] margin
+        public bool status { get; set; }
+        public double[] BER { get; set; }
+        public double[] PreBER { get; set; }
+        public double[] PostBER { get; set; }
+        public double[] margin { get; set; }
 
-        // 新增的 Pre-FEC BER
-        /// <summary>Pre-FEC BER (通常是未修正前的誤碼率)</summary>
-        public double[] PreFecBertValues { get; set; } // 對應 ReadBERResultAPI 中的 fecBertValues
-
-        // 誤碼數
-        /// <summary>誤碼計數 (Post-FEC Error Count)</summary>
-        public UInt64[] BertErrorCounts { get; set; } // 對應 ReadBERResultAPI 中的 bertErrorCount
-
-        // 碼總數
-        /// <summary>總碼數 (Bit Count)</summary>
-        public UInt64[] BertBitCounts { get; set; } // 對應 ReadBERResultAPI 中的 bertBitCount
-
-        // 總測試時間 (秒)
-        /// <summary>總測試時間 (秒)</summary>
-        public double[] RealTime { get; set; } // 對應 ReadBERResultAPI 中的 realTimer
-
-        // FEC 修正的錯誤數
-        /// <summary>FEC 修正的錯誤數 (Corrected Errors)</summary>
-        public UInt64[] FecCorrectedErrors { get; set; } // 對應 ReadBERResultAPI 中的 fecCOR
-
-        // 僅 EXFO V3+ 支援
-        /// <summary>FEC 未修正的錯誤數 (Uncorrected Errors)</summary>
-        public UInt64[] FecUncorrectedErrors { get; set; } // 對應 ReadBERResultMarginV3/V4 中的 fecUnCOR
     }
 
     public class BERT_Dummy : IBert
@@ -89,13 +69,12 @@ namespace FOE_YR
 
             return new BertTestResult
             {
-                BertValues = new double[arraySize],
-                PreFecBertValues = new double[arraySize],
-                BertErrorCounts = new UInt64[arraySize],
-                BertBitCounts = new UInt64[arraySize],
-                RealTime = new double[arraySize],
-                FecCorrectedErrors = new UInt64[arraySize],
-                FecUncorrectedErrors = new UInt64[arraySize]
+                status = true,
+                
+                BER = new double[arraySize],
+                PreBER = new double[arraySize],
+                PostBER = new double[arraySize],
+                margin = new double[arraySize]
             };
         }
     }
@@ -241,13 +220,12 @@ namespace FOE_YR
 
             return new BertTestResult
             {
-                BertValues = new double[] { double.NaN },
-                PreFecBertValues = new double[arraySize], // PSS15441 COM 模式通常不提供 Pre-FEC
-                BertErrorCounts = new UInt64[arraySize],
-                BertBitCounts = new UInt64[arraySize],
-                RealTime = new double[arraySize],
-                FecCorrectedErrors = new UInt64[arraySize],
-                FecUncorrectedErrors = new UInt64[arraySize]
+                status = true,
+
+                BER = new double[arraySize],
+                PreBER = new double[arraySize],
+                PostBER = new double[arraySize],
+                margin = new double[arraySize]
             };
         }
     }
@@ -526,13 +504,12 @@ namespace FOE_YR
 
             return new BertTestResult
             {
-                BertValues = new double[] { double.NaN },
-                PreFecBertValues = new double[arraySize], // PSS15441 COM 模式通常不提供 Pre-FEC
-                BertErrorCounts = new UInt64[arraySize],
-                BertBitCounts = new UInt64[arraySize],
-                RealTime = new double[arraySize],
-                FecCorrectedErrors = new UInt64[arraySize],
-                FecUncorrectedErrors = new UInt64[arraySize]
+                status = true,
+
+                BER = new double[arraySize],
+                PreBER = new double[arraySize],
+                PostBER = new double[arraySize],
+                margin = new double[arraySize]
             };
         }
     }
@@ -1028,54 +1005,86 @@ namespace FOE_YR
         }
         public BertTestResult GetResult()
         {
-            long captureTimeIns = 0;
-            byte[] patternTX = new byte[9];
-            byte[] rxPatternLSB = new byte[9];
 
-            byte[] rxLockMSB = new byte[9];
-            byte[] rxLockLSB = new byte[9];
-
-            byte[] rxLock = new byte[9];
-
-            byte[] rxInvertMSB = new byte[9];
-            byte[] rxInvertLSB = new byte[9];
-
-            UInt64[] bertErrorCountMSB = new UInt64[9];
-            UInt64[] bertErrorCountLSB = new UInt64[9];
-
-            UInt64[] bertErrorCount = new UInt64[9];
-            UInt64[] bertBitCount = new UInt64[9];
-
-            double[] realTimer = new double[9];
-
-            double[] bertValue = new double[9];
-
-            UInt64[] fecCOR = new UInt64[9];
-
-            double[] fecBertValues = new double[9];
-
-            UInt64[] fecResults = new UInt64[432];
-
-
-
-
-            //bertErrorCount  誤碼數
-            //bertValue  誤碼率
-            //bertBitCount  碼總數
-            bool status = ReadBERResultAPI(ref captureTimeIns, patternTX, rxPatternLSB, rxLockMSB, rxLockLSB, rxLock, rxInvertMSB, rxInvertLSB, bertErrorCountMSB, bertErrorCountLSB, bertErrorCount, bertBitCount, realTimer, bertValue, fecCOR, fecBertValues, fecResults);
-            //您使用的 ReadBERResultAPI 不提供 fecUnCOR (未修正錯誤數)，只有 ReadBERResultMarginV3/V4API 才提供。
-
+            var result = MarginResult();
 
             return new BertTestResult
             {
-                BertValues = bertValue,
-                PreFecBertValues = fecBertValues, // PSS15441 COM 模式通常不提供 Pre-FEC
-                BertErrorCounts = bertErrorCount,
-                BertBitCounts = bertBitCount,
-                RealTime = realTimer,
-                FecCorrectedErrors = fecCOR,
-                FecUncorrectedErrors = new UInt64[8]
+                status = result.status,
+
+                BER = result.BER,
+                PreBER = result.PreBER,
+                PostBER = result.PostBER,
+                margin = result.margin
             };
+        }
+
+        private (bool status, double[] BER, double[] PreBER, double[] PostBER, double[] margin) MarginResult()
+        {
+            long captureTimeIns=0;
+            byte[] patternTX = new byte[9];
+            byte[] rxPatternLSB = new byte[9];
+            byte[] rxLockMSB = new byte[9];
+            byte[] rxLockLSB = new byte[9];
+            byte[] rxLock = new byte[9];
+            byte[] rxInvertMSB = new byte[9];
+            byte[] rxInvertLSB = new byte[9];
+            UInt64[] bertErrorCountMSB = new UInt64[9];
+            UInt64[] bertErrorCountLSB = new UInt64[9];
+            UInt64[] bertErrorCount = new UInt64[9];
+            UInt64[] bertBitCount = new UInt64[9];
+            double[] realTimer = new double[9];
+            double[] bertValue = new double[9];
+            ulong[] fecCOR = new ulong[9];
+            double[] fecBertValues = new double[9];
+            UInt64[] fecResults = new UInt64[432];
+            double[] margin = new double[9];
+            double[] marginPct = new double[9];
+            sbyte[] taps = new sbyte[9];
+
+
+            bool status;
+            status = ReadBERResultMarginAPI(
+            ref captureTimeIns,
+            patternTX,
+            rxPatternLSB,
+            rxLockMSB,
+            rxLockLSB,
+            rxLock,
+            rxInvertMSB,
+            rxInvertLSB,
+            bertErrorCountMSB,
+            bertErrorCountLSB,
+            bertErrorCount,
+            bertBitCount,
+            realTimer,
+            bertValue,//PreBER
+            fecCOR,
+            fecBertValues,//PostBER
+            fecResults,
+            margin,
+            marginPct,
+            taps
+            );
+
+
+            //BER 自己算
+            double[] BER = new double[9];
+            for (int i = 0; i < 9; i++)
+            {
+                if (bertBitCount[i] ==0)
+                {
+                    BER[i] = 0;
+                }
+                else
+                {
+                    BER[i] = bertErrorCount[i] / bertBitCount[i];
+                }
+            }
+
+
+
+            return (status, BER, bertValue, fecBertValues, margin);
         }
     }
 }

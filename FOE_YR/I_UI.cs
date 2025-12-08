@@ -54,7 +54,53 @@ namespace FOE_YR
 
         public void Dgv_DDMI_initialize(DataGridView dgv)
         {
-            dgv.RowTemplate.Height = 20;
+            //dgv.RowTemplate.Height = 20;
+
+
+            ////.Rows //.Columns
+            //dgv.Columns.Add("_", "#");
+
+            //dgv.Columns.Add("A_H", "A_H");
+            //dgv.Columns.Add("A_L", "A_L");
+            //dgv.Columns.Add("W_H", "W_H");
+            //dgv.Columns.Add("W_L", "W_L");
+
+            //dgv.Rows.Add("T");
+            //dgv.Rows.Add("V");
+            //dgv.Rows.Add("Bs");
+            //dgv.Rows.Add("Tx");
+            //dgv.Rows.Add("Rx");
+
+
+            //dgv.RowHeadersWidth = 5;
+            //dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
+            //dgv.Columns[0].Width = 20;
+            //dgv.Columns[1].Width = 40;
+            //dgv.Columns[2].Width = 40;
+            //dgv.Columns[3].Width = 40;
+            //dgv.Columns[4].Width = 40;
+
+
+            //dgv.Columns[0].DefaultCellStyle.BackColor = Color.LightYellow;
+            //dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.LightYellow;
+            //dgv.EnableHeadersVisualStyles = false;
+
+
+            //foreach (DataGridViewColumn column in dgv.Columns) //禁用排序
+            //{
+            //    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            //}
+
+            //dgv.AllowUserToAddRows = false;
+
+            Dgv_DDMI_initialize(dgv, new int[] { 20, 40, 40, 40, 40 }, 20);
+        }
+
+        public void Dgv_DDMI_initialize(DataGridView dgv, int[] col_width, int row_high)
+        {
+            dgv.RowTemplate.Height = row_high;
 
 
             //.Rows //.Columns
@@ -73,14 +119,12 @@ namespace FOE_YR
 
 
             dgv.RowHeadersWidth = 5;
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-
-            dgv.Columns[0].Width = 20;
-            dgv.Columns[1].Width = 40;
-            dgv.Columns[2].Width = 40;
-            dgv.Columns[3].Width = 40;
-            dgv.Columns[4].Width = 40;
+            for (int i = 0; i < 5; i++)
+            {
+                dgv.Columns[i].Width = col_width[i];
+            }            
 
 
             dgv.Columns[0].DefaultCellStyle.BackColor = Color.LightYellow;
@@ -92,6 +136,8 @@ namespace FOE_YR
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
+
+            dgv.AllowUserToAddRows = false;
         }
 
         public void Dgv_DDMI_initialize(DataGridView dgv, int[] col_width)
@@ -136,6 +182,65 @@ namespace FOE_YR
             foreach (DataGridViewColumn column in dgv.Columns) //禁用排序
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+        }
+
+        /// <summary>
+        /// dgv add col 支援 txt chk btn
+        /// </summary>
+        public void Add_dgv_col(System.Windows.Forms.DataGridView dgv, string[] colname, string[] coltxt, string[] coltype, int[] colW)
+        {
+            //string[] colname = "name,Item,H_2,H_1,L_2,L_1,page,address,value".Split(',');
+            //string[] coltxt = "name,Item,H_2,H_1,L_2,L_1,page,address,value".Split(',');
+            //string[] coltype = "txt,txt,chk,chk,chk,chk,txt,txt,txt".Split(',');
+            //int[] colW = { 60, 80, 35, 35, 35, 35, 35, 55, 45 };
+
+            for (int i = 0; i < colname.Length; i++)
+            {
+                if (coltype[i] == "txt")
+                {
+                    DataGridViewColumn col = new DataGridViewTextBoxColumn();
+                    col.DataPropertyName = colname[i];
+                    col.HeaderText = coltxt[i];
+                    col.Name = colname[i];
+                    col.Width = colW[i];
+
+                    dgv.Columns.Add(col);
+
+
+                }
+                else if (coltype[i] == "chk")
+                {
+                    DataGridViewColumn col = new DataGridViewCheckBoxColumn();
+                    col.DataPropertyName = colname[i];
+                    col.HeaderText = coltxt[i];
+                    col.Name = colname[i];
+                    col.Width = colW[i];
+
+                    dgv.Columns.Add(col);
+                }
+                else if (coltype[i] == "btn")
+                {
+                    DataGridViewButtonColumn col = new DataGridViewButtonColumn();
+                    col.DataPropertyName = colname[i];
+                    col.HeaderText = coltxt[i];
+                    col.UseColumnTextForButtonValue = true;
+                    col.Text = coltxt[i];
+                    col.Name = colname[i];
+                    col.Width = colW[i];
+
+                    dgv.Columns.Add(col);
+                }
+                else if (coltype[i] == "cbo")
+                {
+                    DataGridViewComboBoxColumn col = new DataGridViewComboBoxColumn();
+                    col.DataPropertyName = colname[i];
+                    col.HeaderText = coltxt[i];
+                    col.Name = colname[i];
+                    col.Width = colW[i];
+
+                    dgv.Columns.Add(col);
+                }
             }
         }
 
@@ -272,64 +377,7 @@ namespace FOE_YR
         }
 
 
-        /// <summary>
-        /// dgv add col 支援 txt chk btn
-        /// </summary>
-        public void Add_dgv_col(System.Windows.Forms.DataGridView dgv, string[] colname, string[] coltxt, string[] coltype, int[] colW)
-        {
-            //string[] colname = "name,Item,H_2,H_1,L_2,L_1,page,address,value".Split(',');
-            //string[] coltxt = "name,Item,H_2,H_1,L_2,L_1,page,address,value".Split(',');
-            //string[] coltype = "txt,txt,chk,chk,chk,chk,txt,txt,txt".Split(',');
-            //int[] colW = { 60, 80, 35, 35, 35, 35, 35, 55, 45 };
-
-            for (int i = 0; i < colname.Length; i++)
-            {
-                if (coltype[i] == "txt")
-                {
-                    DataGridViewColumn col = new DataGridViewTextBoxColumn();
-                    col.DataPropertyName = colname[i];
-                    col.HeaderText = coltxt[i];
-                    col.Name = colname[i];
-                    col.Width = colW[i];
-
-                    dgv.Columns.Add(col);
-
-
-                }
-                else if (coltype[i] == "chk")
-                {
-                    DataGridViewColumn col = new DataGridViewCheckBoxColumn();
-                    col.DataPropertyName = colname[i];
-                    col.HeaderText = coltxt[i];
-                    col.Name = colname[i];
-                    col.Width = colW[i];
-
-                    dgv.Columns.Add(col);
-                }
-                else if (coltype[i] == "btn")
-                {
-                    DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-                    col.DataPropertyName = colname[i];
-                    col.HeaderText = coltxt[i];
-                    col.UseColumnTextForButtonValue = true;
-                    col.Text = coltxt[i];
-                    col.Name = colname[i];
-                    col.Width = colW[i];
-
-                    dgv.Columns.Add(col);
-                }
-                else if (coltype[i] == "cbo")
-                {
-                    DataGridViewComboBoxColumn col = new DataGridViewComboBoxColumn();
-                    col.DataPropertyName = colname[i];
-                    col.HeaderText = coltxt[i];
-                    col.Name = colname[i];
-                    col.Width = colW[i];
-
-                    dgv.Columns.Add(col);
-                }
-            }
-        }
+        
 
         /// <summary>
         /// col黃色, 禁用排序, 禁止自動建立資料行
