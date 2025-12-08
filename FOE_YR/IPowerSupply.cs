@@ -146,10 +146,20 @@ namespace FOE_YR
             return _connector.Query("*IDN?\n");
         }
 
-        public void setPowerState(bool bOn)
+        public void setPowerState(bool bOn)//目前看起來沒有運作
         {
-            int on_off = bOn ? 1 : 0;
-            _connector.Write($"OUT{on_off}\n");
+            //int on_off = bOn ? 1 : 0;
+            //_connector.Write($"OUT{on_off}\n");
+
+            if (bOn)
+            {
+                _connector.Write("ALLOUTON\n");
+            }
+            else
+            {
+                _connector.Write("ALLOUTOFF\n");
+            }
+            
         }
 
         public void setVcc(int channel, string vccValue)
