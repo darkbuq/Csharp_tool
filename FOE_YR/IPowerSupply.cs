@@ -15,9 +15,9 @@ namespace FOE_YR
 
         void setVcc(int channel, string vccValue);
 
-        string getVcc(int channel);
+        double getVcc(int channel);
 
-        string getICC(int channel);
+        double getICC(int channel);
         
     }
 
@@ -31,9 +31,9 @@ namespace FOE_YR
 
         public void setVcc(int channel, string vccValue) { }
 
-        public string getVcc(int channel) => "NA";
+        public double getVcc(int channel) => double.NaN;
 
-        public string getICC(int channel) => "NA";
+        public double getICC(int channel) => double.NaN;
     }
 
     public class PowerSupply_PST3202 : IPowerSupply
@@ -65,14 +65,16 @@ namespace FOE_YR
             _connector.Write($":channel{channel} :voltage {vccValue}\x0A");
         }
 
-        public string getVcc(int channel)
+        public double getVcc(int channel)
         {
-            return _connector.Query($":CHANnel{channel}:MEASure:VOLTage ?\x0A");
+            string temp = _connector.Query($":CHANnel{channel}:MEASure:VOLTage ?\x0A");
+            return double.Parse(temp);
         }
 
-        public string getICC(int channel)
+        public double getICC(int channel)
         {
-            return _connector.Query($":channel{channel} :measure:current?\x0A");
+            string temp = _connector.Query($":channel{channel} :measure:current?\x0A");
+            return double.Parse(temp);
         }
 
     }
@@ -114,15 +116,17 @@ namespace FOE_YR
             _connector.Write($"VOLT {vccValue}\x0A");
         }
 
-        public string getVcc(int channel)//本身指令只支援預設ch 要控別的ch 要在設備面板上先切換好
+        public double getVcc(int channel)//本身指令只支援預設ch 要控別的ch 要在設備面板上先切換好
         {
-            return _connector.Query($"Measure:Voltage?\x0A");
+            string temp = _connector.Query($"Measure:Voltage?\x0A");
+            return double.Parse(temp);
         }
 
 
-        public string getICC(int channel)//本身指令只支援預設ch 要控別的ch 要在設備面板上先切換好
+        public double getICC(int channel)//本身指令只支援預設ch 要控別的ch 要在設備面板上先切換好
         {
-            return _connector.Query($"Measure:Current?\x0A");
+            string temp = _connector.Query($"Measure:Current?\x0A");
+            return double.Parse(temp);
         }
     }
 
@@ -167,14 +171,16 @@ namespace FOE_YR
             _connector.Write($"VSET{channel}:{vccValue}\n");
         }
 
-        public string getVcc(int channel)
+        public double getVcc(int channel)
         {
-            return _connector.Query($"VSET{channel}?\n");
+            string temp = _connector.Query($"VSET{channel}?\n");
+            return double.Parse(temp);
         }
 
-        public string getICC(int channel)
+        public double getICC(int channel)
         {
-            return _connector.Query($"IOUT{channel}?\n");
+            string temp = _connector.Query($"IOUT{channel}?\n");
+            return double.Parse(temp);
         }
     }
 }
