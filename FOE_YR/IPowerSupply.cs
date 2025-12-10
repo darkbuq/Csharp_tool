@@ -180,6 +180,7 @@ namespace FOE_YR
         public double getICC(int channel)
         {
             string temp = _connector.Query($"IOUT{channel}?\n");
+            temp = temp.Replace("A", "");
             return double.Parse(temp);
         }
     }
