@@ -195,6 +195,8 @@ namespace FOE_YR
             //string[] coltype = "txt,txt,chk,chk,chk,chk,txt,txt,txt".Split(',');
             //int[] colW = { 60, 80, 35, 35, 35, 35, 35, 55, 45 };
 
+            //Add_dgv_col(dgv, colname, coltxt, coltype, colW)
+
             for (int i = 0; i < colname.Length; i++)
             {
                 if (coltype[i] == "txt")
