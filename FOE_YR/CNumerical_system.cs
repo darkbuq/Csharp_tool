@@ -168,7 +168,7 @@ namespace FOE_YR
         }
     }
 
-    public class Twos_complement
+    public class Twos_complement//常用在帶負號整數
     {
         public int HexStr_TwoComplement_Int(string HexStr)//對於hex的長度沒有限制 且比較好懂
         {
@@ -214,8 +214,6 @@ namespace FOE_YR
             }
         }
     }
-
-
     
     public class Custom_binary_encoding_1
     {
@@ -247,6 +245,43 @@ namespace FOE_YR
         }
     }
 
+    public class IEEE754
+    {
+        public byte[] FloatToIEEE754(float value)
+        {
+            //C# 的 float 內部本來就就是 IEEE 754 single precision
+            //BitConverter.GetBytes(float)
+            //只是把「這個 IEEE754 的 bit pattern」直接拿出來
+
+            byte[] bytes = BitConverter.GetBytes(value);
+            return bytes;
+
+            //1.00256 轉 IEEE754 為 3F8053E3
+
+            //Big-Endian 大端序 為  3F 80 53 E3
+            //高位元組存放在低記憶體位址（PowerPC 或網路傳輸標準常用）
+
+            //Little-Endian 小端序 為  E3 53 80 3F
+            //低位元組存放在低記憶體位址（Intel/AMD 常用）
+        }
+
+        public byte[] IEEE754_To_BigEndian(byte[] IEEE754)
+        {
+            byte[] copy = (byte[])IEEE754.Clone();
+
+            Array.Reverse(copy);
+            return copy;
+        }
+
+        public float IEEE754ToFloat(byte[] ieee754LittleEndian)// IEEE754 → float（輸入必須是 Little-Endian）
+        {
+            if (ieee754LittleEndian.Length != 4)
+                throw new ArgumentException("IEEE754 single precision must be 4 bytes");
+
+            return BitConverter.ToSingle(ieee754LittleEndian, 0);
+        }
+    }
+
     public class Optical_transform
     {
         public double dBm_to_mW(double dBm)
@@ -271,4 +306,6 @@ namespace FOE_YR
             return mW_to_dBm(SenOMA_mW);
         }
     }
+
+
 }
