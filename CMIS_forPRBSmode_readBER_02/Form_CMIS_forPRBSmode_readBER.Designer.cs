@@ -32,6 +32,21 @@ namespace CMIS_forPRBSmode_readBER_02
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_CMIS_forPRBSmode_readBER));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lbl_Media_pattern = new System.Windows.Forms.Label();
+            this.lbl_Media_PRBS_checker_OFF = new System.Windows.Forms.Label();
+            this.lbl_Media_PRBS_Generator_OFF = new System.Windows.Forms.Label();
+            this.lbl_Media_PRBS_checker_ON = new System.Windows.Forms.Label();
+            this.lbl_Media_PRBS_Generator_ON = new System.Windows.Forms.Label();
+            this.lbl_Host_PRBS_checker_ON = new System.Windows.Forms.Label();
+            this.lbl_Host_PRBS_checker_OFF = new System.Windows.Forms.Label();
+            this.lbl_Host_PRBS_Generator_OFF = new System.Windows.Forms.Label();
+            this.lbl_Host_PRBS_Generator_ON = new System.Windows.Forms.Label();
+            this.lbl_Set_MeasureTime = new System.Windows.Forms.Label();
+            this.lbl_AutoRestart_Disable = new System.Windows.Forms.Label();
+            this.lbl_BER_Reading_OFF = new System.Windows.Forms.Label();
+            this.lbl_BER_Reading_ON = new System.Windows.Forms.Label();
+            this.lbl_AutoRestart_Enable = new System.Windows.Forms.Label();
+            this.lbl_Host_pattern = new System.Windows.Forms.Label();
             this.cbo_Host_Media = new System.Windows.Forms.ComboBox();
             this.btn_BER_RealTime_OFF = new System.Windows.Forms.Button();
             this.btn_BER_RealTime_ON = new System.Windows.Forms.Button();
@@ -293,21 +308,6 @@ namespace CMIS_forPRBSmode_readBER_02
             this.txt_port = new System.Windows.Forms.TextBox();
             this.txt_baudRate = new System.Windows.Forms.TextBox();
             this.lbl_new_SerialPort = new System.Windows.Forms.Label();
-            this.lbl_Host_pattern = new System.Windows.Forms.Label();
-            this.lbl_Media_pattern = new System.Windows.Forms.Label();
-            this.lbl_Host_PRBS_Generator_ON = new System.Windows.Forms.Label();
-            this.lbl_Host_PRBS_Generator_OFF = new System.Windows.Forms.Label();
-            this.lbl_Host_PRBS_checker_OFF = new System.Windows.Forms.Label();
-            this.lbl_Host_PRBS_checker_ON = new System.Windows.Forms.Label();
-            this.lbl_Media_PRBS_Generator_ON = new System.Windows.Forms.Label();
-            this.lbl_Media_PRBS_checker_ON = new System.Windows.Forms.Label();
-            this.lbl_Media_PRBS_Generator_OFF = new System.Windows.Forms.Label();
-            this.lbl_Media_PRBS_checker_OFF = new System.Windows.Forms.Label();
-            this.lbl_AutoRestart_Enable = new System.Windows.Forms.Label();
-            this.lbl_AutoRestart_Disable = new System.Windows.Forms.Label();
-            this.lbl_Set_MeasureTime = new System.Windows.Forms.Label();
-            this.lbl_BER_Reading_ON = new System.Windows.Forms.Label();
-            this.lbl_BER_Reading_OFF = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -386,6 +386,126 @@ namespace CMIS_forPRBSmode_readBER_02
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "CMIS PRBS mode setting ";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lbl_Media_pattern
+            // 
+            this.lbl_Media_pattern.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Media_pattern.Location = new System.Drawing.Point(460, 92);
+            this.lbl_Media_pattern.Name = "lbl_Media_pattern";
+            this.lbl_Media_pattern.Size = new System.Drawing.Size(19, 27);
+            this.lbl_Media_pattern.TabIndex = 7;
+            // 
+            // lbl_Media_PRBS_checker_OFF
+            // 
+            this.lbl_Media_PRBS_checker_OFF.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Media_PRBS_checker_OFF.Location = new System.Drawing.Point(469, 180);
+            this.lbl_Media_PRBS_checker_OFF.Name = "lbl_Media_PRBS_checker_OFF";
+            this.lbl_Media_PRBS_checker_OFF.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Media_PRBS_checker_OFF.TabIndex = 7;
+            // 
+            // lbl_Media_PRBS_Generator_OFF
+            // 
+            this.lbl_Media_PRBS_Generator_OFF.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Media_PRBS_Generator_OFF.Location = new System.Drawing.Point(469, 139);
+            this.lbl_Media_PRBS_Generator_OFF.Name = "lbl_Media_PRBS_Generator_OFF";
+            this.lbl_Media_PRBS_Generator_OFF.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Media_PRBS_Generator_OFF.TabIndex = 7;
+            // 
+            // lbl_Media_PRBS_checker_ON
+            // 
+            this.lbl_Media_PRBS_checker_ON.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Media_PRBS_checker_ON.Location = new System.Drawing.Point(398, 180);
+            this.lbl_Media_PRBS_checker_ON.Name = "lbl_Media_PRBS_checker_ON";
+            this.lbl_Media_PRBS_checker_ON.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Media_PRBS_checker_ON.TabIndex = 7;
+            // 
+            // lbl_Media_PRBS_Generator_ON
+            // 
+            this.lbl_Media_PRBS_Generator_ON.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Media_PRBS_Generator_ON.Location = new System.Drawing.Point(398, 139);
+            this.lbl_Media_PRBS_Generator_ON.Name = "lbl_Media_PRBS_Generator_ON";
+            this.lbl_Media_PRBS_Generator_ON.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Media_PRBS_Generator_ON.TabIndex = 7;
+            // 
+            // lbl_Host_PRBS_checker_ON
+            // 
+            this.lbl_Host_PRBS_checker_ON.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Host_PRBS_checker_ON.Location = new System.Drawing.Point(211, 180);
+            this.lbl_Host_PRBS_checker_ON.Name = "lbl_Host_PRBS_checker_ON";
+            this.lbl_Host_PRBS_checker_ON.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Host_PRBS_checker_ON.TabIndex = 7;
+            // 
+            // lbl_Host_PRBS_checker_OFF
+            // 
+            this.lbl_Host_PRBS_checker_OFF.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Host_PRBS_checker_OFF.Location = new System.Drawing.Point(282, 180);
+            this.lbl_Host_PRBS_checker_OFF.Name = "lbl_Host_PRBS_checker_OFF";
+            this.lbl_Host_PRBS_checker_OFF.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Host_PRBS_checker_OFF.TabIndex = 7;
+            // 
+            // lbl_Host_PRBS_Generator_OFF
+            // 
+            this.lbl_Host_PRBS_Generator_OFF.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Host_PRBS_Generator_OFF.Location = new System.Drawing.Point(282, 139);
+            this.lbl_Host_PRBS_Generator_OFF.Name = "lbl_Host_PRBS_Generator_OFF";
+            this.lbl_Host_PRBS_Generator_OFF.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Host_PRBS_Generator_OFF.TabIndex = 7;
+            // 
+            // lbl_Host_PRBS_Generator_ON
+            // 
+            this.lbl_Host_PRBS_Generator_ON.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Host_PRBS_Generator_ON.Location = new System.Drawing.Point(211, 139);
+            this.lbl_Host_PRBS_Generator_ON.Name = "lbl_Host_PRBS_Generator_ON";
+            this.lbl_Host_PRBS_Generator_ON.Size = new System.Drawing.Size(10, 27);
+            this.lbl_Host_PRBS_Generator_ON.TabIndex = 7;
+            // 
+            // lbl_Set_MeasureTime
+            // 
+            this.lbl_Set_MeasureTime.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Set_MeasureTime.Location = new System.Drawing.Point(460, 275);
+            this.lbl_Set_MeasureTime.Name = "lbl_Set_MeasureTime";
+            this.lbl_Set_MeasureTime.Size = new System.Drawing.Size(19, 27);
+            this.lbl_Set_MeasureTime.TabIndex = 7;
+            // 
+            // lbl_AutoRestart_Disable
+            // 
+            this.lbl_AutoRestart_Disable.BackColor = System.Drawing.Color.Silver;
+            this.lbl_AutoRestart_Disable.Location = new System.Drawing.Point(460, 227);
+            this.lbl_AutoRestart_Disable.Name = "lbl_AutoRestart_Disable";
+            this.lbl_AutoRestart_Disable.Size = new System.Drawing.Size(19, 27);
+            this.lbl_AutoRestart_Disable.TabIndex = 7;
+            // 
+            // lbl_BER_Reading_OFF
+            // 
+            this.lbl_BER_Reading_OFF.BackColor = System.Drawing.Color.Silver;
+            this.lbl_BER_Reading_OFF.Location = new System.Drawing.Point(460, 323);
+            this.lbl_BER_Reading_OFF.Name = "lbl_BER_Reading_OFF";
+            this.lbl_BER_Reading_OFF.Size = new System.Drawing.Size(19, 27);
+            this.lbl_BER_Reading_OFF.TabIndex = 7;
+            // 
+            // lbl_BER_Reading_ON
+            // 
+            this.lbl_BER_Reading_ON.BackColor = System.Drawing.Color.Silver;
+            this.lbl_BER_Reading_ON.Location = new System.Drawing.Point(273, 323);
+            this.lbl_BER_Reading_ON.Name = "lbl_BER_Reading_ON";
+            this.lbl_BER_Reading_ON.Size = new System.Drawing.Size(19, 27);
+            this.lbl_BER_Reading_ON.TabIndex = 7;
+            // 
+            // lbl_AutoRestart_Enable
+            // 
+            this.lbl_AutoRestart_Enable.BackColor = System.Drawing.Color.Silver;
+            this.lbl_AutoRestart_Enable.Location = new System.Drawing.Point(273, 227);
+            this.lbl_AutoRestart_Enable.Name = "lbl_AutoRestart_Enable";
+            this.lbl_AutoRestart_Enable.Size = new System.Drawing.Size(19, 27);
+            this.lbl_AutoRestart_Enable.TabIndex = 7;
+            // 
+            // lbl_Host_pattern
+            // 
+            this.lbl_Host_pattern.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Host_pattern.Location = new System.Drawing.Point(273, 92);
+            this.lbl_Host_pattern.Name = "lbl_Host_pattern";
+            this.lbl_Host_pattern.Size = new System.Drawing.Size(19, 27);
+            this.lbl_Host_pattern.TabIndex = 7;
             // 
             // cbo_Host_Media
             // 
@@ -2914,126 +3034,6 @@ namespace CMIS_forPRBSmode_readBER_02
             this.lbl_new_SerialPort.Name = "lbl_new_SerialPort";
             this.lbl_new_SerialPort.Size = new System.Drawing.Size(27, 27);
             this.lbl_new_SerialPort.TabIndex = 7;
-            // 
-            // lbl_Host_pattern
-            // 
-            this.lbl_Host_pattern.BackColor = System.Drawing.Color.Silver;
-            this.lbl_Host_pattern.Location = new System.Drawing.Point(273, 92);
-            this.lbl_Host_pattern.Name = "lbl_Host_pattern";
-            this.lbl_Host_pattern.Size = new System.Drawing.Size(19, 27);
-            this.lbl_Host_pattern.TabIndex = 7;
-            // 
-            // lbl_Media_pattern
-            // 
-            this.lbl_Media_pattern.BackColor = System.Drawing.Color.Silver;
-            this.lbl_Media_pattern.Location = new System.Drawing.Point(460, 92);
-            this.lbl_Media_pattern.Name = "lbl_Media_pattern";
-            this.lbl_Media_pattern.Size = new System.Drawing.Size(19, 27);
-            this.lbl_Media_pattern.TabIndex = 7;
-            // 
-            // lbl_Host_PRBS_Generator_ON
-            // 
-            this.lbl_Host_PRBS_Generator_ON.BackColor = System.Drawing.Color.Silver;
-            this.lbl_Host_PRBS_Generator_ON.Location = new System.Drawing.Point(211, 139);
-            this.lbl_Host_PRBS_Generator_ON.Name = "lbl_Host_PRBS_Generator_ON";
-            this.lbl_Host_PRBS_Generator_ON.Size = new System.Drawing.Size(10, 27);
-            this.lbl_Host_PRBS_Generator_ON.TabIndex = 7;
-            // 
-            // lbl_Host_PRBS_Generator_OFF
-            // 
-            this.lbl_Host_PRBS_Generator_OFF.BackColor = System.Drawing.Color.Silver;
-            this.lbl_Host_PRBS_Generator_OFF.Location = new System.Drawing.Point(282, 139);
-            this.lbl_Host_PRBS_Generator_OFF.Name = "lbl_Host_PRBS_Generator_OFF";
-            this.lbl_Host_PRBS_Generator_OFF.Size = new System.Drawing.Size(10, 27);
-            this.lbl_Host_PRBS_Generator_OFF.TabIndex = 7;
-            // 
-            // lbl_Host_PRBS_checker_OFF
-            // 
-            this.lbl_Host_PRBS_checker_OFF.BackColor = System.Drawing.Color.Silver;
-            this.lbl_Host_PRBS_checker_OFF.Location = new System.Drawing.Point(282, 180);
-            this.lbl_Host_PRBS_checker_OFF.Name = "lbl_Host_PRBS_checker_OFF";
-            this.lbl_Host_PRBS_checker_OFF.Size = new System.Drawing.Size(10, 27);
-            this.lbl_Host_PRBS_checker_OFF.TabIndex = 7;
-            // 
-            // lbl_Host_PRBS_checker_ON
-            // 
-            this.lbl_Host_PRBS_checker_ON.BackColor = System.Drawing.Color.Silver;
-            this.lbl_Host_PRBS_checker_ON.Location = new System.Drawing.Point(211, 180);
-            this.lbl_Host_PRBS_checker_ON.Name = "lbl_Host_PRBS_checker_ON";
-            this.lbl_Host_PRBS_checker_ON.Size = new System.Drawing.Size(10, 27);
-            this.lbl_Host_PRBS_checker_ON.TabIndex = 7;
-            // 
-            // lbl_Media_PRBS_Generator_ON
-            // 
-            this.lbl_Media_PRBS_Generator_ON.BackColor = System.Drawing.Color.Silver;
-            this.lbl_Media_PRBS_Generator_ON.Location = new System.Drawing.Point(398, 139);
-            this.lbl_Media_PRBS_Generator_ON.Name = "lbl_Media_PRBS_Generator_ON";
-            this.lbl_Media_PRBS_Generator_ON.Size = new System.Drawing.Size(10, 27);
-            this.lbl_Media_PRBS_Generator_ON.TabIndex = 7;
-            // 
-            // lbl_Media_PRBS_checker_ON
-            // 
-            this.lbl_Media_PRBS_checker_ON.BackColor = System.Drawing.Color.Silver;
-            this.lbl_Media_PRBS_checker_ON.Location = new System.Drawing.Point(398, 180);
-            this.lbl_Media_PRBS_checker_ON.Name = "lbl_Media_PRBS_checker_ON";
-            this.lbl_Media_PRBS_checker_ON.Size = new System.Drawing.Size(10, 27);
-            this.lbl_Media_PRBS_checker_ON.TabIndex = 7;
-            // 
-            // lbl_Media_PRBS_Generator_OFF
-            // 
-            this.lbl_Media_PRBS_Generator_OFF.BackColor = System.Drawing.Color.Silver;
-            this.lbl_Media_PRBS_Generator_OFF.Location = new System.Drawing.Point(469, 139);
-            this.lbl_Media_PRBS_Generator_OFF.Name = "lbl_Media_PRBS_Generator_OFF";
-            this.lbl_Media_PRBS_Generator_OFF.Size = new System.Drawing.Size(10, 27);
-            this.lbl_Media_PRBS_Generator_OFF.TabIndex = 7;
-            // 
-            // lbl_Media_PRBS_checker_OFF
-            // 
-            this.lbl_Media_PRBS_checker_OFF.BackColor = System.Drawing.Color.Silver;
-            this.lbl_Media_PRBS_checker_OFF.Location = new System.Drawing.Point(469, 180);
-            this.lbl_Media_PRBS_checker_OFF.Name = "lbl_Media_PRBS_checker_OFF";
-            this.lbl_Media_PRBS_checker_OFF.Size = new System.Drawing.Size(10, 27);
-            this.lbl_Media_PRBS_checker_OFF.TabIndex = 7;
-            // 
-            // lbl_AutoRestart_Enable
-            // 
-            this.lbl_AutoRestart_Enable.BackColor = System.Drawing.Color.Silver;
-            this.lbl_AutoRestart_Enable.Location = new System.Drawing.Point(273, 227);
-            this.lbl_AutoRestart_Enable.Name = "lbl_AutoRestart_Enable";
-            this.lbl_AutoRestart_Enable.Size = new System.Drawing.Size(19, 27);
-            this.lbl_AutoRestart_Enable.TabIndex = 7;
-            // 
-            // lbl_AutoRestart_Disable
-            // 
-            this.lbl_AutoRestart_Disable.BackColor = System.Drawing.Color.Silver;
-            this.lbl_AutoRestart_Disable.Location = new System.Drawing.Point(460, 227);
-            this.lbl_AutoRestart_Disable.Name = "lbl_AutoRestart_Disable";
-            this.lbl_AutoRestart_Disable.Size = new System.Drawing.Size(19, 27);
-            this.lbl_AutoRestart_Disable.TabIndex = 7;
-            // 
-            // lbl_Set_MeasureTime
-            // 
-            this.lbl_Set_MeasureTime.BackColor = System.Drawing.Color.Silver;
-            this.lbl_Set_MeasureTime.Location = new System.Drawing.Point(460, 275);
-            this.lbl_Set_MeasureTime.Name = "lbl_Set_MeasureTime";
-            this.lbl_Set_MeasureTime.Size = new System.Drawing.Size(19, 27);
-            this.lbl_Set_MeasureTime.TabIndex = 7;
-            // 
-            // lbl_BER_Reading_ON
-            // 
-            this.lbl_BER_Reading_ON.BackColor = System.Drawing.Color.Silver;
-            this.lbl_BER_Reading_ON.Location = new System.Drawing.Point(273, 323);
-            this.lbl_BER_Reading_ON.Name = "lbl_BER_Reading_ON";
-            this.lbl_BER_Reading_ON.Size = new System.Drawing.Size(19, 27);
-            this.lbl_BER_Reading_ON.TabIndex = 7;
-            // 
-            // lbl_BER_Reading_OFF
-            // 
-            this.lbl_BER_Reading_OFF.BackColor = System.Drawing.Color.Silver;
-            this.lbl_BER_Reading_OFF.Location = new System.Drawing.Point(460, 323);
-            this.lbl_BER_Reading_OFF.Name = "lbl_BER_Reading_OFF";
-            this.lbl_BER_Reading_OFF.Size = new System.Drawing.Size(19, 27);
-            this.lbl_BER_Reading_OFF.TabIndex = 7;
             // 
             // pictureBox1
             // 

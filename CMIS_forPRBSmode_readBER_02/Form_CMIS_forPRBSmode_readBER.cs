@@ -339,7 +339,7 @@ namespace CMIS_forPRBSmode_readBER_02
 
             string mask = Convert.ToByte("1110", 2).ToString("X2");
 
-            script_obj.RunScript($"ssA0B1{mask}{hex}");
+            script_obj.RunScript($"ttA0B1{mask}{hex}");
 
 
             lbl.BackColor = _finishC;
@@ -915,8 +915,5 @@ namespace CMIS_forPRBSmode_readBER_02
                 throw;
             }
         }
-
-
-
     }
 }
