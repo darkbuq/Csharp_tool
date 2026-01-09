@@ -10,9 +10,9 @@ namespace FOE_YR
 {
     public interface I_I2C
     {
-        void Write(byte address, byte[] value);
+        void Write(byte device_addr, byte address, byte[] value);
 
-        byte[] Read(int startAddress, int totalLength);
+        byte[] Read(byte device_addr, int startAddress, int totalLength);
 
         byte[] Query(string cmd);
 
@@ -28,12 +28,12 @@ namespace FOE_YR
             port = new SerialPort(portName, baudRate);
         }
 
-        public void Write(byte address, byte[] value)
+        public void Write(byte device_addr, byte address, byte[] value)
         {
             port.Open();
 
             byte main_code = 0x55; // 主USB-ISS指令
-            byte device_addr = 0xA0; // 設備位址 + R/W位
+            //byte device_addr = 0xA0; // 設備位址 + R/W位
             const int MAX_CHUNK = 50; // 每次最多寫50 bytes
 
             int offset = 0;
@@ -63,7 +63,7 @@ namespace FOE_YR
             port.Close();
         }
 
-        public void Write(string address, string value)
+        public void Write(byte device_addr, string address, string value)
         {
             //address
             if (address.Length != 2)
@@ -89,10 +89,10 @@ namespace FOE_YR
 
 
 
-            Write(b_address, barr_value);
+            Write(device_addr, b_address, barr_value);
         }
 
-        public byte[] Read(int startAddress, int totalLength)
+        public byte[] Read(byte device_addr, int startAddress, int totalLength)
         {
             if (totalLength >256)
             {
@@ -124,7 +124,7 @@ namespace FOE_YR
                 }
 
                 byte main_code = 0x55;   // 主USB-ISS指令
-                byte device_addr = 0xA1; // 設備位址 + R/W位
+                //byte device_addr = 0xA1; // 設備位址 + R/W位
 
                 byte addrByte = (byte)(currentAddr % 256);
                 byte lenByte = (byte)readLen;

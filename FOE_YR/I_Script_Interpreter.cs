@@ -13,7 +13,7 @@ namespace FOE_YR
 
         string RunScript(string Script);
 
-        byte[] Readpage_128byte(string address_hex);
+        byte[] Readpage_128byte(byte device_addr, string address_hex);
     }
 
     public class Script_Interpreter : I_Script_Interpreter
@@ -33,13 +33,15 @@ namespace FOE_YR
         public enum CommandType
         {
             NoOp,           // 無操作/等待新命令
-            Write,          // ss
-            Read,           // gg
-            WriteBit        // tt
+            ss,          // 寫入
+            gg,           // 讀取
+            tt,       // 寫bit
+            kk,             // compare 一段  比對不一樣 就舉手
+            km              // 比對 成功就舉手
         }
 
         // 寫入單個命令 (ss) 的參數解析狀態
-        public enum WriteState
+        public enum ss
         {
             LoadPage,
             LoadAddress,
@@ -47,20 +49,35 @@ namespace FOE_YR
         }
 
         // 讀取命令 (gg) 的參數解析狀態
-        public enum ReadState
+        public enum gg
         {
             LoadPage,
             LoadAddress,
             LoadLength // 讀取完長度後回到 CommandType.NoOp
         }
 
-        public enum WriteBitState
+        public enum tt
         {
             LoadPage,
             LoadAddress,
             LoadMask,
             LoadValue
         }
+
+        public enum kk
+        {
+            kk_load_page,
+            kk_load_address,
+            kk_compare_HexString
+        }
+
+        public enum km
+        {
+            km_load_page,
+            km_load_address,
+            km_compare_HexString
+        }
+
 
         public string Help_txt()
         {
@@ -99,20 +116,30 @@ namespace FOE_YR
                 {
                     if (runItemVal == "ss")
                     {
-                        currentCommand = CommandType.Write;
-                        internalState = (int)WriteState.LoadPage; // 設置內部起始狀態
+                        currentCommand = CommandType.ss;
+                        internalState = (int)ss.LoadPage; // 設置內部起始狀態
                         continue;
                     }
                     else if (runItemVal == "gg")
                     {
-                        currentCommand = CommandType.Read;
-                        internalState = (int)ReadState.LoadPage;
+                        currentCommand = CommandType.gg;
+                        internalState = (int)gg.LoadPage;
                         continue;
                     }
                     else if (runItemVal == "tt")
                     {
-                        currentCommand = CommandType.WriteBit;
-                        internalState = (int)WriteBitState.LoadPage;
+                        currentCommand = CommandType.tt;
+                        internalState = (int)tt.LoadPage;
+                    }
+                    else if (runItemVal == "kk")
+                    {
+                        currentCommand = CommandType.kk;
+                        internalState = (int)kk.kk_load_page;
+                    }
+                    else if (runItemVal == "km")
+                    {
+                        currentCommand = CommandType.km;
+                        internalState = (int)km.km_load_page;
                     }
                     else if (runItemVal == "ww")
                     {
@@ -128,21 +155,21 @@ namespace FOE_YR
                 // --- 階段 2: 處理命令參數 (使用 switch 判斷當前命令類型) ---
                 else
                 {
-                    if (currentCommand == CommandType.Write)
+                    if (currentCommand == CommandType.ss)
                     {
-                        switch ((WriteState)internalState)
+                        switch ((ss)internalState)
                         {
-                            case WriteState.LoadPage:
+                            case ss.LoadPage:
                                 currentPage = Convert.ToByte(runItemVal, 16);
-                                internalState = (int)WriteState.LoadAddress;
+                                internalState = (int)ss.LoadAddress;
                                 break;
 
-                            case WriteState.LoadAddress:
+                            case ss.LoadAddress:
                                 currentAddress = Convert.ToByte(runItemVal, 16);
-                                internalState = (int)WriteState.WriteHexString;
+                                internalState = (int)ss.WriteHexString;
                                 break;
 
-                            case WriteState.WriteHexString:
+                            case ss.WriteHexString:
                                 // 若不是結束符號，先加進 Buffer
                                 if (runItemVal != "ss" && runItemVal != "gg" && runItemVal != "ww")
                                 {
@@ -152,7 +179,7 @@ namespace FOE_YR
                                 if (runItemVal == "ss" || runItemVal == "gg" || i + 2 >= Script.Length)//如果有連續的 `ss` 或 `gg`，可能會進入死循環或跳過資料
                                 {
                                     // --- 命令結束 執行動作 重設狀態 ---
-                                    I2C.Write(currentAddress, Buffer.ToArray());
+                                    I2C.Write(currentPage,currentAddress, Buffer.ToArray());// A1讀A0寫;A3讀A2寫;A5讀A4寫;A7讀A6寫
 
                                     currentPage = 0;
                                     currentAddress = 0;
@@ -167,23 +194,26 @@ namespace FOE_YR
                                 break;
                         }
                     }
-                    else if (currentCommand == CommandType.Read)
+                    else if (currentCommand == CommandType.gg)
                     {
-                        switch ((ReadState)internalState)
+                        switch ((gg)internalState)
                         {
-                            case ReadState.LoadPage:
+                            case gg.LoadPage:
                                 currentPage = Convert.ToByte(runItemVal, 16);
-                                internalState = (int)ReadState.LoadAddress;
+                                internalState = (int)gg.LoadAddress;
                                 break;
 
-                            case ReadState.LoadAddress:
+                            case gg.LoadAddress:
                                 currentAddress = Convert.ToByte(runItemVal, 16);
-                                internalState = (int)ReadState.LoadLength;
+                                internalState = (int)gg.LoadLength;
                                 break;
 
-                            case ReadState.LoadLength:
+                            case gg.LoadLength:
                                 int length = Convert.ToInt16(runItemVal, 16);
-                                var readData = I2C.Read(currentAddress, length);
+
+                                byte device_addr = (byte)(currentPage + 1);// A1讀A0寫;A3讀A2寫;A5讀A4寫;A7讀A6寫
+                                
+                                var readData = I2C.Read(device_addr, currentAddress, length);
 
                                 result += string.Join(" ", readData.Select(v => v.ToString("X2")));
 
@@ -195,30 +225,30 @@ namespace FOE_YR
 
                         }
                     }
-                    else if (currentCommand == CommandType.WriteBit)
+                    else if (currentCommand == CommandType.tt)
                     {
-                        switch ((WriteBitState)internalState)
+                        switch ((tt)internalState)
                         {
-                            case WriteBitState.LoadPage:
+                            case tt.LoadPage:
                                 currentPage = Convert.ToByte(runItemVal, 16);
-                                internalState = (int)WriteBitState.LoadAddress;
+                                internalState = (int)tt.LoadAddress;
                                 break;
 
-                            case WriteBitState.LoadAddress:
+                            case tt.LoadAddress:
                                 currentAddress = Convert.ToByte(runItemVal, 16);
-                                internalState = (int)WriteBitState.LoadMask;
+                                internalState = (int)tt.LoadMask;
                                 break;
 
-                            case WriteBitState.LoadMask:
+                            case tt.LoadMask:
                                 currentMask = Convert.ToByte(runItemVal, 16);
-                                internalState = (int)WriteBitState.LoadValue;
+                                internalState = (int)tt.LoadValue;
                                 break;
 
-                            case WriteBitState.LoadValue:
+                            case tt.LoadValue:
                                 byte targetBitValue = Convert.ToByte(runItemVal, 16);
 
                                 //動作
-                                byte targetValue = I2C.Read(currentAddress, 1)[0];
+                                byte targetValue = I2C.Read((byte)(currentPage+1), currentAddress, 1)[0];// A1讀A0寫;A3讀A2寫;A5讀A4寫;A7讀A6寫
 
                                 for (int bit = 0; bit < 8; bit++)
                                 {
@@ -239,13 +269,78 @@ namespace FOE_YR
                                     }
                                 }
 
-                                I2C.Write(currentAddress, new byte[] { targetValue });
+                                I2C.Write(currentPage,currentAddress, new byte[] { targetValue });
 
                                 break;
 
                         }
                     }
+                    else if (currentCommand == CommandType.kk)
+                    {
+                        switch ((kk)internalState)
+                        {
+                            case kk.kk_load_page:
+                                currentPage = Convert.ToByte(runItemVal, 16);
+                                internalState = (int)kk.kk_load_address;
+                                break;
 
+                            case kk.kk_load_address:
+                                currentAddress = Convert.ToByte(runItemVal, 16);
+                                internalState = (int)kk.kk_compare_HexString;
+                                break;
+
+                            case kk.kk_compare_HexString:
+                                //這邊不知道怎寫
+
+                                // 讀 EEPROM 一個 byte
+                                byte readVal = I2C.Read((byte)(currentPage + 1), currentAddress, 1)[0];// A1讀A0寫;A3讀A2寫;A5讀A4寫;A7讀A6寫
+
+                                // 比對 Hex 字串
+                                if (runItemVal.ToUpper() != readVal.ToString("X2"))
+                                {
+                                    result += $"Compare Fail at pg {currentPage:X2} addr {currentAddress:X2} read val {readVal:X2} ref val {runItemVal}\r\n";
+                                }
+
+                                // 地址自增，方便下一個比對 byte
+                                currentAddress++;
+
+                                break;
+
+                        }
+                    }
+                    else if (currentCommand == CommandType.km)
+                    {
+                        switch ((km)internalState)
+                        {
+                            case km.km_load_page:
+                                currentPage = Convert.ToByte(runItemVal, 16);
+                                internalState = (int)km.km_load_address;
+                                break;
+
+                            case km.km_load_address:
+                                currentAddress = Convert.ToByte(runItemVal, 16);
+                                internalState = (int)km.km_compare_HexString;
+                                break;
+
+                            case km.km_compare_HexString:
+                                //這邊不知道怎寫
+
+                                // 讀 EEPROM 一個 byte
+                                byte readVal = I2C.Read((byte)(currentPage + 1), currentAddress, 1)[0];// A1讀A0寫;A3讀A2寫;A5讀A4寫;A7讀A6寫
+
+                                // 比對 Hex 字串
+                                if (runItemVal.ToUpper() == readVal.ToString("X2"))
+                                {
+                                    result += $"Compare Match at pg {currentPage:X2} addr {currentAddress:X2} read val {readVal:X2} ref val {runItemVal}\r\n";
+                                }
+
+                                // 地址自增，方便下一個比對 byte
+                                currentAddress++;
+
+                                break;
+
+                        }
+                    }
                 }
             }
 
@@ -255,7 +350,7 @@ namespace FOE_YR
             return result;
         }
 
-        public byte[] Readpage_128byte(string address_hex)
+        public byte[] Readpage_128byte(byte currentPage, string address_hex)// A1讀A0寫;A3讀A2寫;A5讀A4寫;A7讀A6寫
         {
             if (!(address_hex == "00" || address_hex == "80"))
             {
@@ -264,7 +359,8 @@ namespace FOE_YR
 
             byte startAddress = Convert.ToByte(address_hex, 16);
 
-            return I2C.Read(startAddress, 128);
+            byte device_addr = (byte)(currentPage + 1);
+            return I2C.Read(device_addr, startAddress, 128);
         }
     }
 }

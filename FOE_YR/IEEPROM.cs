@@ -650,32 +650,32 @@ namespace FOE_YR
         public void Update_CMISpage(int delay_time)
         {
             //A0L
-            A0L = script.Readpage_128byte("00");
+            A0L = script.Readpage_128byte(0xA0, "00");
             Thread.Sleep(delay_time);
 
             //P00
             ChangePage("00", "00", script, delay_time);
-            P00 = script.Readpage_128byte("80");
+            P00 = script.Readpage_128byte(0xA0, "80");
             Thread.Sleep(delay_time);
 
             //P01
             ChangePage("00", "01", script, delay_time);
-            P01 = script.Readpage_128byte("80");
+            P01 = script.Readpage_128byte(0xA0, "80");
             Thread.Sleep(delay_time);
 
             //P02
             ChangePage("00", "02", script, delay_time);
-            P02 = script.Readpage_128byte("80");
+            P02 = script.Readpage_128byte(0xA0, "80");
             Thread.Sleep(delay_time);
 
             //B00P10
             ChangePage("00", "10", script, delay_time);
-            B00P10 = script.Readpage_128byte("80");
+            B00P10 = script.Readpage_128byte(0xA0, "80");
             Thread.Sleep(delay_time);
 
             //B00P11
             ChangePage("00", "11", script, delay_time);
-            B00P11 = script.Readpage_128byte("80");
+            B00P11 = script.Readpage_128byte(0xA0, "80");
             Thread.Sleep(delay_time);
         }
 
