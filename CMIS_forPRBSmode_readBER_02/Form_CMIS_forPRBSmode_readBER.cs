@@ -144,11 +144,12 @@ namespace CMIS_forPRBSmode_readBER_02
                 return;
             }
 
+            byte page = Convert.ToByte(txt_read_256byte_page.Text, 16);
 
             //byte[] read_result = I2C.Read(0x00, 256);
-            byte[] LP = script_obj.Readpage_128byte(0xA0, $"00");
+            byte[] LP = script_obj.Readpage_128byte(page, $"00");
             Thread.Sleep(200);
-            byte[] UP = script_obj.Readpage_128byte(0xA0, $"80");
+            byte[] UP = script_obj.Readpage_128byte(page, $"80");
             byte[] read_result = LP.Concat(UP).ToArray();
 
 

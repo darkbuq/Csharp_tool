@@ -309,6 +309,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.txt_baudRate = new System.Windows.Forms.TextBox();
             this.lbl_new_SerialPort = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.txt_read_256byte_page = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_BER_result)).BeginInit();
@@ -2824,6 +2825,7 @@ namespace CMIS_forPRBSmode_readBER_02
             this.tabPage2.Controls.Add(this.btn_read_256byte);
             this.tabPage2.Controls.Add(this.btn_write);
             this.tabPage2.Controls.Add(this.txt_script);
+            this.tabPage2.Controls.Add(this.txt_read_256byte_page);
             this.tabPage2.Controls.Add(this.txt_value);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Location = new System.Drawing.Point(4, 28);
@@ -3043,6 +3045,16 @@ namespace CMIS_forPRBSmode_readBER_02
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
+            // 
+            // txt_read_256byte_page
+            // 
+            this.txt_read_256byte_page.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_read_256byte_page.ForeColor = System.Drawing.Color.Blue;
+            this.txt_read_256byte_page.Location = new System.Drawing.Point(457, 381);
+            this.txt_read_256byte_page.Name = "txt_read_256byte_page";
+            this.txt_read_256byte_page.Size = new System.Drawing.Size(37, 27);
+            this.txt_read_256byte_page.TabIndex = 15;
+            this.txt_read_256byte_page.Text = "A0";
             // 
             // Form_CMIS_forPRBSmode_readBER
             // 
@@ -3355,6 +3367,7 @@ namespace CMIS_forPRBSmode_readBER_02
         private System.Windows.Forms.Label lbl_AutoRestart_Enable;
         private System.Windows.Forms.Label lbl_Host_pattern;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox txt_read_256byte_page;
     }
 }
 
