@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -279,6 +280,72 @@ namespace FOE_YR
                 throw new ArgumentException("IEEE754 single precision must be 4 bytes");
 
             return BitConverter.ToSingle(ieee754LittleEndian, 0);
+        }
+    }
+
+    public class Q_0_8_8 //定點數（Fixed-point number） 固定整數位數表達分數的格式 可以有負號  也可以無負號  此類無負號
+    {
+        private const double ScalingFactor = 256.0;
+
+        public double MSB_LSB_toDouble(string MSB_LSB)
+        {
+            if (string.IsNullOrEmpty(MSB_LSB)) return 0;
+
+            // 1. 將 16 進位字串轉為 無符號 16 位元整數 (0 ~ 65535)
+            // 例如 "0100" 轉為 256
+            ushort rawValue = ushort.Parse(MSB_LSB, NumberStyles.HexNumber);
+
+            // 2. 除以 256 得到實際數值
+            return rawValue / ScalingFactor;
+        }
+
+        public string Double_toMSBLSB(double value)
+        {
+            // 1. 限制範圍（Unsigned 8.8 範圍為 0 到 255.996...）
+            if (value < 0) throw new Exception("This class has no negative sign.");
+            if (value > (65535 / ScalingFactor)) value = 65535 / ScalingFactor;
+
+            // 2. 放大 256 倍並四捨五入取最接近的整數
+            ushort rawValue = (ushort)Math.Round(value * ScalingFactor);
+
+            // 3. 轉回 4 位 16 進位字串，不足補 0
+            return rawValue.ToString("X4");
+        }
+    }
+
+    public class Q_1_15_0 // 定點數：1 位符號位，15 位整數，0 位小數 (即有符號 16 位元整數)
+    {
+        /// <summary>
+        /// 將 16 進位字串 (例如 "FD00") 轉換為十進位 double
+        /// </summary>
+        public short MSB_LSB_toShort(string MSB_LSB)
+        {
+            if (string.IsNullOrEmpty(MSB_LSB)) return 0;
+
+            // 1. 解析為有符號 16 位元整數 (short)
+            // Parse 時先轉 int 再轉 short，能自動處理 2 的補數 (2's Complement)
+            // 例如 "FD00" 會正確識別為 -768
+            short rawValue = (short)int.Parse(MSB_LSB, NumberStyles.HexNumber);
+
+            // 2. 因為 Q1.15.0 小數點在最後一位之後，所以直接回傳整數值
+            return rawValue;
+        }
+
+        /// <summary>
+        /// 將 double 數值轉換為 16 進位字串 (例如 -768 -> "FD00")
+        /// </summary>
+        public string Short_toMSBLSB(short value)
+        {
+            // 1. 範圍限制：
+            // 既然輸入已經是 short，它天生就限制在 -32768 到 32767 之間
+            // 所以原先的 if (value < -32768) 判斷在 short 型別下是多餘的。
+
+            // 2. 四捨五入：
+            // 因為輸入已經是整數型別 (short)，Math.Round 是不需要的。
+
+            // 3. 轉為 4 位 16 進位大寫字串
+            // 使用 (ushort) 強制轉型是為了確保得到補數表示法 (如 "FD00")
+            return ((ushort)value).ToString("X4");
         }
     }
 
