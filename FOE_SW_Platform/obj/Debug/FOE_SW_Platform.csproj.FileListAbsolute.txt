@@ -1,0 +1,9 @@
+C:\Users\yr.chen\source\repos\FOE_SW_Platform\bin\Debug\FOE_SW_Platform.exe
+C:\Users\yr.chen\source\repos\FOE_SW_Platform\bin\Debug\FOE_SW_Platform.pdb
+C:\Users\yr.chen\source\repos\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.csproj.AssemblyReference.cache
+C:\Users\yr.chen\source\repos\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.Form1.resources
+C:\Users\yr.chen\source\repos\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.Properties.Resources.resources
+C:\Users\yr.chen\source\repos\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.csproj.GenerateResource.cache
+C:\Users\yr.chen\source\repos\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.csproj.CoreCompileInputs.cache
+C:\Users\yr.chen\source\repos\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.exe
+C:\Users\yr.chen\source\repos\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.pdb
