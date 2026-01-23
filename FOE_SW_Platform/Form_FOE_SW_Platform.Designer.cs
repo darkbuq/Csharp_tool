@@ -60,6 +60,10 @@ namespace FOE_SW_Platform
             this.btn_path = new System.Windows.Forms.Button();
             this.btn_pwd = new System.Windows.Forms.Button();
             this.btn_release = new System.Windows.Forms.Button();
+            this.txt_Program_Fingerprint2 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lbl_Compare_Fingerprint = new System.Windows.Forms.Label();
+            this.lbl_Compare_Fingerprint2 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.dotnet_framework_40.SuspendLayout();
             this.dotnet_framework_48.SuspendLayout();
@@ -274,8 +278,12 @@ namespace FOE_SW_Platform
             // 
             // tabPage_release
             // 
+            this.tabPage_release.Controls.Add(this.lbl_Compare_Fingerprint);
             this.tabPage_release.Controls.Add(this.cbo_Program_type);
+            this.tabPage_release.Controls.Add(this.label10);
+            this.tabPage_release.Controls.Add(this.lbl_Compare_Fingerprint2);
             this.tabPage_release.Controls.Add(this.label8);
+            this.tabPage_release.Controls.Add(this.txt_Program_Fingerprint2);
             this.tabPage_release.Controls.Add(this.txt_Program_Fingerprint);
             this.tabPage_release.Controls.Add(this.label9);
             this.tabPage_release.Controls.Add(this.label7);
@@ -390,6 +398,40 @@ namespace FOE_SW_Platform
             this.btn_release.UseVisualStyleBackColor = true;
             this.btn_release.Click += new System.EventHandler(this.btn_release_Click);
             // 
+            // txt_Program_Fingerprint2
+            // 
+            this.txt_Program_Fingerprint2.Location = new System.Drawing.Point(21, 264);
+            this.txt_Program_Fingerprint2.Name = "txt_Program_Fingerprint2";
+            this.txt_Program_Fingerprint2.ReadOnly = true;
+            this.txt_Program_Fingerprint2.Size = new System.Drawing.Size(634, 27);
+            this.txt_Program_Fingerprint2.TabIndex = 8;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(19, 242);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(246, 19);
+            this.label10.TabIndex = 9;
+            this.label10.Text = "After relocation Program  Fingerprint";
+            // 
+            // lbl_Compare_Fingerprint
+            // 
+            this.lbl_Compare_Fingerprint.BackColor = System.Drawing.Color.Silver;
+            this.lbl_Compare_Fingerprint.Location = new System.Drawing.Point(625, 231);
+            this.lbl_Compare_Fingerprint.Name = "lbl_Compare_Fingerprint";
+            this.lbl_Compare_Fingerprint.Size = new System.Drawing.Size(30, 30);
+            this.lbl_Compare_Fingerprint.TabIndex = 11;
+            // 
+            // lbl_Compare_Fingerprint2
+            // 
+            this.lbl_Compare_Fingerprint2.AutoSize = true;
+            this.lbl_Compare_Fingerprint2.Location = new System.Drawing.Point(476, 237);
+            this.lbl_Compare_Fingerprint2.Name = "lbl_Compare_Fingerprint2";
+            this.lbl_Compare_Fingerprint2.Size = new System.Drawing.Size(145, 19);
+            this.lbl_Compare_Fingerprint2.TabIndex = 9;
+            this.lbl_Compare_Fingerprint2.Text = "Compare  Fingerprint";
+            // 
             // Form_FOE_SW_Platform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -447,6 +489,10 @@ namespace FOE_SW_Platform
         private System.Windows.Forms.Button btn_release;
         private System.Windows.Forms.Button btn_path;
         private System.Windows.Forms.ComboBox cbo_Program_type;
+        private System.Windows.Forms.Label lbl_Compare_Fingerprint;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lbl_Compare_Fingerprint2;
+        private System.Windows.Forms.TextBox txt_Program_Fingerprint2;
     }
 }
 

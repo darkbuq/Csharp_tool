@@ -14,6 +14,12 @@ namespace FOE_SW_Platform
 {
     public partial class Form_FOE_SW_Platform : Form
     {
+        Color _resetC = Color.Silver;
+        Color _runC = Color.Gold;
+        Color _finishC = Color.Lime;
+        Color _passC = Color.Lime;
+        Color _failC = Color.Red;
+
         public Form_FOE_SW_Platform()
         {
             InitializeComponent();
@@ -96,12 +102,16 @@ namespace FOE_SW_Platform
             txt_Program_Fingerprint.Text = dirHash;
 
 
-            //把指定目錄 完整複制 到網路磁碟某位置  且目錄名稱追加yyyyMMdd_lot
-            string networkRoot = @"\\NAS\Release";
+
+            #region -- 把指定目錄 完整複制 到網路磁碟某位置  且目錄名稱追加yyyyMMdd_lot --
+            //\\egoserver\共同區\共用-技術中心\FOE_Program\EXE\已驗證程式區\SFF_Utility\Bin20260122\SFF_Utility.exe
+            string networkRoot = @"\\egoserver\共同區\共用-技術中心\FOE_Program\EXE\已驗證程式區";
+            string Program_type = cbo_Program_type.Text;
+            networkRoot = Path.Combine(networkRoot, Program_type);
 
             string sourceDir = txt_path.Text;
             string sourceName = new DirectoryInfo(sourceDir).Name;
-            string lot = DateTime.Now.ToString("yyyyMMdd") + "_lot";
+            string lot = DateTime.Now.ToString("yyyyMMdd_HHmmss");
 
             string targetDirName = sourceName + "_" + lot;
             string targetFullPath = Path.Combine(networkRoot, targetDirName);
@@ -114,7 +124,30 @@ namespace FOE_SW_Platform
 
             CopyDirectory(sourceDir, targetFullPath);
 
+            //after relocation 特徵碼  加  比對
+            string dirHash2 = ComputeDirectoryHash(txt_path.Text, files);
+            txt_Program_Fingerprint2.Text = dirHash2;
+
+            if (dirHash == dirHash2)
+            {
+                lbl_Compare_Fingerprint2.BackColor = _passC;
+            }
+            else
+            {
+                lbl_Compare_Fingerprint2.BackColor = _failC;
+            }
+
+
             MessageBox.Show("上架完成！\r\n" + targetFullPath);
+            #endregion
+
+
+
+            #region -- 在目標目錄產生 release.txt --
+            //在目標目錄產生 release.txt 
+
+            #endregion
+
 
         }
 
