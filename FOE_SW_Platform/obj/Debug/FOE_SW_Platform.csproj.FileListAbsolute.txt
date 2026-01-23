@@ -7,3 +7,12 @@ C:\Users\yr.chen\source\repos\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.csproj.G
 C:\Users\yr.chen\source\repos\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.csproj.CoreCompileInputs.cache
 C:\Users\yr.chen\source\repos\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.exe
 C:\Users\yr.chen\source\repos\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.pdb
+D:\YR\!!!!GitHub\Csharp_tool\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.csproj.AssemblyReference.cache
+D:\YR\!!!!GitHub\Csharp_tool\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.Properties.Resources.resources
+D:\YR\!!!!GitHub\Csharp_tool\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.csproj.GenerateResource.cache
+D:\YR\!!!!GitHub\Csharp_tool\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.csproj.CoreCompileInputs.cache
+D:\YR\!!!!GitHub\Csharp_tool\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.exe
+D:\YR\!!!!GitHub\Csharp_tool\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.pdb
+D:\YR\!!!!GitHub\Csharp_tool\FOE_SW_Platform\bin\Debug\FOE_SW_Platform.exe
+D:\YR\!!!!GitHub\Csharp_tool\FOE_SW_Platform\bin\Debug\FOE_SW_Platform.pdb
+D:\YR\!!!!GitHub\Csharp_tool\FOE_SW_Platform\obj\Debug\FOE_SW_Platform.Form_FOE_SW_Platform.resources

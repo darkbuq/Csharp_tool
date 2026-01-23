@@ -15,7 +15,7 @@ namespace FOE_SW_Platform
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Form_FOE_SW_Platform());
         }
     }
 }
