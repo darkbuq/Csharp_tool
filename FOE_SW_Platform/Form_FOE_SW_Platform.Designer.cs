@@ -63,7 +63,8 @@ namespace FOE_SW_Platform
             this.txt_Program_Fingerprint2 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.lbl_Compare_Fingerprint = new System.Windows.Forms.Label();
-            this.lbl_Compare_Fingerprint2 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.dotnet_framework_40.SuspendLayout();
             this.dotnet_framework_48.SuspendLayout();
@@ -281,7 +282,8 @@ namespace FOE_SW_Platform
             this.tabPage_release.Controls.Add(this.lbl_Compare_Fingerprint);
             this.tabPage_release.Controls.Add(this.cbo_Program_type);
             this.tabPage_release.Controls.Add(this.label10);
-            this.tabPage_release.Controls.Add(this.lbl_Compare_Fingerprint2);
+            this.tabPage_release.Controls.Add(this.label12);
+            this.tabPage_release.Controls.Add(this.label11);
             this.tabPage_release.Controls.Add(this.label8);
             this.tabPage_release.Controls.Add(this.txt_Program_Fingerprint2);
             this.tabPage_release.Controls.Add(this.txt_Program_Fingerprint);
@@ -313,7 +315,7 @@ namespace FOE_SW_Platform
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(19, 179);
+            this.label8.Location = new System.Drawing.Point(19, 226);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(141, 19);
             this.label8.TabIndex = 9;
@@ -321,7 +323,7 @@ namespace FOE_SW_Platform
             // 
             // txt_Program_Fingerprint
             // 
-            this.txt_Program_Fingerprint.Location = new System.Drawing.Point(21, 201);
+            this.txt_Program_Fingerprint.Location = new System.Drawing.Point(21, 248);
             this.txt_Program_Fingerprint.Name = "txt_Program_Fingerprint";
             this.txt_Program_Fingerprint.ReadOnly = true;
             this.txt_Program_Fingerprint.Size = new System.Drawing.Size(634, 27);
@@ -389,7 +391,7 @@ namespace FOE_SW_Platform
             // btn_release
             // 
             this.btn_release.Enabled = false;
-            this.btn_release.Location = new System.Drawing.Point(504, 153);
+            this.btn_release.Location = new System.Drawing.Point(504, 200);
             this.btn_release.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_release.Name = "btn_release";
             this.btn_release.Size = new System.Drawing.Size(149, 40);
@@ -400,7 +402,7 @@ namespace FOE_SW_Platform
             // 
             // txt_Program_Fingerprint2
             // 
-            this.txt_Program_Fingerprint2.Location = new System.Drawing.Point(21, 264);
+            this.txt_Program_Fingerprint2.Location = new System.Drawing.Point(21, 311);
             this.txt_Program_Fingerprint2.Name = "txt_Program_Fingerprint2";
             this.txt_Program_Fingerprint2.ReadOnly = true;
             this.txt_Program_Fingerprint2.Size = new System.Drawing.Size(634, 27);
@@ -409,7 +411,7 @@ namespace FOE_SW_Platform
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(19, 242);
+            this.label10.Location = new System.Drawing.Point(19, 289);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(246, 19);
             this.label10.TabIndex = 9;
@@ -418,19 +420,29 @@ namespace FOE_SW_Platform
             // lbl_Compare_Fingerprint
             // 
             this.lbl_Compare_Fingerprint.BackColor = System.Drawing.Color.Silver;
-            this.lbl_Compare_Fingerprint.Location = new System.Drawing.Point(625, 231);
+            this.lbl_Compare_Fingerprint.Location = new System.Drawing.Point(625, 278);
             this.lbl_Compare_Fingerprint.Name = "lbl_Compare_Fingerprint";
             this.lbl_Compare_Fingerprint.Size = new System.Drawing.Size(30, 30);
             this.lbl_Compare_Fingerprint.TabIndex = 11;
             // 
-            // lbl_Compare_Fingerprint2
+            // label11
             // 
-            this.lbl_Compare_Fingerprint2.AutoSize = true;
-            this.lbl_Compare_Fingerprint2.Location = new System.Drawing.Point(476, 237);
-            this.lbl_Compare_Fingerprint2.Name = "lbl_Compare_Fingerprint2";
-            this.lbl_Compare_Fingerprint2.Size = new System.Drawing.Size(145, 19);
-            this.lbl_Compare_Fingerprint2.TabIndex = 9;
-            this.lbl_Compare_Fingerprint2.Text = "Compare  Fingerprint";
+            this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.Color.MediumOrchid;
+            this.label11.Location = new System.Drawing.Point(381, 71);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(201, 19);
+            this.label11.TabIndex = 9;
+            this.label11.Text = "原則上上架執行檔目錄就行";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(474, 285);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(145, 19);
+            this.label12.TabIndex = 9;
+            this.label12.Text = "Compare  Fingerprint";
             // 
             // Form_FOE_SW_Platform
             // 
@@ -491,8 +503,9 @@ namespace FOE_SW_Platform
         private System.Windows.Forms.ComboBox cbo_Program_type;
         private System.Windows.Forms.Label lbl_Compare_Fingerprint;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label lbl_Compare_Fingerprint2;
         private System.Windows.Forms.TextBox txt_Program_Fingerprint2;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
     }
 }
 

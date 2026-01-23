@@ -130,11 +130,11 @@ namespace FOE_SW_Platform
 
             if (dirHash == dirHash2)
             {
-                lbl_Compare_Fingerprint2.BackColor = _passC;
+                lbl_Compare_Fingerprint.BackColor = _passC;
             }
             else
             {
-                lbl_Compare_Fingerprint2.BackColor = _failC;
+                lbl_Compare_Fingerprint.BackColor = _failC;
             }
 
 
@@ -145,7 +145,7 @@ namespace FOE_SW_Platform
 
             #region -- 在目標目錄產生 release.txt --
             //在目標目錄產生 release.txt 
-
+            WriteReleaseInfo(targetFullPath, cbo_Program_type.Text, dirHash);
             #endregion
 
 
@@ -226,6 +226,18 @@ namespace FOE_SW_Platform
                 string targetSubDir = Path.Combine(targetDir, dirName);
                 CopyDirectory(directory, targetSubDir);
             }
+        }
+
+        private void WriteReleaseInfo(string targetDir, string programType,string dirHash)
+        {
+            string releaseFile = Path.Combine(targetDir, "release.txt");
+
+            var sb = new StringBuilder();
+            sb.AppendLine("ProgramType=" + programType);
+            sb.AppendLine("ReleaseDate=" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            sb.AppendLine("DirHash=" + dirHash);
+
+            File.WriteAllText(releaseFile, sb.ToString(), Encoding.UTF8);
         }
     }
 }
