@@ -14,7 +14,7 @@ namespace FOE_YR
 
     public class FOE_DB
     {
-        public DataTable get_DataTable(string database, string sSQLstr)
+        public DataTable get_DataTable(string database, string sSQLstr)//容易被攻擊的作法
         {
             string connstr = $"uid = sa; pwd = dsc; database = {database}; server = dataserver";
             //string sSQLstr = $"SELECT distinct {distinct_col} FROM {FromDBtable}";
@@ -39,9 +39,9 @@ namespace FOE_YR
             }
         }
 
-        public DataTable get_DataTable(string db, SqlCommand cmd)
+        public DataTable get_DataTable(string database, SqlCommand cmd)
         {
-            string connstr = $"uid = sa; pwd = dsc; database = {db}; server = dataserver";
+            string connstr = $"uid = sa; pwd = dsc; database = {database}; server = dataserver";
             using (SqlConnection conn = new SqlConnection(connstr))
             {
                 conn.Open();
@@ -111,6 +111,20 @@ namespace FOE_YR
             catch (Exception ex)
             {
                 MessageBox.Show("Error loading module list: " + ex.Message);
+            }
+        }
+
+        public void Insert_ByCommand(string database, SqlCommand cmd)
+        {
+            string connstr = $"uid = sa; pwd = dsc; database = {database}; server = dataserver";
+
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();  //通道打開
+                cmd.Connection = conn;   //指定script 從這個通道執行
+
+                cmd.CommandType = CommandType.Text;   // 明確說是 SQL 字串   因為SqlCommand似乎 有三種type
+                cmd.ExecuteNonQuery();                
             }
         }
     }
