@@ -12,6 +12,17 @@ namespace FOE_YR
 {
     interface IEEPROM
     {
+        string getVN();
+
+        string getPN();
+
+        string getOUI();
+
+        string getSN();
+
+        string getDC();
+
+        (string vrev, byte[] ascii) getVRev();
     }
 
     public class CSFF8472
@@ -645,6 +656,83 @@ namespace FOE_YR
         public C_CMIS(I_Script_Interpreter script)
         {
             this.script = script;
+        }
+
+        public C_CMIS() { }
+
+        public string getVN()
+        {
+            int start = 129 - 128;  // 通常從 0 開始
+            int length = 16;         // Vendor Name 一般是 16 bytes
+
+            // 方法1：直接用 Encoding.ASCII
+            //string vendorName = System.Text.Encoding.ASCII.GetString(P00, start, length).TrimEnd(' ', '\0');
+            string result = System.Text.Encoding.ASCII.GetString(P00, start, length);
+
+            return result;
+        }
+
+        public string getPN()
+        {
+            int start = 149 - 128;           // 通常從 0 開始
+            int length = 16;         // Vendor Name 一般是 16 bytes
+
+            // 方法1：直接用 Encoding.ASCII
+            //string vendorName = System.Text.Encoding.ASCII.GetString(P00, start, length).TrimEnd(' ', '\0');
+            string result = System.Text.Encoding.ASCII.GetString(P00, start, length);
+
+            return result;
+        }
+
+        public string getOUI()
+        {
+            int start = 145 - 128;
+            string result = "";
+            for (int i = 0; i < 3; i++)
+            {
+                result += P00[start + i].ToString("X2");
+            }
+            return result;
+        }
+
+        public string getSN()
+        {
+            int start = 166 - 128;           // 通常從 0 開始
+            int length = 16;         // Vendor Name 一般是 16 bytes
+
+            // 方法1：直接用 Encoding.ASCII
+            //string vendorName = System.Text.Encoding.ASCII.GetString(P00, start, length).TrimEnd(' ', '\0');
+            string result = System.Text.Encoding.ASCII.GetString(P00, start, length);
+
+            return result;
+        }
+
+        public string getDC()
+        {
+            int start = 182 - 128;           // 通常從 0 開始
+            int length = 8;         // Vendor Name 一般是 16 bytes
+
+            // 方法1：直接用 Encoding.ASCII
+            //string vendorName = System.Text.Encoding.ASCII.GetString(P00, start, length).TrimEnd(' ', '\0');
+            string result = System.Text.Encoding.ASCII.GetString(P00, start, length);
+
+            return result;
+        }
+
+        public (string vrev, byte[] ascii) getVRev()
+        {
+            int start = 164 - 128;           // 通常從 0 開始
+            int length = 2;         // Vendor Name 一般是 16 bytes
+
+            // 方法1：直接用 Encoding.ASCII
+            //string vendorName = System.Text.Encoding.ASCII.GetString(P00, start, length).TrimEnd(' ', '\0');
+            string result = System.Text.Encoding.ASCII.GetString(P00, start, length);
+
+   
+            byte[] asciiBytes = P00.Skip(start).Take(length).ToArray();
+
+
+            return (result, asciiBytes);
         }
 
         public void Update_CMISpage(int delay_time)
