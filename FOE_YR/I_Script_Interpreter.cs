@@ -171,12 +171,23 @@ namespace FOE_YR
 
                             case ss.WriteHexString:
                                 // 若不是結束符號，先加進 Buffer
-                                if (runItemVal != "ss" && runItemVal != "gg" && runItemVal != "ww")
+                                //if (runItemVal != "ss" && runItemVal != "gg" && runItemVal != "ww" && runItemVal != "tt" && runItemVal != "kk" && runItemVal != "km")
+                                //{
+                                //    Buffer.Add(Convert.ToByte(runItemVal, 16));
+                                //}
+
+                                bool isHex = System.Text.RegularExpressions.Regex.IsMatch(runItemVal, @"^[0-9a-fA-F]{1,2}$");
+                                bool isEndOfScript = (i + 2 >= Script.Length);
+
+                                // 若不是結束符號，先加進 Buffer
+                                if (isHex)
                                 {
                                     Buffer.Add(Convert.ToByte(runItemVal, 16));
                                 }
 
-                                if (runItemVal == "ss" || runItemVal == "gg" || i + 2 >= Script.Length)//如果有連續的 `ss` 或 `gg`，可能會進入死循環或跳過資料
+
+                                //if (runItemVal == "ss" || runItemVal == "gg" || runItemVal == "ww" || i + 2 >= Script.Length)//如果有連續的 `ss` 或 `gg`，可能會進入死循環或跳過資料
+                                if (!isHex || isEndOfScript)//如果有連續的 `ss` 或 `gg`，可能會進入死循環或跳過資料
                                 {
                                     // --- 命令結束 執行動作 重設狀態 ---
                                     I2C.Write(currentPage,currentAddress, Buffer.ToArray());// A1讀A0寫;A3讀A2寫;A5讀A4寫;A7讀A6寫
@@ -186,6 +197,7 @@ namespace FOE_YR
                                     Buffer.Clear();
 
                                     currentCommand = CommandType.NoOp;
+                                    internalState = 0;
 
 
                                     if (i + 2 < Script.Length) i -= 2; // 讓下一輪重新處理這個命令標記
@@ -270,6 +282,8 @@ namespace FOE_YR
                                 }
 
                                 I2C.Write(currentPage,currentAddress, new byte[] { targetValue });
+                                currentCommand = CommandType.NoOp;
+                                internalState = 0;
 
                                 break;
 
@@ -290,7 +304,22 @@ namespace FOE_YR
                                 break;
 
                             case kk.kk_compare_HexString:
-                                //這邊不知道怎寫
+
+
+                                bool isHex = System.Text.RegularExpressions.Regex.IsMatch(runItemVal, @"^[0-9a-fA-F]{1,2}$");
+                                bool isEndOfScript = (i + 2 >= Script.Length);
+
+                                // 如果不是 Hex，代表遇到下一個 command → 結束 kk
+                                if (!isHex || isEndOfScript)
+                                {
+                                    currentCommand = CommandType.NoOp;
+                                    internalState = 0;
+
+                                    if (i + 2 < Script.Length) i -= 2; // 退回讓外層重新判斷 command
+                                    break;
+                                }
+
+
 
                                 // 讀 EEPROM 一個 byte
                                 byte readVal = I2C.Read((byte)(currentPage + 1), currentAddress, 1)[0];// A1讀A0寫;A3讀A2寫;A5讀A4寫;A7讀A6寫
@@ -323,7 +352,19 @@ namespace FOE_YR
                                 break;
 
                             case km.km_compare_HexString:
-                                //這邊不知道怎寫
+
+                                bool isHex = System.Text.RegularExpressions.Regex.IsMatch(runItemVal, @"^[0-9a-fA-F]{1,2}$");
+                                bool isEndOfScript = (i + 2 >= Script.Length);
+                                // 遇到非 Hex（代表下一個 command）→ 結束 km
+                                if (!isHex || isEndOfScript)
+                                {
+                                    currentCommand = CommandType.NoOp;
+                                    internalState = 0;
+
+                                    if (i + 2 < Script.Length) i -= 2; // 回退讓外層重新解析 command
+                                    break;
+                                }
+
 
                                 // 讀 EEPROM 一個 byte
                                 byte readVal = I2C.Read((byte)(currentPage + 1), currentAddress, 1)[0];// A1讀A0寫;A3讀A2寫;A5讀A4寫;A7讀A6寫
@@ -350,7 +391,7 @@ namespace FOE_YR
             return result;
         }
 
-        public byte[] Readpage_128byte(byte currentPage, string address_hex)// A1讀A0寫;A3讀A2寫;A5讀A4寫;A7讀A6寫
+        public byte[] Readpage_128byte(byte currentPage, string address_hex)// A1讀A0寫;A3讀A2寫;A5讀A4寫;A7讀A6寫 
         {
             if (!(address_hex == "00" || address_hex == "80"))
             {
@@ -359,7 +400,7 @@ namespace FOE_YR
 
             byte startAddress = Convert.ToByte(address_hex, 16);
 
-            byte device_addr = (byte)(currentPage + 1);
+            byte device_addr = (byte)(currentPage + 1);   //內部已做好  讀了
             return I2C.Read(device_addr, startAddress, 128);
         }
     }

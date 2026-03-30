@@ -10,6 +10,10 @@ namespace FOE_YR
 {
     public interface I_I2C
     {
+        bool IsPortExist(string portName);//是否存在
+
+        bool IsPortInUse(string portName);//是否被佔用
+
         void Write(byte device_addr, byte address, byte[] value);
 
         byte[] Read(byte device_addr, int startAddress, int totalLength);
@@ -26,6 +30,37 @@ namespace FOE_YR
         public I2C_USB_ISS(string portName, int baudRate)
         {
             port = new SerialPort(portName, baudRate);
+        }
+
+        public bool IsPortExist(string portName)
+        {
+            string[] availablePorts = SerialPort.GetPortNames(); //這是靜態的方法  不能用port
+            if (!availablePorts.Contains(port.PortName))
+            {
+                return false; // 找不到該 COM Port
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool IsPortInUse(string portName)
+        {
+            try
+            {
+                port.Open();
+                port.Close();
+                return false; // 沒被占用
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return true; // 被占用
+            }
+            catch (Exception)
+            {
+                return true; // 其他錯誤也當作不可用
+            }
         }
 
         public void Write(byte device_addr, byte address, byte[] value)
