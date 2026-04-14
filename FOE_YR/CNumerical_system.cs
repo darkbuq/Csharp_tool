@@ -66,6 +66,23 @@ namespace FOE_YR
 
             return (predictedY, rSquared);
         }
+
+        public double[] simple_regression_setX_findYarr(double[] xdata, double[] ydata, double[] setX)
+        {
+            // 線性回歸 (degree = 1)
+            var coefficient = Fit.Polynomial(xdata, ydata, 1);
+
+            List<double> findY = new List<double>();
+            for (int i = 0; i < setX.Length; i++)
+            {
+                // 計算指定 X 的預測 Y
+                double predictedY = coefficient[1] * setX[i] + coefficient[0];
+
+                findY.Add(predictedY);
+            }
+
+            return findY.ToArray();
+        }
     }
 
     public class Binary_control

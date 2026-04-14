@@ -50,6 +50,7 @@ namespace FOE_YR
             try
             {
                 port.Open();
+                Thread.Sleep(100);
                 port.Close();
                 return false; // 沒被占用
             }
