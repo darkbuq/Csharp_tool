@@ -287,6 +287,20 @@ namespace FOE_YR
             }
         }
 
+        public void Reset_dgv_ForeColor(DataGridView dgv, int[] cleared_col, int[] cleared_row)
+        {
+            for (int row = 0; row < dgv.RowCount; row++)
+            {
+                for (int col = 0; col < dgv.ColumnCount; col++)
+                {
+                    if (cleared_col.Contains(col) & cleared_row.Contains(row))
+                    {
+                        dgv.Rows[row].Cells[col].Style.ForeColor = Color.Empty;
+                    }
+                }
+            }
+        }
+
         public void Reset_dgvFont(DataGridView dgv)
         {
             for (int i = 0; i < dgv.ColumnCount; i++)
