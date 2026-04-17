@@ -231,6 +231,43 @@ namespace FOE_YR
                 return (65536 + intt).ToString("X4");
             }
         }
+
+        public int BinaryToDec(int bit_num, byte binaryValue)//任意bit數 2補數
+        {
+            // 1. 取得最高位元的遮罩 (例如 bit_num 為 4，則 signBitMask 為 1000 = 8)
+            int signBitMask = 1 << (bit_num - 1);
+
+            // 2. 檢查最高位元是否為 1 (代表是負數)
+            if ((binaryValue & signBitMask) != 0)
+            {
+                // 3. 如果是負數，我們需要進行「正負號擴展」
+                // 先計算補全遮罩 (例如 bit_num 為 4，mask 為 ...1111 0000)
+                int extendMask = ~((1 << bit_num) - 1);
+                return (int)(binaryValue | extendMask);
+            }
+            else
+            {
+                // 4. 如果是正數，直接回傳即可
+                return (int)binaryValue;
+            }
+        }
+
+        public byte DecToBinary(int bit_num, int dec)//任意bit數 2補數
+        {
+            //外部傳一個int進來 轉成一定數量bit的2補數Binary
+
+            //事實上，在現代計算機中，int 本身就是以 2 補數儲存的。
+            //如果你想將一個負數限制在特定的位元數內，
+            //只需要使用 位元遮罩（Bit Mask） 即可，不需要手動取反加 1
+
+
+            // 1. 計算該位元數的最大遮罩 (例如 bit_num = 4, mask = 1111 = 0x0F)
+            int mask = (1 << bit_num) - 1;
+
+            // 2. 直接與遮罩做「位元與」運算
+            // 在電腦系統中，負數的 int 已經是補數型態，遮掉高位元即是結果
+            return (byte)(dec & mask);
+        }
     }
     
     public class Custom_binary_encoding_1
