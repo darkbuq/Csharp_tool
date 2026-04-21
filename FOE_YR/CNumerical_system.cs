@@ -232,7 +232,18 @@ namespace FOE_YR
             }
         }
 
-        public int BinaryToDec(int bit_num, byte binaryValue)//任意bit數 2補數
+        /// <summary>
+        /// 將任意位元寬度的 2's complement 二進位值轉換為有符號的 32-bit 整數 (decimal)。
+        /// </summary>
+        /// <param name="bitNum">位元寬度（例如 4 表示 4-bit，必須介於 1~31 之間）</param>
+        /// <param name="binaryValue">以 byte 形式儲存的二進位值（僅使用低 bitNum 位）</param>
+        /// <returns>轉換後的帶正負號整數值</returns>
+        /// <remarks>
+        /// <para>此函數假設 binaryValue 使用 2's complement 表示法。</para>
+        /// <para>如果最高位元為 1（負數），會自動進行 sign extension（正負號擴展）到 int。</para>
+        /// <para>例如：bitNum=4, binaryValue=0b1011 (11) → 回傳 -5</para>
+        /// </remarks>
+        public int BinaryToDec(int bit_num, byte binaryValue)//任意bit數 2補數dec
         {
             // 1. 取得最高位元的遮罩 (例如 bit_num 為 4，則 signBitMask 為 1000 = 8)
             int signBitMask = 1 << (bit_num - 1);
@@ -252,7 +263,19 @@ namespace FOE_YR
             }
         }
 
-        public byte DecToBinary(int bit_num, int dec)//任意bit數 2補數
+        /// <summary>
+        /// 將有符號的 32-bit 整數轉換為指定位元寬度的 2's complement 二進位值（byte 形式）。
+        /// </summary>
+        /// <param name="bitNum">目標位元寬度（例如 4 表示輸出 4-bit 2's complement）</param>
+        /// <param name="dec">要轉換的十進位整數值</param>
+        /// <returns>轉換後的 byte（僅低 bitNum 位有效，高位為 0）</returns>
+        /// <remarks>
+        /// <para>在現代電腦中，int 本身就是以 2's complement 儲存的。</para>
+        /// <para>因此只需將數值與對應的位元遮罩做 AND 運算，即可得到正確的 n-bit 2's complement 表示。</para>
+        /// <para>例如：bitNum=4, dec=-5 → 回傳 0b1011 (11)</para>
+        /// <para>支援正數與負數，超出範圍的數值會自動被截斷（wrap around）。</para>
+        /// </remarks>
+        public byte DecToBinary(int bit_num, int dec)//任意bit數2補數 輸入dec去轉成 4bit2補數
         {
             //外部傳一個int進來 轉成一定數量bit的2補數Binary
 
@@ -260,6 +283,8 @@ namespace FOE_YR
             //如果你想將一個負數限制在特定的位元數內，
             //只需要使用 位元遮罩（Bit Mask） 即可，不需要手動取反加 1
 
+            if (bit_num < 1 || bit_num > 8)
+                throw new ArgumentOutOfRangeException(nameof(bit_num), "bitNum 必須介於 1 到 8 之間（因回傳型別為 byte）");
 
             // 1. 計算該位元數的最大遮罩 (例如 bit_num = 4, mask = 1111 = 0x0F)
             int mask = (1 << bit_num) - 1;
