@@ -427,7 +427,7 @@ namespace FOE_YR
 
         public string Query_power()
         {
-            return "";
+            return _connector.Query(":FETCh:AMPLitude:AVEPower:DBM:ALL?\x0A");
         }
 
         public string Query_ER()
@@ -530,6 +530,108 @@ namespace FOE_YR
         public void SetAttenuator(string ch, string value)
         {
 
+        }
+    }
+
+    public class DCA_PSS_DCA10021 : IDCA
+    {
+        private IDeviceConnector _connector;
+
+        public DCA_PSS_DCA10021(IDeviceConnector Connector)
+        {
+            this._connector = Connector;
+        }
+
+        public void disconnect()
+        {
+            _connector.disconnect();
+            _connector = null; // 連線清空   防止重複使用
+        }
+
+        public string GetDeviceInfo()
+        {
+            return _connector.Query("*IDN?\x0A");
+        }
+
+        public void autoScale()
+        {
+            _connector.Write(":SYSTem:AUToscale\x0A");
+        }
+
+        public void Run()
+        {
+            _connector.Write(":SYSTem:AUToscale\x0A");//目前跟autoScale() 指令是一樣的
+        }
+
+        public string Query_power()
+        {
+            return _connector.Query(":MEASure:EYE:APOWer?\x0A");
+        }
+
+        public string Query_ER()
+        {
+            return _connector.Query(":MEASure:EYE:ERATio?\x0A");
+        }
+
+        public double Query_Cross()
+        {
+            return double.Parse(_connector.Query(":MEASure:EYE:CROSsing?\x0A"));
+        }
+
+        public (double Jitter_ps_PP, double Jitter_ps_RMS) Query_Jitter()//單位都以ps  皮秒 
+        {
+            _connector.Write(":MEASure:EYE:JITTer:FORMat PP\x0A");
+            Thread.Sleep(200);
+            string PP = _connector.Query(":MEASure:EYE:JITTer?\x0A");
+            Thread.Sleep(200);
+
+
+            _connector.Write(":MEASure:EYE:JITTer:FORMat RMS\x0A");
+            Thread.Sleep(200);
+            string RMS = _connector.Query(":MEASure:EYE:JITTer?\x0A");
+            Thread.Sleep(200);
+
+            return (double.Parse(PP), double.Parse(RMS));
+        }
+
+        public double Query_Margin()
+        {
+            return double.Parse(_connector.Query(":MEASure:MTESt1:MARGin?\x0A"));
+        }
+
+        public string Query_result(DCA_QueryResultType Query_result_type)
+        {
+            return "";
+        }
+
+        public void SaveImageWithPath(string Pathfilename)
+        {
+            //需要分離路徑和檔名
+            //檔名要有副檔名
+            
+            _connector.Write($":DISK:SIMage:FNAMe \"{Path}\"\n");//先設定圖片保存目錄
+            Thread.Sleep(200);
+            _connector.Write($":DISK:SIMage:SAVE {filename}\n");//再存圖片
+        }
+
+        public void OpenChannel(int channel)
+        {
+
+        }
+
+        public void CloseChannel(int channel)
+        {
+
+        }
+
+        public void SetMask(string file_name)
+        {
+
+        }
+
+        public void SetAttenuator(string ch, string value)
+        {
+            throw new Exception("此DCA物件 目前不支援這功能");
         }
     }
 
