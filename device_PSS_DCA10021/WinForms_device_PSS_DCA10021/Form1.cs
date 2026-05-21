@@ -88,5 +88,17 @@ namespace WinForms_device_PSS_DCA10021
         {
             myDCA.SaveImageWithPath(txt_saveImage_pathfilename.Text);
         }
+
+        private void btn_setMask1_Click(object sender, EventArgs e)
+        {
+            myDCA.SetMask(txt_setMask1.Text);
+        }
+
+        private void btn_setMask2_Click(object sender, EventArgs e)
+        {
+            myDCA.SetMask(txt_setMask2.Text);
+        }
+
+
     }
 }

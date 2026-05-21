@@ -43,11 +43,15 @@ namespace WinForms_device_PSS_DCA10021
             this.btn_queryMargin = new System.Windows.Forms.Button();
             this.btn_saveImage = new System.Windows.Forms.Button();
             this.txt_saveImage_pathfilename = new System.Windows.Forms.TextBox();
+            this.btn_setMask1 = new System.Windows.Forms.Button();
+            this.txt_setMask1 = new System.Windows.Forms.TextBox();
+            this.btn_setMask2 = new System.Windows.Forms.Button();
+            this.txt_setMask2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btn_new_PSS_DCA10021
             // 
-            this.btn_new_PSS_DCA10021.Location = new System.Drawing.Point(190, 164);
+            this.btn_new_PSS_DCA10021.Location = new System.Drawing.Point(172, 123);
             this.btn_new_PSS_DCA10021.Name = "btn_new_PSS_DCA10021";
             this.btn_new_PSS_DCA10021.Size = new System.Drawing.Size(181, 27);
             this.btn_new_PSS_DCA10021.TabIndex = 0;
@@ -57,7 +61,7 @@ namespace WinForms_device_PSS_DCA10021
             // 
             // txt_ip
             // 
-            this.txt_ip.Location = new System.Drawing.Point(34, 164);
+            this.txt_ip.Location = new System.Drawing.Point(16, 123);
             this.txt_ip.Name = "txt_ip";
             this.txt_ip.Size = new System.Drawing.Size(150, 27);
             this.txt_ip.TabIndex = 1;
@@ -66,7 +70,7 @@ namespace WinForms_device_PSS_DCA10021
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 28);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(567, 95);
             this.label1.TabIndex = 2;
@@ -75,7 +79,7 @@ namespace WinForms_device_PSS_DCA10021
             // 
             // btn_disconnect
             // 
-            this.btn_disconnect.Location = new System.Drawing.Point(439, 163);
+            this.btn_disconnect.Location = new System.Drawing.Point(421, 122);
             this.btn_disconnect.Name = "btn_disconnect";
             this.btn_disconnect.Size = new System.Drawing.Size(123, 27);
             this.btn_disconnect.TabIndex = 0;
@@ -85,15 +89,15 @@ namespace WinForms_device_PSS_DCA10021
             // 
             // txt_result
             // 
-            this.txt_result.Location = new System.Drawing.Point(190, 213);
+            this.txt_result.Location = new System.Drawing.Point(145, 172);
             this.txt_result.Multiline = true;
             this.txt_result.Name = "txt_result";
-            this.txt_result.Size = new System.Drawing.Size(573, 69);
+            this.txt_result.Size = new System.Drawing.Size(621, 69);
             this.txt_result.TabIndex = 1;
             // 
             // btn_queryInfo
             // 
-            this.btn_queryInfo.Location = new System.Drawing.Point(640, 163);
+            this.btn_queryInfo.Location = new System.Drawing.Point(643, 122);
             this.btn_queryInfo.Name = "btn_queryInfo";
             this.btn_queryInfo.Size = new System.Drawing.Size(123, 27);
             this.btn_queryInfo.TabIndex = 0;
@@ -103,7 +107,7 @@ namespace WinForms_device_PSS_DCA10021
             // 
             // btn_autoScale
             // 
-            this.btn_autoScale.Location = new System.Drawing.Point(61, 213);
+            this.btn_autoScale.Location = new System.Drawing.Point(16, 172);
             this.btn_autoScale.Name = "btn_autoScale";
             this.btn_autoScale.Size = new System.Drawing.Size(123, 27);
             this.btn_autoScale.TabIndex = 0;
@@ -113,7 +117,7 @@ namespace WinForms_device_PSS_DCA10021
             // 
             // btn_queryPower
             // 
-            this.btn_queryPower.Location = new System.Drawing.Point(61, 246);
+            this.btn_queryPower.Location = new System.Drawing.Point(16, 205);
             this.btn_queryPower.Name = "btn_queryPower";
             this.btn_queryPower.Size = new System.Drawing.Size(123, 27);
             this.btn_queryPower.TabIndex = 0;
@@ -123,7 +127,7 @@ namespace WinForms_device_PSS_DCA10021
             // 
             // btn_queryER
             // 
-            this.btn_queryER.Location = new System.Drawing.Point(61, 279);
+            this.btn_queryER.Location = new System.Drawing.Point(16, 238);
             this.btn_queryER.Name = "btn_queryER";
             this.btn_queryER.Size = new System.Drawing.Size(123, 27);
             this.btn_queryER.TabIndex = 0;
@@ -133,7 +137,7 @@ namespace WinForms_device_PSS_DCA10021
             // 
             // btn_queryCrossing
             // 
-            this.btn_queryCrossing.Location = new System.Drawing.Point(61, 312);
+            this.btn_queryCrossing.Location = new System.Drawing.Point(16, 271);
             this.btn_queryCrossing.Name = "btn_queryCrossing";
             this.btn_queryCrossing.Size = new System.Drawing.Size(123, 27);
             this.btn_queryCrossing.TabIndex = 0;
@@ -143,7 +147,7 @@ namespace WinForms_device_PSS_DCA10021
             // 
             // btn_queryJitter
             // 
-            this.btn_queryJitter.Location = new System.Drawing.Point(61, 345);
+            this.btn_queryJitter.Location = new System.Drawing.Point(16, 304);
             this.btn_queryJitter.Name = "btn_queryJitter";
             this.btn_queryJitter.Size = new System.Drawing.Size(123, 27);
             this.btn_queryJitter.TabIndex = 0;
@@ -153,7 +157,7 @@ namespace WinForms_device_PSS_DCA10021
             // 
             // btn_queryMargin
             // 
-            this.btn_queryMargin.Location = new System.Drawing.Point(61, 378);
+            this.btn_queryMargin.Location = new System.Drawing.Point(16, 337);
             this.btn_queryMargin.Name = "btn_queryMargin";
             this.btn_queryMargin.Size = new System.Drawing.Size(123, 27);
             this.btn_queryMargin.TabIndex = 0;
@@ -163,7 +167,7 @@ namespace WinForms_device_PSS_DCA10021
             // 
             // btn_saveImage
             // 
-            this.btn_saveImage.Location = new System.Drawing.Point(559, 328);
+            this.btn_saveImage.Location = new System.Drawing.Point(643, 247);
             this.btn_saveImage.Name = "btn_saveImage";
             this.btn_saveImage.Size = new System.Drawing.Size(123, 27);
             this.btn_saveImage.TabIndex = 0;
@@ -173,21 +177,63 @@ namespace WinForms_device_PSS_DCA10021
             // 
             // txt_saveImage_pathfilename
             // 
-            this.txt_saveImage_pathfilename.Location = new System.Drawing.Point(403, 328);
+            this.txt_saveImage_pathfilename.Location = new System.Drawing.Point(395, 247);
             this.txt_saveImage_pathfilename.Name = "txt_saveImage_pathfilename";
-            this.txt_saveImage_pathfilename.Size = new System.Drawing.Size(150, 27);
+            this.txt_saveImage_pathfilename.Size = new System.Drawing.Size(242, 27);
             this.txt_saveImage_pathfilename.TabIndex = 1;
             this.txt_saveImage_pathfilename.Text = "D:\\\\gg\\gg.jpg";
+            // 
+            // btn_setMask1
+            // 
+            this.btn_setMask1.Location = new System.Drawing.Point(665, 370);
+            this.btn_setMask1.Name = "btn_setMask1";
+            this.btn_setMask1.Size = new System.Drawing.Size(101, 27);
+            this.btn_setMask1.TabIndex = 0;
+            this.btn_setMask1.Text = "set Mask 1";
+            this.btn_setMask1.UseVisualStyleBackColor = true;
+            this.btn_setMask1.Click += new System.EventHandler(this.btn_setMask1_Click);
+            // 
+            // txt_setMask1
+            // 
+            this.txt_setMask1.Location = new System.Drawing.Point(16, 370);
+            this.txt_setMask1.Name = "txt_setMask1";
+            this.txt_setMask1.Size = new System.Drawing.Size(643, 27);
+            this.txt_setMask1.TabIndex = 1;
+            this.txt_setMask1.Text = "D:\\YR\\!!about Device\\DCA\\PSS DCA 10021\\PreciseDCA_IS_V1.0.3\\PreciseDCA_IS_V1.0.3\\" +
+    "Masks\\Ethernet\\10GbE_10_3125_May02.msk";
+            // 
+            // btn_setMask2
+            // 
+            this.btn_setMask2.Location = new System.Drawing.Point(665, 403);
+            this.btn_setMask2.Name = "btn_setMask2";
+            this.btn_setMask2.Size = new System.Drawing.Size(101, 27);
+            this.btn_setMask2.TabIndex = 0;
+            this.btn_setMask2.Text = "set Mask 2";
+            this.btn_setMask2.UseVisualStyleBackColor = true;
+            this.btn_setMask2.Click += new System.EventHandler(this.btn_setMask2_Click);
+            // 
+            // txt_setMask2
+            // 
+            this.txt_setMask2.Location = new System.Drawing.Point(16, 403);
+            this.txt_setMask2.Name = "txt_setMask2";
+            this.txt_setMask2.Size = new System.Drawing.Size(643, 27);
+            this.txt_setMask2.TabIndex = 1;
+            this.txt_setMask2.Text = "D:\\YR\\!!about Device\\DCA\\PSS DCA 10021\\PreciseDCA_IS_V1.0.3\\PreciseDCA_IS_V1.0.3\\" +
+    "Masks\\Ethernet\\10xGbEthernet_12_5.msk";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 418);
+            this.ClientSize = new System.Drawing.Size(778, 441);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txt_result);
+            this.Controls.Add(this.txt_setMask2);
+            this.Controls.Add(this.txt_setMask1);
             this.Controls.Add(this.txt_saveImage_pathfilename);
             this.Controls.Add(this.txt_ip);
+            this.Controls.Add(this.btn_setMask2);
+            this.Controls.Add(this.btn_setMask1);
             this.Controls.Add(this.btn_saveImage);
             this.Controls.Add(this.btn_queryMargin);
             this.Controls.Add(this.btn_queryJitter);
@@ -224,6 +270,10 @@ namespace WinForms_device_PSS_DCA10021
         private System.Windows.Forms.Button btn_queryMargin;
         private System.Windows.Forms.Button btn_saveImage;
         private System.Windows.Forms.TextBox txt_saveImage_pathfilename;
+        private System.Windows.Forms.Button btn_setMask1;
+        private System.Windows.Forms.TextBox txt_setMask1;
+        private System.Windows.Forms.Button btn_setMask2;
+        private System.Windows.Forms.TextBox txt_setMask2;
     }
 }
 
