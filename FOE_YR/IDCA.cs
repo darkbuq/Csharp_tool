@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -608,25 +609,37 @@ namespace FOE_YR
         {
             //需要分離路徑和檔名
             //檔名要有副檔名
-            
-            _connector.Write($":DISK:SIMage:FNAMe \"{Path}\"\n");//先設定圖片保存目錄
+
+            // 取得資料夾路徑
+            string path = Path.GetDirectoryName(Pathfilename);
+
+            // 取得檔名(含副檔名)
+            string filename = Path.GetFileName(Pathfilename);
+
+
+
+            _connector.Write($":DISK:SIMage:FNAMe \"{path}\"\n");//先設定圖片保存目錄
             Thread.Sleep(200);
             _connector.Write($":DISK:SIMage:SAVE {filename}\n");//再存圖片
+            Thread.Sleep(200);
         }
 
         public void OpenChannel(int channel)
         {
-
+            throw new Exception("此DCA物件 目前不支援這功能");
         }
 
         public void CloseChannel(int channel)
         {
-
+            throw new Exception("此DCA物件 目前不支援這功能");
         }
 
         public void SetMask(string file_name)
         {
-
+            _connector.Write($":MTESt1:LOAD:FNAMe \"{file_name}\"\n");//先設定路徑檔名
+            Thread.Sleep(200);
+            _connector.Write($":MTESt1:LOAD\n");//載入模板
+            Thread.Sleep(200);
         }
 
         public void SetAttenuator(string ch, string value)
