@@ -1,0 +1,15 @@
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\bin\Debug\WinForms_device_PSS_DCA10021.exe.config
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\bin\Debug\WinForms_device_PSS_DCA10021.exe
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\bin\Debug\WinForms_device_PSS_DCA10021.pdb
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\bin\Debug\FOE_YR.dll
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\bin\Debug\MathNet.Numerics.dll
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\bin\Debug\FOE_YR.pdb
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\bin\Debug\MathNet.Numerics.xml
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\obj\Debug\WinForms_device_PSS_DCA10021.csproj.AssemblyReference.cache
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\obj\Debug\WinForms_device_PSS_DCA10021.Form1.resources
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\obj\Debug\WinForms_device_PSS_DCA10021.Properties.Resources.resources
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\obj\Debug\WinForms_device_PSS_DCA10021.csproj.GenerateResource.cache
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\obj\Debug\WinForms_device_PSS_DCA10021.csproj.CoreCompileInputs.cache
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\obj\Debug\WinForms_device_PSS_DCA10021.csproj.CopyComplete
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\obj\Debug\WinForms_device_PSS_DCA10021.exe
+D:\YR\!!!!GitHub\Csharp_tool\device_PSS_DCA10021\WinForms_device_PSS_DCA10021\obj\Debug\WinForms_device_PSS_DCA10021.pdb
