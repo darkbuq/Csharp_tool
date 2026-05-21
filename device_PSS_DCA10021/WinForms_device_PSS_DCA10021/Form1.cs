@@ -76,7 +76,7 @@ namespace WinForms_device_PSS_DCA10021
         {
             var jitter = myDCA.Query_Jitter();
 
-            txt_result.Text = $"PP = {jitter.Jitter_ps_PP}\r\nRMS = {jitter.Jitter_ps_RMS}";
+            txt_result.Text = $"PP = {(jitter.Jitter_ps_PP * 1e12).ToString("0.00")}ps\r\nRMS = {(jitter.Jitter_ps_RMS * 1e12).ToString("0.00")}ps";
         }
 
         private void btn_queryMargin_Click(object sender, EventArgs e)
