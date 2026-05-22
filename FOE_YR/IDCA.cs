@@ -26,6 +26,12 @@ namespace FOE_YR
         EyeWidth
     }
 
+    public enum DCA_SetOtherItem
+    {
+        Attenuator,
+        WaveLength
+    }
+
     public interface IDCA
     {
         void disconnect();
@@ -47,6 +53,8 @@ namespace FOE_YR
         double Query_Margin();
 
         string Query_result(DCA_QueryResultType Query_result_type);
+
+        void Set_OtherItem(DCA_SetOtherItem SetOtherItem, string value);
 
         void SaveImageWithPath(string Pathfilename);
 
@@ -80,6 +88,8 @@ namespace FOE_YR
         public double Query_Margin() => double.NaN;
 
         public string Query_result(DCA_QueryResultType Query_result_type) => "NA";
+
+        public void Set_OtherItem(DCA_SetOtherItem SetOtherItem, string value) { }        
 
         public void SaveImageWithPath(string Pathfilename) { }
 
@@ -167,6 +177,11 @@ namespace FOE_YR
         public string Query_result(DCA_QueryResultType queryType)
         {
             throw new Exception("物件 DCA_Keysight86100D_FlexDCA 函數Query_result()  無支援");
+        }
+
+        public void Set_OtherItem(DCA_SetOtherItem SetOtherItem, string value)
+        {
+            throw new Exception("not supported");
         }
 
         public void SaveImageWithPath(string Pathfilename)
@@ -324,6 +339,11 @@ namespace FOE_YR
             }
 
 
+        }
+
+        public void Set_OtherItem(DCA_SetOtherItem SetOtherItem, string value)
+        {
+            throw new Exception("not supported");
         }
 
         public void SaveImageWithPath(string Pathfilename)
@@ -498,6 +518,11 @@ namespace FOE_YR
             return result;
         }
 
+        public void Set_OtherItem(DCA_SetOtherItem SetOtherItem, string value)
+        {
+            throw new Exception("not supported");
+        }
+
         public void SaveImageWithPath(string Pathfilename)
         {
             var path_name = Pathfilename.Split(',');
@@ -605,6 +630,26 @@ namespace FOE_YR
             return "";
         }
 
+        public void Set_OtherItem(DCA_SetOtherItem SetOtherItem, string value)
+        {
+            //string command;
+
+            switch (SetOtherItem)
+            {
+                case DCA_SetOtherItem.Attenuator:
+                    _connector.Write(":CHANnel1A:ATTenuator:STATe ON\x0A");
+                    Thread.Sleep(500);
+                    _connector.Write($":CHANnel1A:ATTenuator:DECibels {value}\x0A");
+                    break;
+
+                default:
+                    throw new NotSupportedException($"Test item {SetOtherItem} is not supported on this device.");
+            }
+
+
+
+        }
+
         public void SaveImageWithPath(string Pathfilename)
         {
             //需要分離路徑和檔名
@@ -647,5 +692,6 @@ namespace FOE_YR
             throw new Exception("此DCA物件 目前不支援這功能");
         }
     }
+
 
 }
