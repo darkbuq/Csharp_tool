@@ -1,0 +1,15 @@
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\obj\Debug\PowerSupply_GW_PST3202.csproj.AssemblyReference.cache
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\obj\Debug\PowerSupply_GW_PST3202.Form1.resources
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\obj\Debug\PowerSupply_GW_PST3202.Properties.Resources.resources
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\obj\Debug\PowerSupply_GW_PST3202.csproj.GenerateResource.cache
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\obj\Debug\PowerSupply_GW_PST3202.csproj.CoreCompileInputs.cache
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\bin\Debug\PowerSupply_GW_PST3202.exe.config
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\bin\Debug\PowerSupply_GW_PST3202.exe
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\bin\Debug\PowerSupply_GW_PST3202.pdb
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\bin\Debug\FOE_YR.dll
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\bin\Debug\MathNet.Numerics.dll
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\bin\Debug\FOE_YR.pdb
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\bin\Debug\MathNet.Numerics.xml
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\obj\Debug\PowerSupply_GW_PST3202.csproj.CopyComplete
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\obj\Debug\PowerSupply_GW_PST3202.exe
+D:\YR\!!!!GitHub\Csharp_tool\device_PowerSupply_GW_PST3202\PowerSupply_GW_PST3202\obj\Debug\PowerSupply_GW_PST3202.pdb

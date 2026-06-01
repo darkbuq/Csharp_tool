@@ -17,16 +17,24 @@ namespace FOE_YR
         string GetDeviceInfo();
 
         string setDataRate(double DataRate);
+
         string setPattern(string PRBS, bool TxInv, bool RxInv);
         //bool Polling_ErrorRate(ref double[] ber_result, UInt32 totaltime, double rate, out bool done);
 
         void PPG_on();
+
         void PPG_off();
+
         void ED_on();
+
         void ED_off();
+
         void Set_test_time(uint testTime_sec);
+
         void test_start();
+
         string Result(int ch, out double[] result_BER);
+
         BertTestResult GetResult();
     }
 
@@ -77,6 +85,74 @@ namespace FOE_YR
                 margin = new double[arraySize]
             };
         }
+    }
+
+    public class BERT_PSS_100G_III : IBert
+    {
+        private IDeviceConnector _connector;
+
+        public BERT_PSS_100G_III(IDeviceConnector Connector)
+        {
+            this._connector = Connector;
+        }
+
+        public void disconnect()
+        {
+
+        }
+
+        public string GetDeviceInfo()
+        {
+
+        }
+
+        public string setDataRate(double DataRate)
+        {
+
+        }
+
+        public string setPattern(string PRBS, bool TxInv, bool RxInv)//bool Polling_ErrorRate(ref double[] ber_result, UInt32 totaltime, double rate, out bool done);
+        {
+
+        }
+        
+
+        public void PPG_on()
+        {
+
+        }
+
+        public void PPG_off()
+        {
+
+        }
+
+        public void ED_on()
+        {
+
+        }
+
+        public void ED_off()
+        {
+
+        }
+
+        public void Set_test_time(uint testTime_sec)
+        {
+
+        }
+
+        public void test_start()
+        {
+
+        }
+
+        public string Result(int ch, out double[] result_BER)
+        {
+
+        }
+
+        BertTestResult GetResult();
     }
 
     public class BERT_PSS15441_COM : IBert
