@@ -18,11 +18,11 @@ namespace FOE_YR
         double getVcc(int channel);
 
         double getICC(int channel);
-        
+
     }
 
     public class PowerSupply_Dummy : IPowerSupply
-    {        
+    {
         public void disconnect() { }
 
         public string GetDeviceInfo() => "The PowerSupply is dummy";
@@ -163,7 +163,7 @@ namespace FOE_YR
             {
                 _connector.Write("ALLOUTOFF\n");
             }
-            
+
         }
 
         public void setVcc(int channel, string vccValue)
@@ -184,5 +184,6 @@ namespace FOE_YR
             return double.Parse(temp);
         }
     }
+}
 
     
