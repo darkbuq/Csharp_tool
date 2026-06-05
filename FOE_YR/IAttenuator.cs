@@ -108,4 +108,58 @@ namespace FOE_YR
             return _connector.Query(cmd);
         }
     }
+
+    public class Attenuator_EXFO_LTB8_3500 : IAttenuator
+    {
+        private IDeviceConnector _connector;
+        private string lins_str;
+
+        public Attenuator_EXFO_LTB8_3500(IDeviceConnector Connector, string LINS_str)//一般都是LAN port
+        {
+            this._connector = Connector;
+            lins_str = LINS_str;
+        }
+
+        public void disconnect()
+        {
+            _connector.disconnect();
+        }
+
+        public string GetDeviceInfo()
+        {
+            return _connector.Query("*IDN?\x0A");
+        }
+
+        public void SetValueByChanel(double dAttValue, int ch, out string cmd)
+        {
+            string Lins = lins_str.Split(',')[ch-1];
+
+            cmd = $"LINS{Lins}:INP:ATT {dAttValue}\x0A";
+            _connector.Write(cmd);
+        }
+
+        public void SetOffsetByChanel(double dOffset, int ch, out string cmd)
+        {
+            string Lins = lins_str.Split(',')[ch - 1];
+
+            cmd = $"LINS{Lins}:INP:OFFS {dOffset.ToString("F3")} DB\x0A";
+            _connector.Write(cmd);
+        }
+
+        public string GetValueByChanel(int ch, out string cmd)
+        {
+            string Lins = lins_str.Split(',')[ch - 1];
+
+            cmd = $"LINS{Lins}:INP:ATT?\x0A";
+            return _connector.Query(cmd);
+        }
+
+        public string GetOffsetByChanel(int ch, out string cmd)
+        {
+            string Lins = lins_str.Split(',')[ch - 1];
+
+            cmd = $"LINS{Lins}:INP:OFFS?\x0A";
+            return _connector.Query(cmd);
+        }
+    }
 }

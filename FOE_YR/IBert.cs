@@ -199,10 +199,12 @@ namespace FOE_YR
 
         public string Result(int ch, out double[] result_BER)
         {
-            string result_str = _connector.Query($"Status:Result? {ch}");
+            string result_str = _connector.Query($"Status:Result? {ch}");//會回傳這樣的字串"Result0 0.000000000e0 0.00000e0 N Y"
+
+            string BER_str = result_str.Split(' ')[2];
 
             result_BER = new double[1];
-            result_BER[1] = double.Parse(result_str, System.Globalization.CultureInfo.InvariantCulture);
+            result_BER[0] = double.Parse(BER_str, System.Globalization.CultureInfo.InvariantCulture);
 
             return result_str;
         }
