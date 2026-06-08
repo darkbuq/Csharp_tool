@@ -15,9 +15,12 @@ namespace FOE_YR
 
         void SetOffsetByChanel(double dOffset, int ch, out string cmd);
 
-        string GetValueByChanel(int ch, out string cmd);
+        double GetValueByChanel(int ch, out string cmd);
 
-        string GetOffsetByChanel(int ch, out string cmd);
+        double GetOffsetByChanel(int ch, out string cmd);
+
+        //回傳應該  要以實值的型別 不要用string 不然form有多種衰減器互換時  還要在form上處理數值型態問題
+
     }
 
     public class Attenuator_Dummy : IAttenuator
@@ -36,16 +39,16 @@ namespace FOE_YR
             cmd = "NA";   // 一定要給值
         }
 
-        public string GetValueByChanel(int ch, out string cmd)
+        public double GetValueByChanel(int ch, out string cmd)
         {
             cmd = "NA";   // 一定要給值
-            return "NA";
+            return double.NaN;
         }
 
-        public string GetOffsetByChanel(int ch, out string cmd)
+        public double GetOffsetByChanel(int ch, out string cmd)
         {
             cmd = "NA";   // 一定要給值
-            return "NA";
+            return double.NaN;
         }
     }
 
@@ -88,24 +91,48 @@ namespace FOE_YR
             _connector.Write(cmd);
         }
 
-        public string GetValueByChanel(int ch, out string cmd)
+        public double GetValueByChanel(int ch, out string cmd)
         {
             //_sCmdAtt = "LINS{0}{1}:INP:ATT?\x0A";
 
             int _nDeviceID = 1;
             int Lins = ch;
             cmd = $"LINS{_nDeviceID}{Lins}:INP:ATT?\x0A";
-            return _connector.Query(cmd);
+            string result = _connector.Query(cmd);
+
+
+            // 安全地轉換為 double，並去除前後的空白或換行符號
+            if (double.TryParse(result?.Trim(), out double value))
+            {
+                return value;
+            }
+            else
+            {
+                // 轉換失敗時的處理（依據您的業務邏輯調整，這裡以拋出例外為例）
+                throw new FormatException($"無法將設備回傳值 '{result}' 轉換為 double。");
+            }
         }
 
-        public string GetOffsetByChanel(int ch, out string cmd)
+        public double GetOffsetByChanel(int ch, out string cmd)
         {
             //_sCmdGetOffset = "LINS{0}{1}:INP:OFFS?\x0A";
 
             int _nDeviceID = 1;
             int Lins = ch;
             cmd = $"LINS{_nDeviceID}{Lins}:INP:OFFS?\x0A";
-            return _connector.Query(cmd);
+            string result = _connector.Query(cmd);
+
+
+            // 安全地轉換為 double，並去除前後的空白或換行符號
+            if (double.TryParse(result?.Trim(), out double value))
+            {
+                return value;
+            }
+            else
+            {
+                // 轉換失敗時的處理（依據您的業務邏輯調整，這裡以拋出例外為例）
+                throw new FormatException($"無法將設備回傳值 '{result}' 轉換為 double。");
+            }
         }
     }
 
@@ -146,20 +173,42 @@ namespace FOE_YR
             _connector.Write(cmd);
         }
 
-        public string GetValueByChanel(int ch, out string cmd)
+        public double GetValueByChanel(int ch, out string cmd)
         {
             string Lins = lins_str.Split(',')[ch - 1];
 
             cmd = $"LINS{Lins}:INP:ATT?\x0A";
-            return _connector.Query(cmd);
+            string result = _connector.Query(cmd);
+
+
+            // 安全地轉換為 double，並去除前後的空白或換行符號
+            if (double.TryParse(result?.Trim(), out double value))
+            {
+                return value;
+            }
+            else
+            {
+                // 轉換失敗時的處理（依據您的業務邏輯調整，這裡以拋出例外為例）
+                throw new FormatException($"無法將設備回傳值 '{result}' 轉換為 double。");
+            }
         }
 
-        public string GetOffsetByChanel(int ch, out string cmd)
+        public double GetOffsetByChanel(int ch, out string cmd)
         {
             string Lins = lins_str.Split(',')[ch - 1];
 
             cmd = $"LINS{Lins}:INP:OFFS?\x0A";
-            return _connector.Query(cmd);
+            string result = _connector.Query(cmd);
+
+            if (double.TryParse(result?.Trim(), out double value))
+            {
+                return value;
+            }
+            else
+            {
+                // 轉換失敗時的處理（依據您的業務邏輯調整，這裡以拋出例外為例）
+                throw new FormatException($"無法將設備回傳值 '{result}' 轉換為 double。");
+            }
         }
     }
 }
