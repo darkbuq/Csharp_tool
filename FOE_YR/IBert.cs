@@ -35,6 +35,8 @@ namespace FOE_YR
 
         string Result(int ch, out double[] result_BER);
 
+        string Query_script(string script);
+
         BertTestResult GetResult();
     }
 
@@ -70,6 +72,8 @@ namespace FOE_YR
             result_BER = new double[] { 0.0 };   // Dummy 回傳內容
             return "It's dummy Bert";
         }
+
+        public string Query_script(string script) { return "It's dummy Bert"; }
 
         public BertTestResult GetResult()
         {
@@ -166,22 +170,58 @@ namespace FOE_YR
 
         public void PPG_on()// 碼型發生 啟動  (主要是在發送端)
         {
-            _connector.Write($"Source:Start all\r\n");
+            //_connector.Write($"Source:Start all\r\n"); //以前可以用 現在居然不能用 幹 20260612
+
+            _connector.Write($"Source:Start 0\r\n");
+            Thread.Sleep(100);
+            _connector.Write($"Source:Start 1\r\n");
+            Thread.Sleep(100);
+            _connector.Write($"Source:Start 2\r\n");
+            Thread.Sleep(100);
+            _connector.Write($"Source:Start 3\r\n");
+            Thread.Sleep(100);
         }
 
         public void PPG_off()// 碼型發生 停止  (主要是在發送端)
         {
-            _connector.Write($"Source:Stop all\r\n");
+            //_connector.Write($"Source:Stop all\r\n"); //以前可以用 現在居然不能用 幹 20260612
+
+            _connector.Write($"Source:Stop 0\r\n");
+            Thread.Sleep(100);
+            _connector.Write($"Source:Stop 1\r\n");
+            Thread.Sleep(100);
+            _connector.Write($"Source:Stop 2\r\n");
+            Thread.Sleep(100);
+            _connector.Write($"Source:Stop 3\r\n");
+            Thread.Sleep(100);
         }
 
         public void ED_on()// 碼型比對 啟動  (主要是在接收端)
         {
-            _connector.Write($"Sense:Start all\r\n");
+            //_connector.Write($"Sense:Start all\r\n"); //沒測過
+
+            _connector.Write($"Sense:Start 0\r\n");
+            Thread.Sleep(100);
+            _connector.Write($"Sense:Start 1\r\n");
+            Thread.Sleep(100);
+            _connector.Write($"Sense:Start 2\r\n");
+            Thread.Sleep(100);
+            _connector.Write($"Sense:Start 3\r\n");
+            Thread.Sleep(100);
         }
 
         public void ED_off()// 碼型比對 停止  (主要是在接收端)
         {
-            _connector.Write($"Sense:Stop all\r\n");
+            //_connector.Write($"Sense:Stop all\r\n"); //沒測過
+
+            _connector.Write($"Sense:Stop 0\r\n");
+            Thread.Sleep(100);
+            _connector.Write($"Sense:Stop 1\r\n");
+            Thread.Sleep(100);
+            _connector.Write($"Sense:Stop 2\r\n");
+            Thread.Sleep(100);
+            _connector.Write($"Sense:Stop 3\r\n");
+            Thread.Sleep(100);
         }
 
         public void Set_test_time(uint testTime_sec)
@@ -192,14 +232,44 @@ namespace FOE_YR
 
         public void test_start()
         {
-            _connector.Write($"Sense:Clear all \r\n");//清除該通道 誤碼數 碼總數 誤碼狀態
-            Thread.Sleep(200);
-            _connector.Write($"Sense:Start all\r\n");
+            //_connector.Write($"Sense:Clear all \r\n");//清除該通道 誤碼數 碼總數 誤碼狀態
+            //Thread.Sleep(200);
+            //_connector.Write($"Sense:Start all\r\n");
+
+            _connector.Write($"Sense:Clear 0\r\n");
+            Thread.Sleep(50);
+            _connector.Write($"Sense:Clear 1\r\n");
+            Thread.Sleep(50);
+            _connector.Write($"Sense:Clear 2\r\n");
+            Thread.Sleep(50);
+            _connector.Write($"Sense:Clear 3\r\n");
+            Thread.Sleep(50);
+
+
+            _connector.Write($"Sense:Start 0\r\n");
+            Thread.Sleep(50);
+            _connector.Write($"Sense:Start 1\r\n");
+            Thread.Sleep(50);
+            _connector.Write($"Sense:Start 2\r\n");
+            Thread.Sleep(50);
+            _connector.Write($"Sense:Start 3\r\n");
+            Thread.Sleep(50);
         }
 
         public string Result(int ch, out double[] result_BER)
         {
-            string result_str = _connector.Query($"Status:Result? {ch}");//會回傳這樣的字串"Result0 0.000000000e0 0.00000e0 N Y"
+            //误码数（指数形式）、误码率（指数形式）、同步失步（Y/N）、有无误码（Y / N）、码总数（指数形式）
+            //會回傳這樣的字串"Result0 0.000000000e0 0.00000e0 N Y"
+            //失步 N Y
+            //同步 Y N
+            //误码 Y Y
+
+            //似乎 有好幾個指令  似乎 有些不能用宋乃仁有改過
+            //Status:Result? 通道号
+            //Status:CurrentResult? 通道号
+            //Status:AllResult? 通道号
+
+            string result_str = _connector.Query($"Status:AllResult? {ch}");
 
             string BER_str = result_str.Split(' ')[2];
 
@@ -207,6 +277,11 @@ namespace FOE_YR
             result_BER[0] = double.Parse(BER_str, System.Globalization.CultureInfo.InvariantCulture);
 
             return result_str;
+        }
+
+        public string Query_script(string script)
+        {
+            return _connector.Query($"{script}\x0A");
         }
 
         public BertTestResult GetResult()
@@ -358,6 +433,11 @@ namespace FOE_YR
             result_BER[1] = double.Parse(result_str, System.Globalization.CultureInfo.InvariantCulture);
 
             return result_str;
+        }
+
+        public string Query_script(string script)
+        {
+            return _connector.Query($"{script}\x0A");
         }
 
         public BertTestResult GetResult()
@@ -642,6 +722,11 @@ namespace FOE_YR
             }
 
             return ber_result;
+        }
+
+        public string Query_script(string script)
+        {
+            return "此物件目前不支援這功能";
         }
 
         public BertTestResult GetResult()
@@ -1150,6 +1235,12 @@ namespace FOE_YR
 
             return result;
         }
+
+        public string Query_script(string script)
+        {
+            return "此物件目前不支援這功能";
+        }
+
         public BertTestResult GetResult()
         {
 
