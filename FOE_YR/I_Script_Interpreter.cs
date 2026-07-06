@@ -146,6 +146,18 @@ namespace FOE_YR
                         Thread.Sleep(100);
                         continue;
                     }
+                    else if (runItemVal == "oo")
+                    {
+                        I2C.Query($"5A02600D");
+                        Thread.Sleep(200);
+                        I2C.Query($"6301");
+                        Thread.Sleep(200);
+                        I2C.Query($"6300");
+                        Thread.Sleep(200);
+                        I2C.Query($"6301");
+                        Thread.Sleep(200);
+                        continue;
+                    }
                     else
                     {
                         return "ScriptError: Unknown Command or Data outside of command.";
