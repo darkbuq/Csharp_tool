@@ -11,7 +11,7 @@ namespace async_await_01
     {
         public static async Task Main(string[] args)
         {
-            var waitingTask = WaitExampleAsync(); // 開始等待但不等它完成
+            var waitingTask = WaitExampleAsync(); //直接進去做事  直到await Task.Delay(2000) 會放開控制權 給main程式
 
             // 主線程持續做其他事情（例如不斷印出）
             for (int i = 0; i < 10; i++)
