@@ -146,6 +146,24 @@ namespace FOE_YR
                         Thread.Sleep(100);
                         continue;
                     }
+                    else if (runItemVal == "oh")
+                    {
+                        I2C.Query($"5A02600D");
+                        Thread.Sleep(300);
+
+                        I2C.Query($"6301"); //送電
+                        Thread.Sleep(200);
+                        continue;
+                    }
+                    else if (runItemVal == "ol")
+                    {
+                        I2C.Query($"5A02600D");
+                        Thread.Sleep(300);
+
+                        I2C.Query($"6300"); //斷電
+                        Thread.Sleep(300);
+                        continue;
+                    }
                     else if (runItemVal == "oo")
                     {
                         I2C.Query($"5A02600D");
