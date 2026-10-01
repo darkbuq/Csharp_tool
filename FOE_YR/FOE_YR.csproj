@@ -66,6 +66,7 @@
     <Compile Include="IDeviceConnector.cs" />
     <Compile Include="IDigitalMeter.cs" />
     <Compile Include="IEEPROM.cs" />
+    <Compile Include="IOpticalPowerMeter.cs" />
     <Compile Include="IPowerSupply.cs" />
     <Compile Include="ISwitch.cs" />
     <Compile Include="IThermalStream.cs" />

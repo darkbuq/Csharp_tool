@@ -248,7 +248,7 @@ namespace FOE_YR
         public string Query_terminator(string command, string terminator)
         {
             Write(command);
-            Thread.Sleep(2000);
+            Thread.Sleep(500);
 
             // 重置事件和接收狀態
             _receiveCompletedEvent.Reset();
