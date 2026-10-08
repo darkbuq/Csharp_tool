@@ -211,4 +211,63 @@ namespace FOE_YR
             }
         }
     }
+
+    public class Attenuator_PSS_DOA14081
+    {
+        private IDeviceConnector _connector;
+        private string lins_str;
+
+        public Attenuator_PSS_DOA14081(IDeviceConnector Connector)//一般都是LAN port
+        {
+            this._connector = Connector;
+        }
+
+        public void disconnect()
+        {
+            _connector.disconnect();
+        }
+
+        public string GetDeviceInfo()
+        {
+            return _connector.Query("*IDN?\x0A");
+        }
+
+        //public void SetValueByChanel(double dAttValue, int ch, out string cmd)
+        //{
+
+        //}
+
+        //public void SetOffsetByChanel(double dOffset, int ch, out string cmd)
+        //{
+
+        //}
+
+        //public double GetValueByChanel(int ch, out string cmd)
+        //{
+
+        //}
+
+        //public double GetOffsetByChanel(int ch, out string cmd)
+        //{
+
+        //}
+
+        public string GetInputPower(int ch, out string cmd)
+        {
+            cmd = $"Read:Power channel{ch} in\x0A";
+            return _connector.Query(cmd);
+        }
+
+        public string GetOutputPower(int ch, out string cmd)
+        {
+            cmd = $"Read:Power channel{ch} out\x0A";
+            return _connector.Query(cmd);
+        }
+
+        public void SetOutputPower(int ch, double value, out string cmd)
+        {
+            cmd = $"Configure:Power channel{ch} {value}\x0A";
+            _connector.Write(cmd);
+        }
+    }
 }
