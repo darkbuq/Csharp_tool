@@ -267,7 +267,7 @@ namespace FOE_YR
         public void SetOutputPower(int ch, double value, out string cmd)
         {
             cmd = $"Configure:Power channel{ch} {value}\x0A";
-            _connector.Write(cmd);
+            _connector.Query(cmd);//似乎 設備會回  value  所以需要把字串接走
         }
     }
 }
