@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace FOE_YR
 {
@@ -264,10 +265,30 @@ namespace FOE_YR
             return _connector.Query(cmd);
         }
 
+        //public void SetOutputPower(int ch, double value, out string cmd)
+        //{
+        //    cmd = $"Configure:Power channel{ch} {value}\x0A";
+        //    _connector.Query(cmd);//似乎 設備會回  value  所以需要把字串接走
+        //}
+
         public void SetOutputPower(int ch, double value, out string cmd)
         {
             cmd = $"Configure:Power channel{ch} {value}\x0A";
-            _connector.Query(cmd);//似乎 設備會回  value  所以需要把字串接走
+
+            if (ch == 0)
+            {
+                for (int i = 1; i < 9; i++)
+                {
+                    cmd = $"Configure:Power channel{i} {value}\x0A";
+                    _connector.Query(cmd);
+                    Thread.Sleep(200);
+                }
+            }
+            else
+            {
+                _connector.Query(cmd);//似乎 設備會回  value  所以需要把字串接走
+            }
+            //_connector.Query(cmd);//似乎 設備會回  value  所以需要把字串接走
         }
     }
 }

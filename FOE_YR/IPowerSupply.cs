@@ -17,6 +17,8 @@ namespace FOE_YR
 
         double getVcc(int channel);
 
+        void setIcc(int channel, string iccValue);
+
         double getICC(int channel);
 
     }
@@ -32,6 +34,8 @@ namespace FOE_YR
         public void setVcc(int channel, string vccValue) { }
 
         public double getVcc(int channel) => double.NaN;
+
+        public void setIcc(int channel, string iccValue) { }
 
         public double getICC(int channel) => double.NaN;
     }
@@ -69,6 +73,11 @@ namespace FOE_YR
         {
             string temp = _connector.Query($":CHANnel{channel}:MEASure:VOLTage ?\x0A");
             return double.Parse(temp);
+        }
+
+        public void setIcc(int channel, string iccValue)
+        {
+            throw new Exception("目前無支援 setIcc功能");
         }
 
         public double getICC(int channel)
@@ -122,6 +131,10 @@ namespace FOE_YR
             return double.Parse(temp);
         }
 
+        public void setIcc(int channel, string iccValue)
+        {
+            throw new Exception("目前無支援 setIcc功能");
+        }
 
         public double getICC(int channel)//本身指令只支援預設ch 要控別的ch 要在設備面板上先切換好
         {
@@ -150,7 +163,7 @@ namespace FOE_YR
             return _connector.Query("*IDN?\n");
         }
 
-        public void setPowerState(bool bOn)//目前看起來沒有運作
+        public void setPowerState(bool bOn)
         {
             //int on_off = bOn ? 1 : 0;
             //_connector.Write($"OUT{on_off}\n");
@@ -175,6 +188,13 @@ namespace FOE_YR
         {
             string temp = _connector.Query($"VSET{channel}?\n");
             return double.Parse(temp);
+        }
+
+        public void setIcc(int channel, string iccValue)
+        {
+            _connector.Write($"ISET{channel}:{iccValue}\n");
+
+            //throw new Exception("目前無支援 setIcc功能");
         }
 
         public double getICC(int channel)
