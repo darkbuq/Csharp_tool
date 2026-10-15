@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace FOE_YR
 {
@@ -29,7 +30,55 @@ namespace FOE_YR
 
         public string GetDeviceInfo() => "The PowerSupply is dummy";
 
-        public void setPowerState(bool bOn) { }
+        public void setPowerState(bool bOn)
+        {
+            if (bOn)
+            {
+                MessageBox.Show("請手動上電");
+            }
+            else
+            {
+                MessageBox.Show("請手動斷電");
+            }
+        }
+
+        public void setVcc(int channel, string vccValue) { }
+
+        public double getVcc(int channel) => double.NaN;
+
+        public void setIcc(int channel, string iccValue) { }
+
+        public double getICC(int channel) => double.NaN;
+    }
+
+    public class PowerSupply_USBISS : IPowerSupply
+    {
+        //I_I2C _I2C = null;
+        I_Script_Interpreter _script = null;
+
+        public PowerSupply_USBISS(I_Script_Interpreter script)
+        {
+            _script = script;
+        }
+
+
+        public void disconnect() { }
+
+        public string GetDeviceInfo() => "USB-ISS's GPIO control Relay";
+
+        public void setPowerState(bool bOn)
+        {
+            //斷電ol 送電oh            
+
+            if (bOn)
+            {
+                _script.RunScript($"ol");
+            }
+            else
+            {
+                _script.RunScript($"oh");
+            }
+        }
 
         public void setVcc(int channel, string vccValue) { }
 
