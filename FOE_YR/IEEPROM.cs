@@ -719,6 +719,18 @@ namespace FOE_YR
             return result;
         }
 
+        public string getP00Checksun()
+        {
+            return P00[222 - 128].ToString("X2");
+        }
+
+        public string calP00Checksun()
+        {
+            EEPROM_calcualate EEPROM_calcualate = new EEPROM_calcualate();
+
+            return EEPROM_calcualate.Cal_checksum(P00, 128 - 128, 221 - 128).ToString("X2");
+        }
+
         public (string vrev, byte[] ascii) getVRev()
         {
             int start = 164 - 128;           // 通常從 0 開始
@@ -767,7 +779,7 @@ namespace FOE_YR
             Thread.Sleep(delay_time);
         }
 
-        private void ChangePage(string bank, string page, I_Script_Interpreter script, int delay_time)
+        public void ChangePage(string bank, string page, I_Script_Interpreter script, int delay_time)
         {
             script.RunScript($"ssA07E{bank}{page}");
             Thread.Sleep(delay_time);
