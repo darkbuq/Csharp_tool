@@ -375,6 +375,37 @@ namespace FOE_YR
             }
         }
 
+        public void Reset_dgvColValueFont_byname(DataGridView dgv, string[] colname)
+        {
+            if (dgv == null || colname == null || colname.Length == 0)
+                return;
+
+            // 將目標欄位名稱放入 HashSet 以提升查詢效能
+            var targetColumns = new HashSet<string>(colname);
+
+            // 遍歷 DataGridView 的所有欄位
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+                // 如果該欄位名稱包含在指定的 colname 中
+                if (targetColumns.Contains(col.Name))
+                {
+                    foreach (DataGridViewRow row in dgv.Rows)
+                    {
+                        // 略過 DataGridView 用於新增資料的空白列
+                        if (row.IsNewRow) continue;
+
+                        DataGridViewCell cell = row.Cells[col.Index];
+
+                        // 1. 清空儲存格文字/數值
+                        cell.Value = null; // 如果是繫結 DataTable，也可以用 DBNull.Value
+
+                        // 2. 將字體顏色重設為預設值（清除 cell 層級的樣式覆寫）
+                        cell.Style.ForeColor = Color.Empty;
+                    }
+                }
+            }
+        }
+
         public void Set_EEPROM_Value_to_Dgv(DataGridView dgv, byte[] bytearr, int startAdr)
         {
             for (int i = 0; i < bytearr.Length; i++)
@@ -498,6 +529,22 @@ namespace FOE_YR
             System.Runtime.InteropServices.Marshal.ReleaseComObject(xlWorkSheet);
             System.Runtime.InteropServices.Marshal.ReleaseComObject(xlWorkBook);
             System.Runtime.InteropServices.Marshal.ReleaseComObject(xlexcel);
+        }
+
+
+        public string Get_EEPROM_Dgv_AllCellText(DataGridView dgv)//第一個col排除
+        {
+            string result = "";
+
+            for (int i = 0; i < dgv.Rows.Count; i++)
+            {
+                for (int j = 1; j < dgv.Columns.Count; j++)
+                {
+                    result += dgv.Rows[i].Cells[j].Value?.ToString() ?? "";
+                }
+            }
+
+            return result;
         }
     }
 

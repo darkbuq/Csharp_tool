@@ -29,10 +29,10 @@ namespace SerialPort_01
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt_COMport = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txt_BaudRate = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.btn_conn = new System.Windows.Forms.Button();
@@ -43,14 +43,14 @@ namespace SerialPort_01
             this.btn_write = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // txt_COMport
             // 
-            this.textBox1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(67, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(58, 27);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "COM1";
+            this.txt_COMport.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_COMport.Location = new System.Drawing.Point(67, 19);
+            this.txt_COMport.Name = "txt_COMport";
+            this.txt_COMport.Size = new System.Drawing.Size(58, 27);
+            this.txt_COMport.TabIndex = 0;
+            this.txt_COMport.Text = "COM1";
             // 
             // label1
             // 
@@ -72,14 +72,14 @@ namespace SerialPort_01
             this.label2.TabIndex = 1;
             this.label2.Text = "BaudRate";
             // 
-            // textBox2
+            // txt_BaudRate
             // 
-            this.textBox2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(209, 19);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(61, 27);
-            this.textBox2.TabIndex = 0;
-            this.textBox2.Text = "115200";
+            this.txt_BaudRate.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_BaudRate.Location = new System.Drawing.Point(209, 19);
+            this.txt_BaudRate.Name = "txt_BaudRate";
+            this.txt_BaudRate.Size = new System.Drawing.Size(61, 27);
+            this.txt_BaudRate.TabIndex = 0;
+            this.txt_BaudRate.Text = "115200";
             // 
             // label3
             // 
@@ -174,11 +174,11 @@ namespace SerialPort_01
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txt_BaudRate);
             this.Controls.Add(this.txt_result);
             this.Controls.Add(this.txt_SCPI);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txt_COMport);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -189,10 +189,10 @@ namespace SerialPort_01
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_COMport;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txt_BaudRate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button btn_conn;

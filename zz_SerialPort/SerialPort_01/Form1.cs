@@ -21,8 +21,8 @@ namespace SerialPort_01
             InitializeComponent();
 
             // 設置串口參數
-            serialPort.PortName = "COM1";  // 更換為您的串口名稱
-            serialPort.BaudRate = 115200;    // 波特率
+            serialPort.PortName = txt_COMport.Text.Trim();  // 更換為您的串口名稱
+            serialPort.BaudRate = int.Parse(txt_BaudRate.Text);    // 波特率
             serialPort.DataBits = 8;        // 數據位
             serialPort.Parity = Parity.None; // 奇偶校驗
             serialPort.StopBits = StopBits.One; // 停止位
@@ -35,6 +35,13 @@ namespace SerialPort_01
 
         private void btn_conn_Click(object sender, EventArgs e)
         {
+            // 設置串口參數
+            serialPort.PortName = txt_COMport.Text.Trim();  // 更換為您的串口名稱
+            serialPort.BaudRate = int.Parse(txt_BaudRate.Text);    // 波特率
+            serialPort.DataBits = 8;        // 數據位
+            serialPort.Parity = Parity.None; // 奇偶校驗
+            serialPort.StopBits = StopBits.One; // 停止位
+
             if (serialPort.IsOpen == true)
             {
                 serialPort.Close();

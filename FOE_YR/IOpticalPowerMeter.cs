@@ -14,6 +14,10 @@ namespace FOE_YR
         string GetDeviceInfo();
 
         string readOpticalPower();
+
+        //void setOffset(int ch, double offset);
+
+        //double getOffset(int ch);
     }
 
     public class DigitalMeter_EXFO_1750 : IOpticalPowerMeter
