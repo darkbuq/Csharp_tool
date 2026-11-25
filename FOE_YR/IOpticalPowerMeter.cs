@@ -41,7 +41,7 @@ namespace FOE_YR
         private IDeviceConnector _connector;
         private int _lins;
 
-        public DigitalMeter_EXFO_1750(IDeviceConnector Connector, int LINS)//_nGBIB_ID = 10;
+        public DigitalMeter_EXFO_1750(IDeviceConnector Connector, int LINS)
         {
             this._connector = Connector;
 
@@ -72,4 +72,98 @@ namespace FOE_YR
             return result;
         }
     }
+
+    public class DigitalMeter_EXFO_1750_8ch : IOpticalPowerMeter //兩台4ch 共組成一台8ch物件
+    {
+        //private IDeviceConnector _connector1;
+        //private int _lins1;
+
+        //private IDeviceConnector _connector2;
+        //private int _lins2;
+
+        DigitalMeter_EXFO_1750 _EXFO1750_1 = null;
+        DigitalMeter_EXFO_1750 _EXFO1750_2 = null;
+
+        public DigitalMeter_EXFO_1750_8ch(DigitalMeter_EXFO_1750 EXFO1750_1, DigitalMeter_EXFO_1750 EXFO1750_2)
+        {
+            //this._connector1 = Connector1;
+            //_lins1 = LINS1;
+
+            //this._connector2 = Connector2;
+            //_lins2 = LINS2;
+
+            this._EXFO1750_1 = EXFO1750_1;
+            this._EXFO1750_2 = EXFO1750_2;
+        }
+
+        public void disconnect()
+        {
+            //_connector1.disconnect();
+            //_connector2.disconnect();
+
+            _EXFO1750_1.disconnect();
+            _EXFO1750_2.disconnect();
+        }
+
+        public string GetDeviceInfo()
+        {
+            //string result1 = _connector1.Query("*IDN?\x0A").Replace("READY>", "");
+            //string result2 = _connector2.Query("*IDN?\x0A").Replace("READY>", "");
+
+            //return $"\r\n{result1}\r\n{result2}\r\n";
+
+            string result1 = _EXFO1750_1.GetDeviceInfo();
+            string result2 = _EXFO1750_2.GetDeviceInfo();
+
+            return $"\r\n{result1}\r\n{result2}\r\n";
+        }
+
+        public string readOpticalPower()
+        {
+            //_sCmdReadPwrChan = "LINS{0}:READ{1}:SCAL:POW:DC?\x0A";//":Read:Power? 1,1,1\x0A"; 
+
+            //string result1 = "";
+            //string result2 = "";
+            //for (int i = 1; i < 5; i++)
+            //{
+            //    result1 += _connector1.Query($"LINS{_lins1}:READ{i}:SCAL:POW:DC?\x0A").Replace("READY>", "").Trim() + "\r\n";
+            //    result2 += _connector2.Query($"LINS{_lins2}:READ{i}:SCAL:POW:DC?\x0A").Replace("READY>", "").Trim() + "\r\n";
+            //    Thread.Sleep(200);
+            //}
+
+            //return $"\r\n{result1}\r\n{result2}\r\n";
+
+            string result1 = _EXFO1750_1.readOpticalPower();
+            string result2 = _EXFO1750_2.readOpticalPower();
+
+            return $"\r\n{result1}\r\n{result2}\r\n";
+        }
+    }
+
+    public class DigitalMeter_PSS_OPM8 : IOpticalPowerMeter
+    {
+        private IDeviceConnector _connector;
+        private int _lins;
+
+        public DigitalMeter_PSS_OPM8(IDeviceConnector Connector)
+        {
+            this._connector = Connector;
+        }
+
+        public void disconnect()
+        {
+            _connector.disconnect();
+        }
+
+        public string GetDeviceInfo()
+        {
+            return _connector.Query("*IDN?\x0A");
+        }
+
+        public string readOpticalPower()
+        {
+            return "";
+        }
+    }
+
 }
