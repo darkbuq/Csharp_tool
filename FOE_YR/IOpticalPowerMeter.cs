@@ -20,7 +20,7 @@ namespace FOE_YR
         //double getOffset(int ch);
     }
 
-    public class DigitalMeter_EXFO_1750 : IOpticalPowerMeter
+    public class OpticalPowerMeter_EXFO_1750 : IOpticalPowerMeter
     {
         //參考資料
         //_sCmdWave = "LINS{0}:SENS:POW:WAV {1} NM\x0A";//":sense:power:wavelength 1,1,1, {0}\x0A";
@@ -41,7 +41,7 @@ namespace FOE_YR
         private IDeviceConnector _connector;
         private int _lins;
 
-        public DigitalMeter_EXFO_1750(IDeviceConnector Connector, int LINS)
+        public OpticalPowerMeter_EXFO_1750(IDeviceConnector Connector, int LINS)
         {
             this._connector = Connector;
 
@@ -73,7 +73,7 @@ namespace FOE_YR
         }
     }
 
-    public class DigitalMeter_EXFO_1750_8ch : IOpticalPowerMeter //兩台4ch 共組成一台8ch物件
+    public class OpticalPowerMeter_EXFO_1750_8ch : IOpticalPowerMeter //兩台4ch 共組成一台8ch物件
     {
         //private IDeviceConnector _connector1;
         //private int _lins1;
@@ -81,10 +81,10 @@ namespace FOE_YR
         //private IDeviceConnector _connector2;
         //private int _lins2;
 
-        DigitalMeter_EXFO_1750 _EXFO1750_1 = null;
-        DigitalMeter_EXFO_1750 _EXFO1750_2 = null;
+        IOpticalPowerMeter _EXFO1750_1 = null;
+        IOpticalPowerMeter _EXFO1750_2 = null;
 
-        public DigitalMeter_EXFO_1750_8ch(DigitalMeter_EXFO_1750 EXFO1750_1, DigitalMeter_EXFO_1750 EXFO1750_2)
+        public OpticalPowerMeter_EXFO_1750_8ch(IOpticalPowerMeter EXFO1750_1, IOpticalPowerMeter EXFO1750_2)
         {
             //this._connector1 = Connector1;
             //_lins1 = LINS1;
@@ -140,12 +140,12 @@ namespace FOE_YR
         }
     }
 
-    public class DigitalMeter_PSS_OPM8 : IOpticalPowerMeter
+    public class OpticalPowerMeter_PSS_OPM8 : IOpticalPowerMeter
     {
         private IDeviceConnector _connector;
         private int _lins;
 
-        public DigitalMeter_PSS_OPM8(IDeviceConnector Connector)
+        public OpticalPowerMeter_PSS_OPM8(IDeviceConnector Connector)
         {
             this._connector = Connector;
         }
@@ -162,7 +162,15 @@ namespace FOE_YR
 
         public string readOpticalPower()
         {
-            return "";
+            string result = "";
+
+            for (int i = 0; i < 8; i++)
+            {
+                result += _connector.Query($"Read:Power Channel{i + 1}\x0A").Split(' ')[1] + "\r\n";
+            }
+
+
+            return result;
         }
     }
 
